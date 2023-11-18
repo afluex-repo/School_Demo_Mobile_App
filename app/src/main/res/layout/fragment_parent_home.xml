@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.ParentHome">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/ll_select_student"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select Student"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"
+                        android:textSize="18sp"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_select_student"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/layout_student_details_single_row"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="3"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:contentPadding="12dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:strokeWidth="1dp"
+                        app:cardBackgroundColor="@color/white">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal">
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_switch_student"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:cardElevation="16dp"
+                                    app:cardCornerRadius="16dp"
+                                    app:contentPadding="12dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="8dp"
+
+                                    app:strokeWidth="1dp"
+                                    app:cardBackgroundColor="@color/white">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="150dp"
+                                        android:orientation="vertical">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/switch_student"/>
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="0.05"
+                                            android:layout_marginTop="8dp"
+                                            android:background="@color/black"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Switch Student"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"/>
+
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                                <androidx.cardview.widget.CardView
+
+                                    android:id="@+id/card_assignments"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:cardElevation="16dp"
+                                    android:layout_marginEnd="8dp"
+
+                                    app:cardCornerRadius="16dp"
+                                    app:contentPadding="12dp"
+                                    android:layout_weight="1"
+                                    app:strokeWidth="1dp"
+                                    app:cardBackgroundColor="@color/white">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="150dp"
+                                        android:orientation="vertical">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/ic_teacher"/>
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="0.05"
+                                            android:layout_marginTop="8dp"
+                                            android:background="@color/black"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Your Assignments"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"/>
+
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card_notice"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:cardElevation="16dp"
+                                    app:cardCornerRadius="16dp"
+                                    app:contentPadding="12dp"
+                                    android:layout_weight="1"
+                                    app:strokeWidth="1dp"
+                                    app:cardBackgroundColor="@color/white">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="150dp"
+                                        android:orientation="vertical">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/ic_teacher"/>
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="0.05"
+                                            android:layout_marginTop="8dp"
+                                            android:background="@color/black"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Notice"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"/>
+
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:cardElevation="16dp"
+                                    app:cardCornerRadius="16dp"
+                                    app:contentPadding="12dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="8dp"
+
+                                    app:strokeWidth="1dp"
+                                    app:cardBackgroundColor="@color/white">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="150dp"
+                                        android:orientation="vertical">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/ic_teacher"/>
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="0.05"
+                                            android:layout_marginTop="8dp"
+                                            android:background="@color/black"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Leave"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"/>
+
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:cardElevation="16dp"
+                                    app:cardCornerRadius="16dp"
+                                    app:contentPadding="12dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="8dp"
+
+                                    app:strokeWidth="1dp"
+                                    app:cardBackgroundColor="@color/white">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="150dp"
+                                        android:orientation="vertical">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/ic_teacher"/>
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="0.05"
+                                            android:layout_marginTop="8dp"
+                                            android:background="@color/black"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Syllabus"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"/>
+
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    app:cardElevation="16dp"
+                                    app:cardCornerRadius="16dp"
+                                    app:contentPadding="12dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="8dp"
+
+                                    app:strokeWidth="1dp"
+                                    app:cardBackgroundColor="@color/white">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="150dp"
+                                        android:orientation="vertical">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/ic_teacher"/>
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="0.05"
+                                            android:layout_marginTop="8dp"
+                                            android:background="@color/black"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:text="Message"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"/>
+
+                                    </LinearLayout>
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="16dp"
+                        app:cardCornerRadius="16dp"
+                        app:contentPadding="12dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:strokeWidth="1dp"
+                        app:cardBackgroundColor="@color/white">
+                        <TextView
+                            android:id="@+id/txt_notifications"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Your leave for 1 day is approved"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"/>
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <include layout="@layout/bottom_layout"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </RelativeLayout>
+
+</FrameLayout>

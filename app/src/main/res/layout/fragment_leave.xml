@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.LeaveFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student's Leave"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:padding="8dp"
+            android:background="@color/teal_100"/>
+        <LinearLayout
+            android:id="@+id/ll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="32dp"
+                        android:layout_weight="2"
+                        android:padding="8dp"
+                        app:contentPadding="8dp"
+                        app:cardBackgroundColor="@color/white">
+                        <EditText
+                            android:id="@+id/et_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Search student"
+                            android:drawableStart="@drawable/ic_search"
+                            android:drawableTint="@color/grey_black_1000"
+                            android:background="@null"
+                            android:drawablePadding="8dp"/>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_pending"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="32dp"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        app:contentPadding="8dp"
+                        app:cardBackgroundColor="@color/blue_900">
+                        <TextView
+                            android:id="@+id/txt_pending"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Pending"
+                            android:gravity="center"
+
+                            android:textColor="@color/white"
+                            android:drawablePadding="8dp"/>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_approved"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="32dp"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        app:contentPadding="8dp"
+                        app:cardBackgroundColor="@color/white">
+                        <TextView
+                            android:id="@+id/txt_approved"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Approved"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:background="@null"
+                            android:drawablePadding="8dp"/>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_declined"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="32dp"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        app:contentPadding="8dp"
+                        app:cardBackgroundColor="@color/white">
+                        <TextView
+                            android:id="@+id/txt_declined"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Declined"
+                            android:background="@null"
+                            android:drawablePadding="8dp"/>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="32dp"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        app:contentPadding="8dp"
+                        app:cardBackgroundColor="@color/white">
+                        <EditText
+                            android:id="@+id/et_from"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="From Date"
+                            android:drawableStart="@drawable/ic_calender"
+                            android:background="@null"
+                            android:drawablePadding="8dp"/>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="32dp"
+                        android:layout_weight="1"
+                        android:padding="8dp"
+                        app:contentPadding="8dp"
+                        app:cardBackgroundColor="@color/white">
+                        <EditText
+                            android:id="@+id/et_to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="To Date"
+                            android:drawableEnd="@drawable/ic_calender"
+                            android:background="@null"
+                            android:drawablePadding="8dp"/>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/ic_search"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:src="@drawable/ic_search"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_leave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/layout_leave_approval_single_row"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    />
+
+
+            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_add"
+
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="end"
+                app:cardCornerRadius="64dp"
+                app:contentPadding="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="#ffffff"
+                >
+                <ImageView
+                    android:id="@+id/ic_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_add"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Apply New Leave"
+                android:gravity="center"/>
+            <ImageButton
+                android:id="@+id/img_close"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_close"
+                android:background="@null"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Student"
+            android:textColor="@color/black"
+            android:padding="8dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="32dp"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    app:contentPadding="8dp"
+                    app:cardBackgroundColor="@color/white">
+                    <EditText
+                        android:id="@+id/et_from_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From Date"
+                        android:drawableStart="@drawable/ic_calender"
+                        android:background="@null"
+                        android:drawablePadding="8dp"/>
+
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="32dp"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    app:contentPadding="8dp"
+                    app:cardBackgroundColor="@color/white">
+                    <EditText
+                        android:id="@+id/et_to_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To Date"
+                        android:drawableEnd="@drawable/ic_calender"
+                        android:background="@null"
+                        android:drawablePadding="8dp"/>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="32dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            app:contentPadding="8dp"
+            app:cardBackgroundColor="@color/white">
+            <EditText
+                android:id="@+id/et_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Reason"
+                android:background="@null"
+                android:drawablePadding="8dp"/>
+
+
+        </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/shape_button_coloured"
+            android:textColor="@color/black"
+            android:inputType="text"/>
+
+
+
+    </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

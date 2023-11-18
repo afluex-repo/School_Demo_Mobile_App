@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="32dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="32dp"
+        app:contentPadding="8dp"
+        android:layout_marginTop="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/txt_students_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Student's Name"
+                android:textColor="@color/red_900"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_marginTop="4dp"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="From:"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:id="@+id/txt_from"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="From Date"
+                    android:layout_marginStart="-32dp"
+                    android:textColor="@color/black"
+                   />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="To:"
+                    android:layout_marginStart="32dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/txt_to"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="To Date"
+                    android:layout_marginStart="-64dp"
+
+                    android:textColor="@color/black"
+
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Reason:"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:id="@+id/txt_reason"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Testing"
+
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Status:"
+                    android:layout_marginStart="32dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/txt_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:text="Declined"
+                    android:background="@color/green_900"
+                    android:padding="8dp"
+                    android:gravity="center"
+
+
+                    android:textColor="@color/white"
+
+                    />
+                <ImageView
+                    android:id="@+id/ic_details"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_drop_down"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_leave_approval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:padding="8dp">
+               <androidx.cardview.widget.CardView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   app:cardElevation="8dp"
+                   app:cardCornerRadius="16dp"
+                   android:layout_weight="2"
+                   android:padding="8dp"
+                   android:layout_margin="4dp"
+                   app:contentPadding="8dp">
+                   <EditText
+                       android:id="@+id/et_remark"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:hint="Remark/Description"
+                       android:background="@null"
+                       android:textColor="@color/black"/>
+
+               </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+
+                    android:padding="8dp">
+                    <Button
+                        android:id="@+id/btn_approve"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Approve"
+                        android:padding="8dp"
+                        android:background="@color/green_900"
+                        android:textColor="@color/white"/>
+                    <Button
+                        android:id="@+id/btn_decline"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Decline"
+                        android:background="@color/red_900"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+            
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

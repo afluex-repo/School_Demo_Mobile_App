@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="18dp"
+        android:padding="8dp"
+        app:contentPadding="8dp"
+        android:layout_margin="8dp"
+
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="32dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:src="@drawable/ic_person"
+                android:layout_gravity="center"
+                app:civ_border_overlay="true"
+                android:cropToPadding="true"
+                app:civ_circle_background_color="@color/white"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#ffffff"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ms Radha"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/txt_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="7905174824"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_mobile_gray"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#afafaf"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txt_designation"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="CT:"
+
+                        android:gravity="center"
+                        android:layout_marginEnd="8dp"
+                        android:textStyle="bold"
+
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/img_next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_next"
+                android:layout_weight="1"/>
+
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black"/>
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.TeacherNoticeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/ll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_no_notice_to_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Notice"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:text="No Notice to Show"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_notice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="7"
+                tools:listitem="@layout/layout_notice_single_row"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_add"
+
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="end"
+                app:cardCornerRadius="64dp"
+                app:contentPadding="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="#ffffff"
+                >
+                <ImageView
+                    android:id="@+id/ic_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_add"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="Add New Notice"
+                    android:gravity="center"/>
+                <ImageButton
+                    android:id="@+id/img_close"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_close"
+                    android:background="@null"/>
+
+            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="16dp"
+                app:cardCornerRadius="8dp"
+                app:contentPadding="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <Spinner
+                        android:id="@+id/spinner_addClass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_margin="8dp"/>
+                    <Spinner
+                        android:id="@+id/spinner_addSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_margin="8dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_assignemnt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_margin="8dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_assignment"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7"
+                            android:hint="Type your notice here"
+                            android:inputType="text" />
+                        <ImageView
+                            android:id="@+id/iv_mic"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_mic"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/shape_button_coloured"
+            android:textColor="@color/black"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+
+
+</FrameLayout>
