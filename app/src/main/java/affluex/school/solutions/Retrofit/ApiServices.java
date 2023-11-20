@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ModelParents;
 import affluex.school.solutions.Model.ModelProfile;
 import affluex.school.solutions.Model.ModelTeachers;
@@ -93,7 +94,7 @@ Call<String> SaveAsignment(@Part MultipartBody.Part image,
     Call<String> UpdateProfile(@Body JsonObject login);
 
     @POST("MasterForApi/SaveAttendance")
-    Call<String> SaveAttendance(@Body JsonObject login);
+    Call<CommonResponse> SaveAttendance(@Body JsonObject login);
 
 
     @POST("MasterForApi/DashBoardDetails")

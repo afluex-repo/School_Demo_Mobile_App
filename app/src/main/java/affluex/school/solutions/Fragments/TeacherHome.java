@@ -50,6 +50,7 @@ import java.util.Locale;
 
 
 import affluex.school.solutions.Activity.DashboardSchool;
+import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ResponseLeave;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
@@ -212,29 +213,37 @@ public class TeacherHome extends Fragment {
             Log.e("TeacherId","4:: "+latitude);
             Log.e("TeacherId","5:: "+longitude);
             LoggerUtil.logItem(object);
-            Call<String> call = apiServices.SaveAttendance(object);
+            Call<CommonResponse> call = apiServices.SaveAttendance(object);
             String finalCurrentTime = currentTime;
-            call.enqueue(new Callback<String>() {
+            call.enqueue(new Callback<CommonResponse>() {
                 @Override
-                public void onResponse(Call<String> call, Response<String> response) {
+                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(getActivity(), "Welcome "+
-                                getActivity().getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name","")+" Your Punch In Time is "+ finalCurrentTime, Toast.LENGTH_SHORT).show();
 
-                        editor.putString("lastActivity","in");
-                        editor.putString("lastActivityDate",currentDate);
-                        editor.apply();
-                        editor.commit();
-                        binding.llMain.setVisibility(View.VISIBLE);
-                        binding.llPunch.setVisibility(View.GONE);
-                        binding.btnPunchout.setVisibility(View.VISIBLE);
+                        if(response.body().getMessage().equals("   Punching Successfully !")){
+                            Toast.makeText(getActivity(), "Welcome "+
+                                    getActivity().
+                                            getSharedPreferences("LoginDetails",MODE_PRIVATE)
+                                            .getString("name","")+" Your Punch In Time is "+ finalCurrentTime, Toast.LENGTH_SHORT).show();
+                            editor.putString("lastActivity","in");
+                            editor.putString("lastActivityDate",currentDate);
+                            editor.apply();
+                            editor.commit();
+                            binding.llMain.setVisibility(View.VISIBLE);
+                            binding.llPunch.setVisibility(View.GONE);
+                            binding.btnPunchout.setVisibility(View.VISIBLE);
+                        }else{
+                            Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+
                         Log.e("TeacherId","5:: "+response.body());
 
                     }
                 }
 
                 @Override
-                public void onFailure(Call<String> call, Throwable t) {
+                public void onFailure(Call<CommonResponse> call, Throwable t) {
 
                 }
             });
@@ -346,7 +355,7 @@ public class TeacherHome extends Fragment {
 
                                     latitude = addresses.get(0).getLatitude();
                                     longitude = addresses.get(0).getLongitude();
-                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
                                     Log.e("AVGHCGHJGFHC",""+latitude);
                                     Log.e("AVGHCGHJGFHC",""+longitude);
                                     saveAttendance();
