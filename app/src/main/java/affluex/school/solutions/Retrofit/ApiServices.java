@@ -96,6 +96,9 @@ Call<String> SaveAsignment(@Part MultipartBody.Part image,
     @POST("MasterForApi/SaveAttendance")
     Call<CommonResponse> SaveAttendance(@Body JsonObject login);
 
+@POST("MasterForApi/SavePunchOutAttendance")
+    Call<CommonResponse> SavePunchOutAttendance(@Body JsonObject login);
+
 
     @POST("MasterForApi/DashBoardDetails")
     Call<ResponseParentDashboard> GetDashboard(@Body JsonObject login);

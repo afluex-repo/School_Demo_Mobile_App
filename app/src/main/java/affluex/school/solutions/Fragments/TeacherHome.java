@@ -81,6 +81,7 @@ public class TeacherHome extends Fragment {
     private LocationManager locationManager;
     FusedLocationProviderClient fusedLocationProviderClient;
     Bitmap bp=null;
+    String attendance="";
 
     public TeacherHome() {
         // Required empty public constructor
@@ -134,13 +135,8 @@ public class TeacherHome extends Fragment {
         binding.btnPunchout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editor.putString("lastActivity","out");
-                editor.putString("lastActivityDate",currentDate);
-                editor.apply();
-                editor.commit();
-                binding.llMain.setVisibility(View.GONE);
-                binding.llPunch.setVisibility(View.VISIBLE);
-                binding.btnPunchIn.setVisibility(View.VISIBLE);
+                savePunchOutAttendance();
+
             }
         });
         binding.cardNotice.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +170,7 @@ public class TeacherHome extends Fragment {
                 if(bp==null){
                     Toast.makeText(getActivity(), "Upload Selfie to Punch in", Toast.LENGTH_SHORT).show();
                 }else{
+                    attendance="In";
                     detectLocation();
 
                 }
@@ -183,6 +180,60 @@ public class TeacherHome extends Fragment {
 
 
         return binding.getRoot();
+    }
+
+    private void savePunchOutAttendance() {
+        ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
+        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", MODE_PRIVATE);
+        String pkteacherId=sharedPreferences.getString("pkTeacherId","");
+        String fkClassId=sharedPreferences.getString("fkClassId","");
+        String fkSectionId=sharedPreferences.getString("fkSectionId","");
+        String currentDate1 = null;
+        String currentTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            currentDate1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(new Date());
+            currentTime = new SimpleDateFormat("HH:mm", Locale.ENGLISH).format(new Date());
+        }
+        if(!TextUtils.isEmpty(pkteacherId)) {
+            JsonObject object = new JsonObject();
+            object.addProperty("OutTime", currentTime);
+            object.addProperty("AttendanceDate", currentDate1);
+            object.addProperty("EmployeeID", Integer.parseInt(pkteacherId));
+            object.addProperty("OutLongitude", longitude);
+            object.addProperty("OutLatiTude", latitude);
+            Call<CommonResponse> call = apiServices.SavePunchOutAttendance(object);
+            String finalCurrentTime = currentTime;
+            call.enqueue(new Callback<CommonResponse>() {
+                @Override
+                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                    if(response.isSuccessful()){
+
+                        if(response.body().getMessage().equals("   Punching Successfully !")){
+                            Toast.makeText(getActivity(), "Punch Out Successful "+
+                                   " Your Punch Out Time is "+ finalCurrentTime, Toast.LENGTH_LONG).show();
+                            editor.putString("lastActivity","out");
+                            editor.putString("lastActivityDate",currentDate);
+                            editor.apply();
+                            editor.commit();
+                            binding.llMain.setVisibility(View.GONE);
+                            binding.llPunch.setVisibility(View.VISIBLE);
+                            binding.btnPunchIn.setVisibility(View.VISIBLE);
+                        }else{
+                            Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+
+                        Log.e("TeacherId","5:: "+response.body());
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     private void saveAttendance() {
@@ -358,7 +409,12 @@ public class TeacherHome extends Fragment {
 //                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
                                     Log.e("AVGHCGHJGFHC",""+latitude);
                                     Log.e("AVGHCGHJGFHC",""+longitude);
-                                    saveAttendance();
+                                    if(attendance.equals("In")){
+                                        saveAttendance();
+                                    }else{
+                                        savePunchOutAttendance();
+                                    }
+
 
 
 
