@@ -50,7 +50,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="From Date"
-                    android:layout_marginStart="-32dp"
                     android:textColor="@color/black"
                     />
                 <TextView
@@ -69,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="To Date"
-                    android:layout_marginStart="-64dp"
+
 
                     android:textColor="@color/black"
 

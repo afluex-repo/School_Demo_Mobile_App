@@ -147,6 +147,14 @@ public class TeacherHome extends Fragment {
 
             }
         });
+
+        binding.cardAttendanceListTeacher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new AttendanceListFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment);
+            }
+        });
         binding.cardAssignments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
