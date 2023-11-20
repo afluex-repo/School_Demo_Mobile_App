@@ -9,6 +9,7 @@ import affluex.school.solutions.Model.ModelParents;
 import affluex.school.solutions.Model.ModelProfile;
 import affluex.school.solutions.Model.ModelTeachers;
 import affluex.school.solutions.Model.ResponseAssignmentDashboard;
+import affluex.school.solutions.Model.ResponseAttendnace;
 import affluex.school.solutions.Model.ResponseClass;
 import affluex.school.solutions.Model.ResponseHomework;
 import affluex.school.solutions.Model.ResponseLeave;
@@ -102,6 +103,9 @@ Call<String> SaveAsignment(@Part MultipartBody.Part image,
 
     @POST("MasterForApi/DashBoardDetails")
     Call<ResponseParentDashboard> GetDashboard(@Body JsonObject login);
+
+    @POST("MasterForApi/GetAttenndaceList")
+    Call<ResponseAttendnace> GetAttenndaceList(@Body JsonObject login);
     @POST("MasterForApi/HomeWork")
     Call<ResponseAssignmentDashboard> GetAssignmentParent(@Body JsonObject login);
 
