@@ -92,6 +92,9 @@ Call<String> SaveAsignment(@Part MultipartBody.Part image,
     @POST("MasterForApi/UpdateTeacherProfile")
     Call<String> UpdateProfile(@Body JsonObject login);
 
+    @POST("MasterForApi/SaveAttendance")
+    Call<String> SaveAttendance(@Body JsonObject login);
+
 
     @POST("MasterForApi/DashBoardDetails")
     Call<ResponseParentDashboard> GetDashboard(@Body JsonObject login);

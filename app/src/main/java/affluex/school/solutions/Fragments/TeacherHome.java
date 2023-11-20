@@ -1,5 +1,7 @@
 package affluex.school.solutions.Fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -22,6 +25,7 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +33,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.JsonObject;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -44,7 +50,14 @@ import java.util.Locale;
 
 
 import affluex.school.solutions.Activity.DashboardSchool;
+import affluex.school.solutions.Model.ResponseLeave;
+import affluex.school.solutions.Retrofit.ApiServices;
+import affluex.school.solutions.Retrofit.ServiceGenerator;
+import affluex.school.solutions.common.LoggerUtil;
 import affluex.school.solutions.databinding.FragmentTeacherHomeBinding;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TeacherHome extends Fragment {
 
@@ -85,8 +98,9 @@ public class TeacherHome extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding=FragmentTeacherHomeBinding.inflate(inflater,container,false);
-        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("TeacherLogin", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("TeacherLogin", MODE_PRIVATE);
         editor=sharedPreferences.edit();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
             lastActivity=sharedPreferences.getString("lastActivity","");
             lastActivityDate=sharedPreferences.getString("lastActivityDate","");
 
@@ -159,13 +173,8 @@ public class TeacherHome extends Fragment {
                 if(bp==null){
                     Toast.makeText(getActivity(), "Upload Selfie to Punch in", Toast.LENGTH_SHORT).show();
                 }else{
-                    editor.putString("lastActivity","in");
-                    editor.putString("lastActivityDate",currentDate);
-                    editor.apply();
-                    editor.commit();
-                    binding.llMain.setVisibility(View.VISIBLE);
-                    binding.llPunch.setVisibility(View.GONE);
-                    binding.btnPunchout.setVisibility(View.VISIBLE);
+                    detectLocation();
+
                 }
 
             }
@@ -174,6 +183,64 @@ public class TeacherHome extends Fragment {
 
         return binding.getRoot();
     }
+
+    private void saveAttendance() {
+        ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
+        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", MODE_PRIVATE);
+        String pkteacherId=sharedPreferences.getString("pkTeacherId","");
+        String fkClassId=sharedPreferences.getString("fkClassId","");
+        String fkSectionId=sharedPreferences.getString("fkSectionId","");
+        String currentDate1 = null;
+        String currentTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            currentDate1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(new Date());
+            currentTime = new SimpleDateFormat("HH:mm", Locale.ENGLISH).format(new Date());
+        }
+        if(!TextUtils.isEmpty(pkteacherId)) {
+            JsonObject object = new JsonObject();
+            object.addProperty("AddedBy", Integer.parseInt(pkteacherId));
+            object.addProperty("InTime", currentTime);
+            object.addProperty("AttendanceDate", currentDate1);
+            object.addProperty("EmployeeID", Integer.parseInt(pkteacherId));
+            object.addProperty("UploadFile", "");
+            object.addProperty("LatiTude", latitude);
+            object.addProperty("LongiTude", longitude);
+
+            Log.e("TeacherId",sharedPreferences.getString("pkTeacherId",""));
+            Log.e("TeacherId","2:: "+currentTime);
+            Log.e("TeacherId","3:: "+currentDate1);
+            Log.e("TeacherId","4:: "+latitude);
+            Log.e("TeacherId","5:: "+longitude);
+            LoggerUtil.logItem(object);
+            Call<String> call = apiServices.SaveAttendance(object);
+            String finalCurrentTime = currentTime;
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(getActivity(), "Welcome "+
+                                getActivity().getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name","")+" Your Punch In Time is "+ finalCurrentTime, Toast.LENGTH_SHORT).show();
+
+                        editor.putString("lastActivity","in");
+                        editor.putString("lastActivityDate",currentDate);
+                        editor.apply();
+                        editor.commit();
+                        binding.llMain.setVisibility(View.VISIBLE);
+                        binding.llPunch.setVisibility(View.GONE);
+                        binding.btnPunchout.setVisibility(View.VISIBLE);
+                        Log.e("TeacherId","5:: "+response.body());
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
     private void permissionCheck() {
         Dexter.withActivity(getActivity())
                 .withPermissions(android.Manifest.permission.CAMERA,
@@ -251,11 +318,13 @@ public class TeacherHome extends Fragment {
 
         }
     }
+
     @SuppressLint("MissingPermission")
     private void detectLocation() {
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission();
             return;
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -277,6 +346,10 @@ public class TeacherHome extends Fragment {
 
                                     latitude = addresses.get(0).getLatitude();
                                     longitude = addresses.get(0).getLongitude();
+                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
+                                    Log.e("AVGHCGHJGFHC",""+latitude);
+                                    Log.e("AVGHCGHJGFHC",""+longitude);
+                                    saveAttendance();
 
 
 
