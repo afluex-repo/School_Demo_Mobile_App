@@ -73,6 +73,9 @@ public class Utils {
     static private AlertDialog mErrorDialog;
     public static int SPLASHTIMEOUT = 3000;
 
+    public static double officeLatitude=26.8627455;
+    public static double officeLongitude=80.9968087;
+
     public static String getEmail(Context context) {
         AccountManager manager = AccountManager.get(context);
         Account[] accounts = manager.getAccountsByType("com.google");

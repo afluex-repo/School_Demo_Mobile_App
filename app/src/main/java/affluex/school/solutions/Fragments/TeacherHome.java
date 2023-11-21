@@ -55,6 +55,7 @@ import affluex.school.solutions.Model.ResponseLeave;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.common.LoggerUtil;
+import affluex.school.solutions.common.Utils;
 import affluex.school.solutions.databinding.FragmentTeacherHomeBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,6 +84,7 @@ public class TeacherHome extends Fragment {
     Bitmap bp=null;
     String attendance="";
 
+
     public TeacherHome() {
         // Required empty public constructor
     }
@@ -105,6 +107,7 @@ public class TeacherHome extends Fragment {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
             lastActivity=sharedPreferences.getString("lastActivity","");
             lastActivityDate=sharedPreferences.getString("lastActivityDate","");
+
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             currentDate = new android.icu.text.SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(new Date());
@@ -135,7 +138,8 @@ public class TeacherHome extends Fragment {
         binding.btnPunchout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                savePunchOutAttendance();
+                attendance="Out";
+                detectLocation();
 
             }
         });
@@ -216,7 +220,7 @@ public class TeacherHome extends Fragment {
                 public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                     if(response.isSuccessful()){
 
-                        if(response.body().getMessage().equals("   Punching Successfully !")){
+                        if(response.body().getMessage().equals("   PunchOut Successfully !")){
                             Toast.makeText(getActivity(), "Punch Out Successful "+
                                    " Your Punch Out Time is "+ finalCurrentTime, Toast.LENGTH_LONG).show();
                             editor.putString("lastActivity","out");
@@ -245,6 +249,7 @@ public class TeacherHome extends Fragment {
     }
 
     private void saveAttendance() {
+
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", MODE_PRIVATE);
         String pkteacherId=sharedPreferences.getString("pkTeacherId","");
@@ -400,6 +405,7 @@ public class TeacherHome extends Fragment {
                 fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
+                        float[] results = new float[1];
                         try{
                             Location location = task.getResult();
                             if (location != null) {
@@ -418,9 +424,25 @@ public class TeacherHome extends Fragment {
                                     Log.e("AVGHCGHJGFHC",""+latitude);
                                     Log.e("AVGHCGHJGFHC",""+longitude);
                                     if(attendance.equals("In")){
-                                        saveAttendance();
+
+                                        Location.distanceBetween(Utils.officeLatitude,Utils.officeLongitude,latitude,longitude,results);
+                                        float distance=results[0];
+                                        if(distance>10){
+                                            Toast.makeText(getActivity(), "You Need to be at office to punch In", Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            saveAttendance();
+                                        }
+
+
                                     }else{
-                                        savePunchOutAttendance();
+                                        Location.distanceBetween(Utils.officeLatitude,Utils.officeLongitude,latitude,longitude,results);
+                                        float distance=results[0];
+                                        if(distance>10){
+                                            Toast.makeText(getActivity(), "You Need to be at office to punch Out", Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            savePunchOutAttendance();
+                                        }
+
                                     }
 
 
