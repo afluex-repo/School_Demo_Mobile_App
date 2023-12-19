@@ -59,6 +59,16 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_menu_black_24dp"
                 app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/txt_page_name"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:text="Fragment Name"
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="center|center_horizontal"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,6 +122,7 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
+                            android:id="@+id/ll_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
@@ -222,6 +233,7 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
     <LinearLayout
+        android:id="@+id/ll_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-48dp"
@@ -230,7 +242,6 @@
             android:id="@+id/img_profile"
             app:civ_circle_background_color="@color/white"
             android:cropToPadding="true"
-            android:padding="0dp"
             app:civ_border_overlay="true"
             android:layout_margin="8dp"
 

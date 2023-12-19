@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -38,12 +39,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import affluex.school.solutions.Fragments.AssignmentFragment;
+import affluex.school.solutions.Fragments.AttendanceListFragment;
+import affluex.school.solutions.Fragments.LeaveFragment;
 import affluex.school.solutions.Fragments.ParentHome;
 import affluex.school.solutions.Fragments.SchoolHome;
 import affluex.school.solutions.Fragments.TeacherHome;
+import affluex.school.solutions.Fragments.TeacherNoticeFragment;
 import affluex.school.solutions.Fragments.TeacherProfileFragment;
 import affluex.school.solutions.R;
 import affluex.school.solutions.databinding.ActivityDashboardSchoolBinding;
+import affluex.school.solutions.databinding.BottomLayoutBinding;
 import affluex.school.solutions.databinding.CommonHomeSupportToolbarBinding;
 import affluex.school.solutions.databinding.CustomToolBarBinding;
 import affluex.school.solutions.databinding.DrawaberNavigationViewLayoutBinding;
@@ -51,6 +57,7 @@ import affluex.school.solutions.databinding.LayoutTopToolbarBinding;
 
 public class DashboardSchool extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     ActivityDashboardSchoolBinding binding;
+    BottomLayoutBinding bottomLayoutBinding;
 
 
     CustomToolBarBinding topToolbarBinding;
@@ -77,11 +84,121 @@ public class DashboardSchool extends AppCompatActivity implements  NavigationVie
         topToolbarBinding=binding.toolbar;
 
         drawerBinding=binding.layoutNavigation;
+        bottomLayoutBinding=binding.bottomLayout;
 
         locationPermissions = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION};
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         setContentView(binding.getRoot());
         Fragment fragment=null;
+
+
+        bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
+        bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+        bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+        bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+
+Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath",""));
+
+
+        if(!getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").equals("")){
+            String substring=getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").substring(2);
+            String link="http://demo2.afluex.com"+substring;
+            Log.e("Title123",link);
+            Picasso.get().load(link).
+                    resize(400,400).centerCrop()
+                    .placeholder(R.drawable.profile_round).into(drawerBinding.userImage);
+        }
+
+
+
+        topToolbarBinding.ivNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(DashboardSchool.this);
+                builder.setCancelable(false);
+                builder.setTitle("Are you Sure you want to Log out?")
+                        .setMessage("Once you log out you need to log in again.")
+                        .setCancelable(true)
+                        .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPreferences=getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor= sharedPreferences.edit();
+                                editor.clear();
+                                editor.commit();
+                                startActivity(new Intent(DashboardSchool.this,LoginActivity.class));
+                                finish();
+                                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            }
+                        });
+                builder.show();
+            }
+        });
+
+        binding.bottomLayout.ll1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
+                    Fragment fragment=new TeacherHome();
+                    topToolbarBinding.tvTHometitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
+                    String substring=getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").substring(2);
+                    String link="http://demo2.afluex.com"+substring;
+                    Log.e("Title123",link);
+
+                    Picasso.get().load(link).
+                            resize(400,400).centerCrop()
+                            .placeholder(R.drawable.profile_round)
+                            .into(topToolbarBinding.imgProfile);
+
+                    switchFragmentOnDashBoard(fragment,"Home");
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                }
+            }
+        });
+        binding.bottomLayout.ll2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new AttendanceListFragment();
+                switchFragmentOnDashBoard(fragment,"Attendance");
+                bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
+                bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+                bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            }
+        });
+        binding.bottomLayout.ll3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new TeacherNoticeFragment();
+                switchFragmentOnDashBoard(fragment,"Notice");
+                bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+                bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
+                bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            }
+        });
+
+        binding.bottomLayout.ll4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new AssignmentFragment();
+                switchFragmentOnDashBoard(fragment,"Homework");
+                bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+                bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+                bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.white));
+            }
+        });
         Log.e("Title",""+getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
         if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
              fragment=new TeacherHome();
@@ -104,10 +221,12 @@ public class DashboardSchool extends AppCompatActivity implements  NavigationVie
                 topToolbarBinding.tvClassTitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("className","")+" - "
                         +getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("sectionName",""));
             }
+            switchFragmentOnDashBoard(fragment,"Home");
 
 
         }else{
             fragment=new ParentHome();
+            switchFragmentOnDashBoard(fragment,"Home");
         }
 
         topToolbarBinding.toolbar.setTitleTextColor(getResources().getColor(R.color.white));
@@ -122,12 +241,109 @@ public class DashboardSchool extends AppCompatActivity implements  NavigationVie
         drawerBinding.liLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences=getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor= sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
-                startActivity(new Intent(DashboardSchool.this,LoginActivity.class));
-                finish();
+
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(DashboardSchool.this);
+                builder.setCancelable(false);
+                builder.setTitle("Are you Sure you want to Log out?")
+                        .setMessage("Once you log out you need to log in again.")
+                        .setCancelable(true)
+                        .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPreferences=getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor= sharedPreferences.edit();
+                                editor.clear();
+                                editor.commit();
+                                startActivity(new Intent(DashboardSchool.this,LoginActivity.class));
+                                finish();
+                                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            }
+                        });
+                builder.show();
+
+            }
+        });
+        drawerBinding.liHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
+                    switchFragmentOnDashBoard(new TeacherHome(),"Home");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+
+                }else{
+
+                }
+
+            }
+        });
+
+        drawerBinding.liSubscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")) {
+                switchFragmentOnDashBoard(new AttendanceListFragment(),"Attendance");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+
+                }
+            }
+        });
+
+
+        drawerBinding.liBookmarks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+           //Assignment
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
+                    switchFragmentOnDashBoard(new AssignmentFragment(),"Homework");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                }else{
+
+                }
+            }
+        });
+
+        drawerBinding.liDownloadVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Students Leave
+
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
+                    switchFragmentOnDashBoard(new LeaveFragment(),"Leave");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                }else{
+
+                }
+            }
+        });
+
+        drawerBinding.assignTvName.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
+        drawerBinding.tvNumber.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userId",""));
+
+
+        drawerBinding.liAboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Messages
+
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
+                    switchFragmentOnDashBoard(new TeacherNoticeFragment(),"Notice");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                }else{
+
+                }
+            }
+        });
+        drawerBinding.liTermsCondition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Terms and conditions
             }
         });
 
@@ -177,14 +393,91 @@ public class DashboardSchool extends AppCompatActivity implements  NavigationVie
         });
 
 
-        switchFragmentOnDashBoard(fragment);
+
     }
-    public void switchFragmentOnDashBoard(Fragment fragment) {
+    public void switchFragmentOnDashBoard(Fragment fragment,String name) {
+
+        if(name.equals("Home")){
+            topToolbarBinding.llDetails.setVisibility(View.VISIBLE);
+            topToolbarBinding.llName.setVisibility(View.VISIBLE);
+            topToolbarBinding.txtPageName.setVisibility(View.GONE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("Homework")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.white));
+        }else if(name.equals("Notice")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("AttendanceAttendance")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void setTitle(String name){
+        Log.e("HRESUIME","jkbjhgyucvyu");
+        if(name.equals("Home")){
+            topToolbarBinding.llDetails.setVisibility(View.VISIBLE);
+            topToolbarBinding.llName.setVisibility(View.VISIBLE);
+            topToolbarBinding.txtPageName.setVisibility(View.GONE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("Homework")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.white));
+        }else if(name.equals("Notice")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("AttendanceAttendance")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }
     }
 
     public void checkDrawerOpen() {
@@ -213,6 +506,8 @@ public class DashboardSchool extends AppCompatActivity implements  NavigationVie
 
         }
     }
+
+
     @SuppressLint("MissingPermission")
     private void detectLocation() {
 

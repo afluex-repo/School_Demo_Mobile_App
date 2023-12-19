@@ -7,380 +7,348 @@
     tools:context=".Fragments.AssignmentFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/ll_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:visibility="visible"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Your Assignments"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:background="@color/grey_200"
-                android:padding="8dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/ll_teacher_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:contentPadding="8dp"
-                    android:layout_marginStart="8dp"
-                    android:elevation="8dp"
-                    app:cardCornerRadius="8dp"
-                    android:layout_marginEnd="8dp">
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:padding="8dp"
-
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <EditText
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:hint="From Date"
-                                android:drawablePadding="8dp"
-                                android:drawableStart="@drawable/ic_calender"
-                                android:background="@null"/>
-                            <EditText
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:hint="To Date"
-                                android:drawablePadding="8dp"
-                                android:drawableStart="@drawable/ic_calender"
-                                android:background="@null"/>
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:id="@+id/txt_h1"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:dropDownSelector="@drawable/ic_drop_down"
-                                android:layout_margin="8dp"
-                                android:textColor="@color/black"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="Select Class"/>
-                            <TextView
-                                android:id="@+id/txt_h2"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:dropDownSelector="@drawable/ic_drop_down"
-                                android:layout_margin="8dp"
-                                android:textColor="@color/black"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="Select Section"/>
-                            <TextView
-                                android:id="@+id/txt_h3"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:dropDownSelector="@drawable/ic_drop_down"
-                                android:layout_margin="8dp"
-                                android:textColor="@color/black"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:text="Select Subject"/>
-
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="-12dp"
-                            android:orientation="horizontal">
-                            <Spinner
-                                android:id="@+id/spinner_class"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:dropDownSelector="@drawable/ic_drop_down"
-                                android:drawablePadding="8dp"
-                                android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:drawableStart="@drawable/ic_calender" />
-                            <Spinner
-                                android:id="@+id/spinner_section"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:dropDownSelector="@drawable/ic_drop_down"
-                                android:drawablePadding="8dp"
-                                android:layout_margin="8dp"
-                                android:drawableStart="@drawable/ic_calender" />
-                            <Spinner
-                                android:id="@+id/spinner_subject"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:dropDownSelector="@drawable/ic_drop_down"
-                                android:drawablePadding="8dp"
-                                android:layout_margin="8dp"
-                                android:drawableStart="@drawable/ic_calender" />
-
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/ll_parents_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:contentPadding="8dp"
-                    android:layout_marginStart="8dp"
-                    android:elevation="8dp"
-                    app:cardCornerRadius="8dp"
-                    android:layout_marginEnd="8dp">
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:padding="8dp"
-
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:dropDownSelector="@drawable/ic_drop_down"
-                        android:layout_margin="8dp"
-                        android:textColor="@color/black"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Select Student"/>
-                    <Spinner
-                        android:id="@+id/spinner_student"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:dropDownSelector="@drawable/ic_drop_down"
-                        android:drawablePadding="8dp"
-                        android:layout_margin="8dp"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:drawableStart="@drawable/ic_calender" />
-                </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_assignment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-
-                android:padding="8dp"
-                android:visibility="visible"
-                tools:itemCount="5"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/layout_assignment_single_row" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="No Assignments to Show"
-                    android:visibility="gone"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:padding="12dp"
-                    android:textSize="32sp"/>
-
-
-            </LinearLayout>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_add"
-
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="end"
-                app:cardCornerRadius="64dp"
-                app:contentPadding="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="#ffffff"
-                >
-                <ImageView
-                    android:id="@+id/ic_add"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_add"/>
-            </androidx.cardview.widget.CardView>
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <LinearLayout
+                android:id="@+id/ll_view"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_margin="8dp"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:visibility="visible"
+                android:orientation="vertical">
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="Add New Assignment"
-                    android:gravity="center"/>
-                <ImageButton
-                    android:id="@+id/img_close"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_close"
-                    android:background="@null"/>
-
-            </LinearLayout>
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="16dp"
-                app:cardCornerRadius="8dp"
-                app:contentPadding="8dp">
+                    android:text="Your Assignments"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:background="@color/grey_200"
+                    android:padding="8dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <Spinner
-                        android:id="@+id/spinner_addClass"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/ll_teacher_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:layout_margin="8dp"/>
-                    <Spinner
-                        android:id="@+id/spinner_addSection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:layout_margin="8dp"/>
-                    <Spinner
-                        android:id="@+id/spinner_addSubject"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:layout_margin="8dp"/>
-                    <LinearLayout
-                        android:id="@+id/ll_assignemnt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:layout_margin="8dp"
-                        android:orientation="horizontal">
-                        <EditText
-                            android:id="@+id/et_assignment"
-                            android:layout_width="0dp"
-                            android:layout_weight="7"
+                        app:contentPadding="8dp"
+                        android:layout_marginStart="8dp"
+                        android:elevation="8dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginEnd="8dp">
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Assignment Details"
-                            android:inputType="text"/>
-                        <ImageView
-                            android:id="@+id/iv_mic"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_mic"
-                            android:layout_weight="1"/>
-                    </LinearLayout>
-                    <EditText
-                        android:id="@+id/et_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:layout_margin="8dp"
-                        android:hint="Assignment Date"
-                        android:drawableEnd="@drawable/ic_calender"
-                        android:editable="false"
-                        android:focusable="false"/>
+                            android:layout_marginTop="8dp"
+                            android:padding="8dp"
 
-                    <LinearLayout
-                        android:id="@+id/ll_upload"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <EditText
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:hint="From Date"
+                                    android:drawablePadding="8dp"
+                                    android:drawableStart="@drawable/ic_calender"
+                                    android:background="@null"/>
+                                <EditText
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:hint="To Date"
+                                    android:drawablePadding="8dp"
+                                    android:drawableStart="@drawable/ic_calender"
+                                    android:background="@null"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="vertical">
+                                <Spinner
+                                    android:id="@+id/spinner_class"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:dropDownSelector="@drawable/ic_drop_down"
+                                    android:drawablePadding="8dp"
+                                    android:layout_margin="8dp"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"
+                                    android:drawableStart="@drawable/ic_calender" />
+                                <Spinner
+                                    android:id="@+id/spinner_section"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:dropDownSelector="@drawable/ic_drop_down"
+                                    android:drawablePadding="8dp"
+                                    android:layout_margin="8dp"
+                                    android:drawableStart="@drawable/ic_calender" />
+                                <Spinner
+                                    android:id="@+id/spinner_subject"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:dropDownSelector="@drawable/ic_drop_down"
+                                    android:drawablePadding="8dp"
+                                    android:layout_margin="8dp"
+                                    android:drawableStart="@drawable/ic_calender" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/ll_parents_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:layout_margin="8dp"
-                        android:orientation="horizontal">
-                        <Button
-                            android:id="@+id/btn_upload"
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
+                        app:contentPadding="8dp"
+                        android:layout_marginStart="8dp"
+                        android:elevation="8dp"
+                        app:cardCornerRadius="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Upload File"
-                            android:background="@drawable/shape_button_coloured"
-                            android:textColor="@color/black"
-                            android:inputType="text"/>
-                        <TextView
-                            android:id="@+id/txt_upload"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:text="No File Uploaded"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:layout_weight="1"/>
-                    </LinearLayout>
+                            android:layout_marginTop="8dp"
+                            android:padding="8dp"
 
-
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:dropDownSelector="@drawable/ic_drop_down"
+                                android:layout_margin="8dp"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="Select Student"/>
+                            <Spinner
+                                android:id="@+id/spinner_student"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:dropDownSelector="@drawable/ic_drop_down"
+                                android:drawablePadding="8dp"
+                                android:layout_margin="8dp"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_calender" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-            <Button
-                android:id="@+id/btn_submit"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_assignment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:padding="8dp"
+                    android:visibility="visible"
+                    tools:itemCount="5"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/layout_assignment_single_row" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="No Assignments to Show"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="12dp"
+                        android:textSize="32sp"/>
+
+
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_add"
+
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="end"
+                    app:cardCornerRadius="64dp"
+                    app:contentPadding="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="#ffffff"
+                    >
+                    <ImageView
+                        android:id="@+id/ic_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_add"/>
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"
-                android:layout_marginTop="32dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/shape_button_coloured"
-                android:textColor="@color/black"
-                android:inputType="text"/>
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_margin="8dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Add New Assignment"
+                        android:gravity="center"/>
+                    <ImageButton
+                        android:id="@+id/img_close"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_close"
+                        android:background="@null"/>
+
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:contentPadding="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <Spinner
+                            android:id="@+id/spinner_addClass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:layout_margin="8dp"/>
+                        <Spinner
+                            android:id="@+id/spinner_addSection"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:layout_margin="8dp"/>
+                        <Spinner
+                            android:id="@+id/spinner_addSubject"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:layout_margin="8dp"/>
+                        <LinearLayout
+                            android:id="@+id/ll_assignemnt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:layout_margin="8dp"
+                            android:orientation="horizontal">
+                            <EditText
+                                android:id="@+id/et_assignment"
+                                android:layout_width="0dp"
+                                android:layout_weight="7"
+                                android:layout_height="wrap_content"
+                                android:hint="Assignment Details"
+                                android:inputType="text"/>
+                            <ImageView
+                                android:id="@+id/iv_mic"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_mic"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+                        <EditText
+                            android:id="@+id/et_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:layout_margin="8dp"
+                            android:hint="Assignment Date"
+                            android:drawableEnd="@drawable/ic_calender"
+                            android:editable="false"
+                            android:focusable="false"/>
+
+                        <LinearLayout
+                            android:id="@+id/ll_upload"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:layout_margin="8dp"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/btn_upload"
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_height="wrap_content"
+                                android:text="Upload File"
+                                android:background="@drawable/shape_button_coloured"
+                                android:textColor="@color/black"
+                                android:inputType="text"/>
+                            <TextView
+                                android:id="@+id/txt_upload"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:text="No File Uploaded"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/shape_button_coloured"
+                    android:textColor="@color/black"
+                    android:inputType="text"/>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
-        
-    </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
    
 
 </FrameLayout>

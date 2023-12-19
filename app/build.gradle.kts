@@ -87,6 +87,8 @@ android {
         implementation("com.karumi:dexter:5.0.0")
         implementation("com.google.android.gms:play-services-location:16.0.0")
 
+        implementation ("com.github.p32929:AndroidEasySQL-Library:1.4.1")
+
         implementation ("com.squareup.picasso:picasso:2.71828")
 
         implementation ("com.github.bumptech.glide:glide:4.16.0")

@@ -176,6 +176,30 @@
                 </RelativeLayout>
 
                 <View style="@style/proifleDetailsView" />
+
+
+                <RelativeLayout style="@style/profileDetailsLayout">
+                    <ImageView
+                        android:id="@+id/dojImageView"
+                        android:src="@drawable/ic_dob"
+                        style="@style/profileDetailsImage" />
+
+                    <TextView
+                        android:text="D.O.J"
+                        android:layout_toRightOf="@id/dojImageView"
+                        style="@style/profileDetailsTextMain" />
+
+                    <EditText
+                        android:id="@+id/et_doj"
+                        android:background="@null"
+
+                        android:text="12-05-1990"
+                        android:layout_toRightOf="@id/dojImageView"
+                        style="@style/profileDetailsMiniText" />
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView" />
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/addressImageView"

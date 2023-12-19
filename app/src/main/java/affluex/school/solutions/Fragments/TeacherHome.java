@@ -30,6 +30,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -52,6 +55,7 @@ import java.util.Locale;
 import affluex.school.solutions.Activity.DashboardSchool;
 import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ResponseLeave;
+import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.common.LoggerUtil;
@@ -147,7 +151,15 @@ public class TeacherHome extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment=new TeacherNoticeFragment();
-                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment);
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Notice");
+
+            }
+        });
+        binding.cardExamination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new ExaminationHomeFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Examination");
 
             }
         });
@@ -156,14 +168,14 @@ public class TeacherHome extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment=new AttendanceListFragment();
-                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment);
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Attendance");
             }
         });
         binding.cardAssignments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment fragment=new AssignmentFragment();
-                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment);
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Homework");
             }
         });
 
@@ -171,7 +183,7 @@ public class TeacherHome extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment=new LeaveFragment();
-                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment);
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Leave");
             }
         });
 
@@ -221,15 +233,68 @@ public class TeacherHome extends Fragment {
                     if(response.isSuccessful()){
 
                         if(response.body().getMessage().equals("   PunchOut Successfully !")){
-                            Toast.makeText(getActivity(), "Punch Out Successful "+
-                                   " Your Punch Out Time is "+ finalCurrentTime, Toast.LENGTH_LONG).show();
-                            editor.putString("lastActivity","out");
-                            editor.putString("lastActivityDate",currentDate);
-                            editor.apply();
-                            editor.commit();
-                            binding.llMain.setVisibility(View.GONE);
-                            binding.llPunch.setVisibility(View.VISIBLE);
-                            binding.btnPunchIn.setVisibility(View.VISIBLE);
+                            final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(getActivity());
+                            View mView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_punch_successful, null);
+                            alert.setView(mView);
+                            TextView txt_message=mView.findViewById(R.id.txt_message);
+                            TextView txt_date=mView.findViewById(R.id.txt_date);
+                            TextView txt_time=mView.findViewById(R.id.txt_time);
+                            TextView txt_latitude=mView.findViewById(R.id.txt_latitude);
+                            TextView txt_longitude=mView.findViewById(R.id.txt_longitude);
+                            TextView txt_address=mView.findViewById(R.id.txt_address);
+                            Button btn_start=mView.findViewById(R.id.btn_start);
+                            btn_start.setText("End Your Day");
+                            txt_time.setText(response.body().getPunchOutTime());
+
+                            txt_date.setText(response.body().getPunchOutDate());
+                            txt_latitude.setText(""+latitude);
+                            txt_longitude.setText(""+longitude);
+                            txt_message.setText("Your Punch Out Successful was!!");
+                            try {
+                                Geocoder geocoder = new Geocoder(getActivity(), Locale.ENGLISH);
+                                List<Address> addresses = geocoder.getFromLocation(
+                                        latitude, longitude, 1
+
+
+                                );
+                                txt_address.setText(addresses.get(0).getAddressLine(0));
+
+
+//                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
+                                Log.e("AVGHCGHJGFHC",""+latitude);
+                                Log.e("AVGHCGHJGFHC",""+longitude);
+
+
+
+
+
+
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                txt_address.setText("-");
+
+                            }
+
+                            final android.app.AlertDialog alertDialog = alert.create();
+                            alertDialog.show();
+
+
+
+                            btn_start.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    editor.putString("lastActivity","out");
+                                    editor.putString("lastActivityDate",currentDate);
+                                    editor.apply();
+                                    editor.commit();
+                                    binding.llMain.setVisibility(View.GONE);
+                                    binding.llPunch.setVisibility(View.VISIBLE);
+                                    binding.btnPunchIn.setVisibility(View.VISIBLE);
+                                    alertDialog.dismiss();
+                                }
+                            });
+
                         }else{
                             Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -259,13 +324,11 @@ public class TeacherHome extends Fragment {
         String currentTime = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             currentDate1 = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(new Date());
-            currentTime = new SimpleDateFormat("HH:mm", Locale.ENGLISH).format(new Date());
+            currentTime = new SimpleDateFormat("hh:mm aa", Locale.ENGLISH).format(new Date());
         }
         if(!TextUtils.isEmpty(pkteacherId)) {
             JsonObject object = new JsonObject();
             object.addProperty("AddedBy", Integer.parseInt(pkteacherId));
-            object.addProperty("InTime", currentTime);
-            object.addProperty("AttendanceDate", currentDate1);
             object.addProperty("EmployeeID", Integer.parseInt(pkteacherId));
             object.addProperty("UploadFile", "");
             object.addProperty("LatiTude", latitude);
@@ -285,17 +348,70 @@ public class TeacherHome extends Fragment {
                     if(response.isSuccessful()){
 
                         if(response.body().getMessage().equals("   Punching Successfully !")){
-                            Toast.makeText(getActivity(), "Welcome "+
-                                    getActivity().
-                                            getSharedPreferences("LoginDetails",MODE_PRIVATE)
-                                            .getString("name","")+" Your Punch In Time is "+ finalCurrentTime, Toast.LENGTH_SHORT).show();
+
+                            final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(getActivity());
+                            View mView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_punch_successful, null);
+                            alert.setView(mView);
+                            TextView txt_message=mView.findViewById(R.id.txt_message);
+                            TextView txt_date=mView.findViewById(R.id.txt_date);
+                            TextView txt_time=mView.findViewById(R.id.txt_time);
+                            TextView txt_latitude=mView.findViewById(R.id.txt_latitude);
+                            TextView txt_longitude=mView.findViewById(R.id.txt_longitude);
+                            TextView txt_address=mView.findViewById(R.id.txt_address);
+                            Button btn_start=mView.findViewById(R.id.btn_start);
+                            txt_time.setText(response.body().getPunchInTime());
+
                             editor.putString("lastActivity","in");
                             editor.putString("lastActivityDate",currentDate);
                             editor.apply();
                             editor.commit();
-                            binding.llMain.setVisibility(View.VISIBLE);
-                            binding.llPunch.setVisibility(View.GONE);
-                            binding.btnPunchout.setVisibility(View.VISIBLE);
+
+                            txt_date.setText(response.body().getPunchInDate());
+                            txt_latitude.setText(""+latitude);
+                            txt_longitude.setText(""+longitude);
+                            txt_message.setText("Your Punch In Successful!! Have a wonderful day!!");
+                            try {
+                                Geocoder geocoder = new Geocoder(getActivity(), Locale.ENGLISH);
+                                List<Address> addresses = geocoder.getFromLocation(
+                                        latitude, longitude, 1
+
+
+                                );
+                                txt_address.setText(addresses.get(0).getAddressLine(0));
+
+
+//                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
+                                Log.e("AVGHCGHJGFHC",""+latitude);
+                                Log.e("AVGHCGHJGFHC",""+longitude);
+
+
+
+
+
+
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                txt_address.setText("-");
+
+                            }
+
+                            final android.app.AlertDialog alertDialog = alert.create();
+                            alertDialog.show();
+
+
+
+                            btn_start.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    binding.llMain.setVisibility(View.VISIBLE);
+                                    binding.llPunch.setVisibility(View.GONE);
+                                    binding.btnPunchout.setVisibility(View.VISIBLE);
+                                    alertDialog.dismiss();
+                                }
+                            });
+
                         }else{
                             Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -427,8 +543,8 @@ public class TeacherHome extends Fragment {
 
                                         Location.distanceBetween(Utils.officeLatitude,Utils.officeLongitude,latitude,longitude,results);
                                         float distance=results[0];
-                                        if(distance>10){
-                                            Toast.makeText(getActivity(), "You Need to be at office to punch In", Toast.LENGTH_SHORT).show();
+                                        if(distance>1000){
+                                            Toast.makeText(getActivity(), "You are "+distance+" m away from Office Location. Can't Punch In.", Toast.LENGTH_SHORT).show();
                                         }else{
                                             saveAttendance();
                                         }
@@ -437,8 +553,8 @@ public class TeacherHome extends Fragment {
                                     }else{
                                         Location.distanceBetween(Utils.officeLatitude,Utils.officeLongitude,latitude,longitude,results);
                                         float distance=results[0];
-                                        if(distance>10){
-                                            Toast.makeText(getActivity(), "You Need to be at office to punch Out", Toast.LENGTH_SHORT).show();
+                                        if(distance>1000){
+                                            Toast.makeText(getActivity(), "You are "+distance+" m away from Office Location. Can't Punch Out.", Toast.LENGTH_SHORT).show();
                                         }else{
                                             savePunchOutAttendance();
                                         }
@@ -561,4 +677,12 @@ public class TeacherHome extends Fragment {
 
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.e("HRESUIME","RESHUIOG");
+        ((DashboardSchool)getActivity()).setTitle("Home");
+    }
 }

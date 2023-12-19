@@ -67,7 +67,7 @@ public class SchoolHome extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentClass fragment= new FragmentClass();
-                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment);
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Class");
             }
         });
 

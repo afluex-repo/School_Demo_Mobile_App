@@ -3,22 +3,24 @@ package affluex.school.solutions.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.w3c.dom.Text;
+
 public class ModelProfile {
     @SerializedName("PK_TeacherID")
     @Expose
     private String pKTeacherID;
     @SerializedName("LoginID")
     @Expose
-    private Object loginID;
+    private String loginID;
     @SerializedName("Name")
     @Expose
     private String name;
     @SerializedName("FromDate")
     @Expose
-    private Object fromDate;
+    private String fromDate;
     @SerializedName("ToDate")
     @Expose
-    private Object toDate;
+    private String toDate;
     @SerializedName("FatherName")
     @Expose
     private String fatherName;
@@ -88,13 +90,6 @@ public class ModelProfile {
         this.pKTeacherID = pKTeacherID;
     }
 
-    public Object getLoginID() {
-        return loginID;
-    }
-
-    public void setLoginID(Object loginID) {
-        this.loginID = loginID;
-    }
 
     public String getName() {
         return name;
@@ -104,19 +99,35 @@ public class ModelProfile {
         this.name = name;
     }
 
-    public Object getFromDate() {
+    public String getpKTeacherID() {
+        return pKTeacherID;
+    }
+
+    public void setpKTeacherID(String pKTeacherID) {
+        this.pKTeacherID = pKTeacherID;
+    }
+
+    public String getLoginID() {
+        return loginID;
+    }
+
+    public void setLoginID(String loginID) {
+        this.loginID = loginID;
+    }
+
+    public String getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Object fromDate) {
+    public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Object getToDate() {
+    public String getToDate() {
         return toDate;
     }
 
-    public void setToDate(Object toDate) {
+    public void setToDate(String toDate) {
         this.toDate = toDate;
     }
 

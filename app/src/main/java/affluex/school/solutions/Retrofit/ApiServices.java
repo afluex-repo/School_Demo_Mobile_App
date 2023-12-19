@@ -92,13 +92,15 @@ Call<String> SaveAsignment(@Part MultipartBody.Part image,
     Call<ModelProfile> GetProfile(@Body JsonObject login);
 
     @POST("MasterForApi/UpdateTeacherProfile")
-    Call<String> UpdateProfile(@Body JsonObject login);
+    Call<CommonResponse> UpdateProfile(@Body JsonObject login);
 
     @POST("MasterForApi/SaveAttendance")
     Call<CommonResponse> SaveAttendance(@Body JsonObject login);
 
 @POST("MasterForApi/SavePunchOutAttendance")
     Call<CommonResponse> SavePunchOutAttendance(@Body JsonObject login);
+
+
 
 
     @POST("MasterForApi/DashBoardDetails")

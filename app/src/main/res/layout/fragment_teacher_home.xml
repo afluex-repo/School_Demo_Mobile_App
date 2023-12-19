@@ -14,7 +14,7 @@
        <ScrollView
            android:id="@+id/scrollView"
            android:layout_width="match_parent"
-           android:layout_marginBottom="48dp"
+
            android:orientation="vertical"
            android:padding="8dp"
            android:layout_height="match_parent">
@@ -296,6 +296,7 @@
                                    android:layout_weight="0.01"
                                    android:layout_height="wrap_content"/>
                                <androidx.cardview.widget.CardView
+                                   android:id="@+id/card_examination"
                                    android:layout_width="0dp"
                                    android:layout_weight="1"
                                    android:layout_height="wrap_content"
@@ -326,7 +327,7 @@
                                            android:layout_width="match_parent"
                                            android:layout_height="0dp"
                                            android:layout_weight="1"
-                                           android:text="My Classes"
+                                           android:text="Examination"
                                            android:textSize="12sp"
                                            android:layout_gravity="center"
                                            android:gravity="center"
@@ -462,11 +463,7 @@
            </LinearLayout>
        </ScrollView>
 
-       <include layout="@layout/bottom_layout"
-           android:layout_marginTop="8dp"
-          android:layout_alignParentBottom="true"
-           android:layout_width="match_parent"
-           android:layout_height="40dp" />
+
    </RelativeLayout>
 
 </FrameLayout>

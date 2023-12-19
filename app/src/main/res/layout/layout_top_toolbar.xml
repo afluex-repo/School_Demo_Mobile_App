@@ -16,15 +16,27 @@
         android:orientation="vertical">
 
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:visibility="visible"
-                android:layout_centerInParent="true"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_add"
 
-                android:layout_weight="1"
-                android:src="@drawable/logo" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="end"
+            app:cardCornerRadius="64dp"
+            app:contentPadding="16dp"
+            android:outlineAmbientShadowColor="#f1f1f1"
+            android:outlineSpotShadowColor="#f1f1f1"
+            app:cardElevation="64dp"
+            android:elevation="64dp"
+           android:layout_centerInParent="true"
+            android:backgroundTint="#ffffff"
+            >
+            <ImageView
+                android:id="@+id/ic_add"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/logo"/>
+        </androidx.cardview.widget.CardView>
 
 
 

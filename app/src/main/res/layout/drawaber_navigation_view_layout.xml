@@ -75,7 +75,7 @@
                             android:id="@+id/assign_tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="VCGHCGHC"
                             android:fontFamily="@font/sfuitext_semibold"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
@@ -83,11 +83,11 @@
                             android:id="@+id/tv_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="AFXHGJHGGH"
                             android:fontFamily="@font/sfuitext_medium"
                             android:gravity="center"
-                            android:layout_marginTop="-6dp"
-                            android:letterSpacing="-0.1"
+                            android:layout_marginTop="6dp"
+                            android:letterSpacing="0.1"
                             android:textColor="@color/white"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -265,7 +265,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_10dp"
                            android:fontFamily="@font/sfuitext_bold"
-                            android:text="Messages"
+                            android:text="Notice"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 

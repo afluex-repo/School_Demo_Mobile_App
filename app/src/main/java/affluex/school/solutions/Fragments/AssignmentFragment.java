@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.StrictMode;
 import android.speech.RecognizerIntent;
@@ -139,10 +140,38 @@ public class AssignmentFragment extends Fragment {
         binding.btnSubmit.setVisibility(View.GONE);
         studentDetailsArrayList=new ArrayList<>();
 
+        binding.spinnerSection.setVisibility(View.GONE);
+        binding.spinnerSubject.setVisibility(View.GONE);
+
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (sharedPreferences.getString("userType", "").equals("Parent")) {
+                    binding.cardAdd.setVisibility(View.GONE);
+                    binding.spinnerClass.setVisibility(View.GONE);
+                    binding.spinnerSection.setVisibility(View.GONE);
+                    binding.llTeacherSearch.setVisibility(View.GONE);
+                    binding.llParentsSearch.setVisibility(View.VISIBLE);
+                    callDashBoardApi();
+                    getAssignmentListParents();
+                    binding.swipeRefresh.setRefreshing(false);
+
+
+                } else {
+                    binding.cardAdd.setVisibility(View.VISIBLE);
+
+                    binding.spinnerClass.setVisibility(View.VISIBLE);
+                    binding.spinnerSection.setVisibility(View.VISIBLE);
+                    binding.llTeacherSearch.setVisibility(View.VISIBLE);
+                    binding.llParentsSearch.setVisibility(View.GONE);
+                    getAssignmentList();
+                    binding.swipeRefresh.setRefreshing(false);
+                }
+            }
+        });
+
         if (sharedPreferences.getString("userType", "").equals("Parent")) {
             binding.cardAdd.setVisibility(View.GONE);
-            binding.txtH1.setVisibility(View.GONE);
-            binding.txtH2.setVisibility(View.GONE);
             binding.spinnerClass.setVisibility(View.GONE);
             binding.spinnerSection.setVisibility(View.GONE);
             binding.llTeacherSearch.setVisibility(View.GONE);
@@ -153,8 +182,6 @@ public class AssignmentFragment extends Fragment {
 
         } else {
             binding.cardAdd.setVisibility(View.VISIBLE);
-            binding.txtH1.setVisibility(View.VISIBLE);
-            binding.txtH2.setVisibility(View.VISIBLE);
             binding.spinnerClass.setVisibility(View.VISIBLE);
             binding.spinnerSection.setVisibility(View.VISIBLE);
             binding.llTeacherSearch.setVisibility(View.VISIBLE);
@@ -176,14 +203,16 @@ public class AssignmentFragment extends Fragment {
                 binding.llAdd.setVisibility(View.GONE);
             }
         });
-        binding.spinnerAddClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i > 0) {
-                    binding.spinnerAddSection.setVisibility(View.VISIBLE);
+                    binding.spinnerSection.setVisibility(View.VISIBLE);
                     selectedClassId = classArrayList.get(i).getFk_ClassID();
                     selectedClassName = classArrayList.get(i).getClassName();
                     getSectionList();
+                }else{
+                    binding.spinnerSection.setVisibility(View.GONE);
                 }
             }
 
@@ -192,14 +221,16 @@ public class AssignmentFragment extends Fragment {
 
             }
         });
-        binding.spinnerAddSection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinnerSection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i > 0) {
-                    binding.spinnerAddSubject.setVisibility(View.VISIBLE);
+                    binding.spinnerSubject.setVisibility(View.VISIBLE);
                     selectedSectionId = sectionArrayList.get(i).getPK_SectionId();
                     selectedSectionName = sectionArrayList.get(i).getSectionName();
                     getSubjectList();
+                }else {
+                    binding.spinnerSubject.setVisibility(View.GONE);
                 }
             }
 
@@ -585,6 +616,7 @@ public class AssignmentFragment extends Fragment {
             JsonObject object = new JsonObject();
             object.addProperty("TeacherID", Integer.parseInt(pkteacherId));
             object.addProperty("Fk_ClassID", Integer.parseInt(selectedClassId));
+            Log.e("selectedClassId",selectedClassId);
             LoggerUtil.logItem(object);
             Call<ResponseSection> call=apiServices.GetSectionList(object);
             call.enqueue(new Callback<ResponseSection>() {

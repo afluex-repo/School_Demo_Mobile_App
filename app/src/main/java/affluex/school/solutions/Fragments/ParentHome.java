@@ -72,7 +72,7 @@ public class ParentHome extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment=new AssignmentFragment();
-                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment);
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Assignment");
             }
         });
 

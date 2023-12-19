@@ -10,24 +10,42 @@
     android:layout_height="match_parent"
     tools:context=".Activity.DashboardSchool"
     tools:openDrawer="start">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutDirection="ltr"
-        android:orientation="vertical">
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/custom_tool_bar"/>
-        <FrameLayout
-            android:id="@+id/frame_container"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layoutDirection="ltr"
+            android:layout_above="@id/bottom_layout"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/custom_tool_bar"/>
+            <FrameLayout
+                android:id="@+id/frame_container"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"/>
 
 
 
 
 
-    </LinearLayout>
+
+
+
+        </LinearLayout>
+        <include layout="@layout/bottom_layout"
+            android:id="@+id/bottom_layout"
+
+           android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+    </RelativeLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
@@ -38,6 +56,9 @@
         <include
             android:id="@+id/layout_navigation" layout="@layout/drawaber_navigation_view_layout" />
     </com.google.android.material.navigation.NavigationView>
+
+
+
 
 
 

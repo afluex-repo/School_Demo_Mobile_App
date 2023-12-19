@@ -2,6 +2,7 @@ package affluex.school.solutions.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,6 +15,11 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ModelProfile;
 import affluex.school.solutions.Model.ResponseLeave;
 import affluex.school.solutions.R;
@@ -32,6 +38,11 @@ public class ProfileActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     String action="Edit";
 
+    private final Calendar myCalendar = Calendar.getInstance();
+
+    String dob,doj;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +57,8 @@ public class ProfileActivity extends AppCompatActivity {
         contentProfileBinding.etFatherName.setEnabled(false);
         contentProfileBinding.txtMobile.setEnabled(false);
         contentProfileBinding.etEmail.setEnabled(false);
-//                    contentProfileBinding.etDob.setEnabled(true);
+                    contentProfileBinding.etDob.setEnabled(false);
+                    contentProfileBinding.etDoj.setEnabled(false);
         contentProfileBinding.etAddress.setEnabled(false);
         contentProfileBinding.etCity.setEnabled(false);
         contentProfileBinding.etState.setEnabled(false);
@@ -56,6 +68,65 @@ public class ProfileActivity extends AppCompatActivity {
         contentProfileBinding.etLastSchool.setEnabled(false);
         contentProfileBinding.etLastExperience.setEnabled(false);
         progressDialog.show();
+
+
+        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+            dob = sdf.format(myCalendar.getTime());
+
+            contentProfileBinding.etDob.setText(sdf.format(myCalendar.getTime()));
+
+
+        };
+
+        DatePickerDialog.OnDateSetListener date1 = (view, year, monthOfYear, dayOfMonth) -> {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+            doj = sdf.format(myCalendar.getTime());
+            contentProfileBinding.etDoj.setText(sdf.format(myCalendar.getTime()));
+
+
+        };
+
+
+
+
+        contentProfileBinding.etDob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(action.equals("Save")){
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this, date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH));
+                    datePickerDialog.show();
+                    String myFormat = "dd/MM/yyyy"; //In which you need put here
+
+                }
+            }
+        });
+
+        contentProfileBinding.etDoj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this, date1, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+            }
+        });
+
+
 
         callProfileApi();
 
@@ -80,6 +151,10 @@ public class ProfileActivity extends AppCompatActivity {
                     contentProfileBinding.etExperience.setEnabled(true);
                     contentProfileBinding.etLastSchool.setEnabled(true);
                     contentProfileBinding.etLastExperience.setEnabled(true);
+                    contentProfileBinding.etDob.setEnabled(true);
+                    contentProfileBinding.etDoj.setEnabled(true);
+                    contentProfileBinding.etDoj.setFocusable(false);
+                    contentProfileBinding.etDob.setFocusable(false);
                 }else if(action.equals("Save")){
                     progressDialog.setMessage("Please wait");
                     progressDialog.show();
@@ -100,9 +175,45 @@ public class ProfileActivity extends AppCompatActivity {
         String fkSectionId=sharedPreferences.getString("fkSectionId","");
         if(!TextUtils.isEmpty(pkteacherId)) {
             JsonObject object = new JsonObject();
+
+
             object.addProperty("PK_TeacherID", Integer.parseInt(pkteacherId));
+            object.addProperty("Name", contentProfileBinding.etName.getText().toString());
+            object.addProperty("FatherName", contentProfileBinding.etFatherName.getText().toString());
+            object.addProperty("Address", contentProfileBinding.etAddress.getText().toString());
+            object.addProperty("PinCode", contentProfileBinding.etPinCode.getText().toString());
+            object.addProperty("EmailID",contentProfileBinding.etEmail.getText().toString());
+            object.addProperty("DOB", contentProfileBinding.etDob.getText().toString());
+            object.addProperty("EmailID", contentProfileBinding.etEmail.getText().toString());
+            object.addProperty("LastSchool", contentProfileBinding.etLastSchool.getText().toString());
+            object.addProperty("LastExperience", contentProfileBinding.etLastExperience.getText().toString());
+            object.addProperty("Gender", "");
+            object.addProperty("Religion", "");
+            object.addProperty("Category", "");
+            object.addProperty("DOJ", contentProfileBinding.etDoj.getText().toString());
+            object.addProperty("Qualification", contentProfileBinding.etQualification.getText().toString());
+            object.addProperty("Experience", contentProfileBinding.etExperience.getText().toString());
+            object.addProperty("BranchName", "");
+            object.addProperty("MobileNo", contentProfileBinding.txtMobile.getText().toString());
+            object.addProperty("UpdatedBy", Integer.parseInt(pkteacherId));
             LoggerUtil.logItem(object);
-            Call<ModelProfile> call = apiServices.GetProfile(object);
+            Call<CommonResponse> call = apiServices.UpdateProfile(object);
+            call.enqueue(new Callback<CommonResponse>() {
+                @Override
+                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(ProfileActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+
+                        Log.e("Messageghfg",response.body().getMessage());
+                        callProfileApi();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+                }
+            });
         }
     }
 
@@ -135,6 +246,9 @@ public class ProfileActivity extends AppCompatActivity {
                         contentProfileBinding.etExperience.setText(response.body().getExperience());
                         contentProfileBinding.etLastSchool.setText(response.body().getLastSchool());
                         contentProfileBinding.etLastExperience.setText(response.body().getLastExperience());
+                        binding.txtLoginId.setText(getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getString("userId",""));
+
+                        contentProfileBinding.etDoj.setText(response.body().getDoj());
                         Log.e("ResImg",response.body().getImage());
                         if(!(response.body().getImage()==null)){
                             Picasso.get().load(response.body().getImage()).
