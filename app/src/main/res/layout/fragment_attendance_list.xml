@@ -27,44 +27,43 @@
             android:background="@color/white"
             android:layout_marginTop="4dp"
             android:padding="8dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="From:"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                />
-            <TextView
+
+            <EditText
                 android:id="@+id/txt_from"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="From Date"
-                android:layout_marginStart="-32dp"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="To:"
-                android:layout_marginStart="32dp"
-                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_calender"
+                android:drawablePadding="8dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+
                 android:textColor="@color/black"
                 />
 
-            <TextView
+
+            <EditText
                 android:id="@+id/txt_to"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_calender"
+                android:drawablePadding="8dp"
                 android:text="To Date"
-                android:layout_marginStart="-64dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+
 
                 android:textColor="@color/black"
 
                 />
+            <ImageView
+                android:id="@+id/ic_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:src="@drawable/ic_search"/>
 
         </LinearLayout>
         <LinearLayout

@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.ViewSalarySlipFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Afluex Educational Demo"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Address"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Email"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="Salary Slip"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:collapseColumns="4"> <!-- collapse the first column of the table row-->
+
+
+                <!-- first row of the table layout-->
+                <TableRow
+                    android:id="@+id/row1"
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Employee Code:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_code"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Father Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_father_name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Pan No:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_pan_no"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Pay Period:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_pay_period"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Bank A/c No:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_acc_no"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:collapseColumns="4">
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+
+                        android:text="Earnings:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+
+                        android:text="Deduction:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+
+                        android:text="Basic Salary:"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_basic"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:text="Emp Count:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_emp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:text="HRA:"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_hra"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:text="Name:"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:text="TDS:"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_tds"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:text="Name:"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:text="CA:"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_ca"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:text="Insurance:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_insurance"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="MA:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+
+                    <TextView
+                        android:id="@+id/txt_ma"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Advance:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/txt_advance"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+
+                </TableRow>
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="PA:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+
+                    <TextView
+                        android:id="@+id/txt_pa"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="PF:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/txt_pf"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+
+
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Total:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/txt_total_earning"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Total:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/txt_total_deduction"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+
+
+
+
+                </TableRow>
+
+                <TableRow
+
+                    android:layout_width="fill_parent"
+                    android:layout_marginTop="8dp"
+
+
+                    android:layout_height="wrap_content">
+
+
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:text="Net Pay:"
+
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+
+                    <TextView
+                        android:id="@+id/txt_net_pay"
+                        android:layout_height="match_parent"
+                         android:background="@drawable/shape_rectangle_background"
+                        android:paddingStart="8dp"
+                        android:gravity="center"
+
+                        android:layout_weight="1"
+                        android:text="Name:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+
+
+
+
+
+                </TableRow>
+
+
+
+            </TableLayout>
+
+
+
+
+            <Button
+                android:id="@+id/btn_punchIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button_coloured"
+                android:drawablePadding="8dp"
+                android:padding="16dp"
+                android:text="Download PDF"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="visible"
+                app:cornerRadius="16dp" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

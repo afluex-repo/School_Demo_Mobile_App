@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.StudentDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@color/profileBackground">
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="false"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayout"
+                   >
+
+                    <ImageView
+                        android:id="@+id/img_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/profile_round" />
+
+                    <TextView
+                        android:id="@+id/txt_class"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="\@appsnippuser"
+                        android:textSize="28dp"
+                        android:textStyle="bold"/>
+
+
+
+
+                </LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout"
+            android:layout_below="@+id/linearLayout"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/root_leyaut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        style="@style/headerText"
+                        android:text="Personal Info"
+                        android:layout_marginBottom="20dp"/>
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/nameImageView"
+                            android:src="@drawable/ic_name"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+                            android:id="@+id/txt_name1"
+                            android:text="Name"
+                            android:layout_toRightOf="@id/nameImageView"
+                            style="@style/profileDetailsTextMain" />
+
+                        <EditText
+                            android:background="@null"
+
+                            android:id="@+id/et_name"
+                            android:text="Sugandh"
+                            android:layout_toRightOf="@id/nameImageView"
+
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/nameImageView1"
+                            android:src="@drawable/ic_name"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+
+                            android:text="Roll No"
+                            android:layout_toRightOf="@id/nameImageView1"
+                            style="@style/profileDetailsTextMain" />
+
+                        <EditText
+                            android:background="@null"
+                            android:id="@+id/et_roll"
+                            android:text="Vijay"
+                            android:layout_toRightOf="@id/nameImageView1"
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:background="@null"
+
+                            android:id="@+id/mobileImageView"
+                            android:src="@drawable/ic_mobile"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+                            android:text="Mobile"
+                            android:layout_toRightOf="@id/mobileImageView"
+                            style="@style/profileDetailsTextMain"/>
+
+                        <EditText
+                            android:id="@+id/txt_mobile"
+                            android:background="@null"
+
+                            android:text="+91-8129999999"
+                            android:inputType="number"
+                            android:layout_toRightOf="@id/mobileImageView"
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/dobImageView"
+                            android:src="@drawable/ic_dob"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+                            android:text="D.O.B"
+                            android:layout_toRightOf="@id/dobImageView"
+                            style="@style/profileDetailsTextMain" />
+
+                        <EditText
+                            android:id="@+id/et_dob"
+                            android:background="@null"
+
+                            android:text="12-05-1990"
+                            android:layout_toRightOf="@id/dobImageView"
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/addressImageView"
+                            android:src="@drawable/ic_address"
+                            style="@style/profileDetailsImage" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_toRightOf="@id/addressImageView">
+                            <TextView
+                                android:text="Correspondance Address"
+
+                                style="@style/profileDetailsTextMain" />
+
+                            <EditText
+                                android:id="@+id/et_address_correspondance"
+                                android:background="@null"
+
+                                android:text="Avenue 2nd Street NW SY."
+                                style="@style/profileDetailsMiniText" />
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/addressImageView_1"
+                            android:src="@drawable/ic_address"
+                            style="@style/profileDetailsImage" />
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_toRightOf="@id/addressImageView_1">
+                            <TextView
+                                android:text="Permanent Address"
+
+                                style="@style/profileDetailsTextMain" />
+
+                            <EditText
+                                android:id="@+id/et_address_permanent"
+                                android:background="@null"
+
+                                android:text="Avenue 2nd Street NW SY."
+                                style="@style/profileDetailsMiniText" />
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/cityImageView"
+                            android:src="@drawable/ic_address"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+                            android:text="City"
+                            android:layout_toRightOf="@id/cityImageView"
+                            style="@style/profileDetailsTextMain" />
+
+                        <EditText
+                            android:id="@+id/et_city"
+                            android:background="@null"
+
+                            android:text="Lucknow"
+                            android:layout_toRightOf="@id/cityImageView"
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/stateImageView"
+                            android:src="@drawable/ic_address"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+                            android:text="State"
+                            android:layout_toRightOf="@id/stateImageView"
+                            style="@style/profileDetailsTextMain" />
+
+                        <EditText
+                            android:id="@+id/et_state"
+                            android:background="@null"
+
+                            android:text="Uttar Pradesh"
+                            android:layout_toRightOf="@id/stateImageView"
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/pinImageView"
+                            android:src="@drawable/ic_address"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+                            android:text="Gender"
+                            android:layout_toRightOf="@id/pinImageView"
+                            style="@style/profileDetailsTextMain" />
+
+                        <EditText
+                            android:id="@+id/et_gender"
+                            android:background="@null"
+
+                            android:text="Gender"
+                            android:layout_toRightOf="@id/pinImageView"
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/qualificationImageView"
+                            android:src="@drawable/ic_address"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+                            android:text="Father Occupation"
+                            android:layout_toRightOf="@id/qualificationImageView"
+                            style="@style/profileDetailsTextMain" />
+
+                        <EditText
+                            android:id="@+id/et_father_occupation"
+                            android:background="@null"
+
+                            android:text="226017"
+                            android:layout_toRightOf="@id/qualificationImageView"
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+                    <RelativeLayout style="@style/profileDetailsLayout">
+                        <ImageView
+                            android:id="@+id/professionalImageView"
+                            android:src="@drawable/ic_address"
+                            style="@style/profileDetailsImage" />
+
+                        <TextView
+                            android:text="Mother Occupation"
+                            android:layout_toRightOf="@id/professionalImageView"
+                            style="@style/profileDetailsTextMain" />
+
+                        <EditText
+                            android:id="@+id/et_mother_occupation"
+                            android:background="@null"
+
+                            android:text="Mother Occupation"
+                            android:layout_toRightOf="@id/professionalImageView"
+                            style="@style/profileDetailsMiniText" />
+
+                    </RelativeLayout>
+
+                    <View style="@style/proifleDetailsView" />
+
+
+
+
+                </LinearLayout>
+
+
+
+
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

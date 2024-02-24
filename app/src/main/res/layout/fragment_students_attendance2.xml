@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.StudentsAttendanceFragment">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+      <Spinner
+          android:id="@+id/spinner_select_student"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="8dp"/>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="8dp"
+          android:orientation="vertical">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="32dp"
+                android:layout_weight="1"
+                android:padding="8dp"
+                app:contentPadding="8dp"
+                app:cardBackgroundColor="@color/white">
+               <EditText
+                   android:id="@+id/et_from"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:hint="From Date"
+                   android:drawableStart="@drawable/ic_calender"
+                   android:background="@null"
+                   android:drawablePadding="8dp"/>
+
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="32dp"
+                android:layout_weight="1"
+                android:padding="8dp"
+                app:contentPadding="8dp"
+                app:cardBackgroundColor="@color/white">
+               <EditText
+                   android:id="@+id/et_to"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:hint="To Date"
+                   android:drawableEnd="@drawable/ic_calender"
+                   android:background="@null"
+                   android:drawablePadding="8dp"/>
+
+
+            </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/ic_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:src="@drawable/ic_search"
+                android:layout_gravity="center"/>
+         </LinearLayout>
+
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="400dp"
+          android:layout_marginTop="24dp"
+          android:layout_marginBottom="32dp"
+          android:orientation="vertical">
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/rv_leave"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+            tools:listitem="@layout/layout_student_attendance_single_row"
+             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+             />
+
+
+      </LinearLayout>
+
+   </LinearLayout>
+
+</FrameLayout>

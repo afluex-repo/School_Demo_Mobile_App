@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="@drawable/profile_bk"
+                android:background="@color/card_selected"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -37,6 +37,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
+                    android:visibility="gone"
                     android:layout_marginBottom="4dp"
                     android:src="@drawable/ic_baseline_settings_white_24dp"
                     app:tint="@color/white" />
@@ -58,8 +59,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/bottom_sheet_bg"
-                    android:backgroundTint="@color/dark_red"
+                    android:background="@color/card_selected"
+
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -228,7 +229,7 @@
                             android:layout_width="@dimen/space_30dp"
                             android:layout_height="@dimen/space_30dp"
                             app:tint="@color/black"
-                            android:src="@drawable/ic_calender" />
+                            android:src="@drawable/baseline_group_24" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -257,7 +258,7 @@
                             android:layout_width="@dimen/space_30dp"
                             android:layout_height="@dimen/space_30dp"
 
-                            android:src="@drawable/ic_calender"
+                            android:src="@drawable/baseline_message_24"
                             app:tint="@color/black"/>
 
                         <TextView
@@ -309,22 +310,57 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:id="@+id/img_salary"
                             android:layout_width="@dimen/space_30dp"
                             android:layout_height="@dimen/space_30dp"
 
                             app:tint="@color/black"
-                            android:src="@drawable/ic_calender" />
+                            android:src="@drawable/baseline_currency_rupee_24" />
+
+                        <TextView
+                            android:id="@+id/txt_salary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_10dp"
+                           android:fontFamily="@font/sfuitext_bold"
+                            android:text="Salary"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/li_change_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="@dimen/space_16dp"
+                        android:layout_marginTop="@dimen/space_10dp"
+                        android:layout_marginEnd="@dimen/space_10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/space_30dp"
+                            android:layout_height="@dimen/space_30dp"
+
+                            app:tint="@color/black"
+                            android:src="@drawable/ic_password" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_10dp"
-                           android:fontFamily="@font/sfuitext_bold"
-                            android:text="Terms and Condition"
+                            android:fontFamily="@font/sfuitext_bold"
+                            android:text="Change Password"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
                     </LinearLayout>
+
+
+
+
                     <LinearLayout
                         android:id="@+id/li_logout"
                         android:layout_width="match_parent"

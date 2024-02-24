@@ -7,6 +7,11 @@ public class CommonResponse {
     @SerializedName("status")
     @Expose
     private String status;
+
+
+    @SerializedName("Status")
+    @Expose
+    private String newStatus;
     @SerializedName("Message")
     @Expose
     private String Message;
@@ -16,6 +21,9 @@ public class CommonResponse {
  @SerializedName("PunchInTime")
     @Expose
     private String PunchInTime;
+ @SerializedName("ErrorMessage")
+    @Expose
+    private String ErrorMessage;
 @SerializedName("PunchOutDate")
     @Expose
     private String PunchOutDate;
@@ -70,5 +78,22 @@ public class CommonResponse {
 
     public void setPunchOutTime(String punchOutTime) {
         PunchOutTime = punchOutTime;
+    }
+
+
+    public String getNewStatus() {
+        return newStatus;
+    }
+
+    public void setNewStatus(String newStatus) {
+        this.newStatus = newStatus;
+    }
+
+    public String getErrorMessage() {
+        return ErrorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        ErrorMessage = errorMessage;
     }
 }

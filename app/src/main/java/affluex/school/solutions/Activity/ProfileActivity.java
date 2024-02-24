@@ -234,6 +234,15 @@ public class ProfileActivity extends AppCompatActivity {
                     if(response.isSuccessful() && response.body()!=null){
                         progressDialog.dismiss();
                         contentProfileBinding.etName.setText(response.body().getName());
+
+                        String substring=getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").substring(2);
+                        String link="http://demo2.afluex.com"+substring;
+                        Log.e("Title123",link);
+
+                        Picasso.get().load(link).
+                                resize(400,400).centerCrop()
+                                .placeholder(R.drawable.profile_round)
+                                .into(binding.imgProfile);
                         contentProfileBinding.etFatherName.setText(response.body().getFatherName());
                         contentProfileBinding.txtMobile.setText(response.body().getMobileNo());
                         contentProfileBinding.etEmail.setText(response.body().getEmailID());
@@ -250,11 +259,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                         contentProfileBinding.etDoj.setText(response.body().getDoj());
                         Log.e("ResImg",response.body().getImage());
-                        if(!(response.body().getImage()==null)){
-                            Picasso.get().load(response.body().getImage()).
-                                    resize(400,400).centerCrop()
-                                    .placeholder(R.drawable.profile_round).into(binding.imgProfile);
-                        }
+//                        if(!(response.body().getImage()==null)){
+//                            Picasso.get().load(response.body().getImage()).
+//                                    resize(400,400).centerCrop()
+//                                    .placeholder(R.drawable.profile_round).into(binding.imgProfile);
+//                        }
                     }
 
                 }

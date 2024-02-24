@@ -94,6 +94,9 @@ android {
         implementation ("com.github.bumptech.glide:glide:4.16.0")
 
 
+        implementation ("com.github.smarteist:autoimageslider:1.4.0-appcompat")
+
+
         //Retrofit APIs
 
         implementation ("com.squareup.retrofit2:retrofit:2.9.0")
@@ -105,10 +108,15 @@ android {
         implementation ("io.github.inflationx:calligraphy3:3.1.1")
         implementation ("com.github.dhaval2404:imagepicker:2.1")
 
+
+
+
     }
 }
 dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+
 }

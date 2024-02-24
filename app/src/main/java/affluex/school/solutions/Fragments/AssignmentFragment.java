@@ -4,9 +4,12 @@ import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -19,7 +22,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.StrictMode;
@@ -56,9 +61,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import affluex.school.solutions.Activity.DashboardSchool;
+import affluex.school.solutions.Activity.LoginActivity;
 import affluex.school.solutions.Adapter.AdapterAssignment;
 import affluex.school.solutions.Adapter.AdapterParentsAssignment;
 import affluex.school.solutions.Adapter.AdapterSelectStudent;
+import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.HomeWorkDetails;
 import affluex.school.solutions.Model.ModelAssignment;
 import affluex.school.solutions.Model.ModelClass;
@@ -105,7 +113,8 @@ public class AssignmentFragment extends Fragment {
     ArrayList<ModelSection> sectionArrayList;
     ArrayList<ModelSubject> subjectArrayList;
     private final Calendar myCalendar = Calendar.getInstance();
-    String selectedClassId, selectedSectionId, selectedSubjectId, selectedClassName, selectedSectionName, selectedSubjectName, techerId;
+    String selectedClassId="", selectedSectionId="", selectedSubjectId="",
+            selectedClassName="", selectedSectionName="", selectedSubjectName="", techerId;
 
     Uri imgUri = null;
     String fromDate;
@@ -164,7 +173,14 @@ public class AssignmentFragment extends Fragment {
                     binding.spinnerSection.setVisibility(View.VISIBLE);
                     binding.llTeacherSearch.setVisibility(View.VISIBLE);
                     binding.llParentsSearch.setVisibility(View.GONE);
-                    getAssignmentList();
+                    binding.txtTo.getText().clear();
+                    binding.txtFrom.getText().clear();
+                    binding.txtFrom.setHint("From Date");
+                    binding.txtTo.setHint("To Date");
+                    binding.spinnerClass.setSelection(0);
+                    binding.spinnerSection.setSelection(0);
+                    binding.spinnerSubject.setSelection(0);
+                    getAssignmentList("","","","","");
                     binding.swipeRefresh.setRefreshing(false);
                 }
             }
@@ -186,7 +202,7 @@ public class AssignmentFragment extends Fragment {
             binding.spinnerSection.setVisibility(View.VISIBLE);
             binding.llTeacherSearch.setVisibility(View.VISIBLE);
             binding.llParentsSearch.setVisibility(View.GONE);
-            getAssignmentList();
+            getAssignmentList("","","","","");
         }
         binding.cardAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +227,33 @@ public class AssignmentFragment extends Fragment {
                     selectedClassId = classArrayList.get(i).getFk_ClassID();
                     selectedClassName = classArrayList.get(i).getClassName();
                     getSectionList();
+
+                    if (sharedPreferences.getString("userType", "").equals("Parent")) {
+
+                    }else{
+                        getAssignmentList("","",selectedClassId,"","");
+                    }
+
+                }else{
+                    binding.spinnerSection.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        binding.spinnerAddClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i > 0) {
+                    binding.spinnerAddSection.setVisibility(View.VISIBLE);
+                    selectedClassId = classArrayList.get(i).getFk_ClassID();
+                    selectedClassName = classArrayList.get(i).getClassName();
+                    getSectionList();
+
+
                 }else{
                     binding.spinnerSection.setVisibility(View.GONE);
                 }
@@ -229,8 +272,51 @@ public class AssignmentFragment extends Fragment {
                     selectedSectionId = sectionArrayList.get(i).getPK_SectionId();
                     selectedSectionName = sectionArrayList.get(i).getSectionName();
                     getSubjectList();
+                    if (sharedPreferences.getString("userType", "").equals("Parent")) {
+
+                    }else{
+                        getAssignmentList("","",selectedClassId,selectedSectionId,"");
+                    }
                 }else {
                     binding.spinnerSubject.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        binding.spinnerAddSection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i > 0) {
+                    binding.spinnerAddSubject.setVisibility(View.VISIBLE);
+                    selectedSectionId = sectionArrayList.get(i).getPK_SectionId();
+                    selectedSectionName = sectionArrayList.get(i).getSectionName();
+                    getSubjectList();
+                }else {
+                    binding.spinnerSubject.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        binding.spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i > 0) {
+
+                    selectedSubjectId = subjectArrayList.get(i).getFk_SubjectID();
+                    selectedSubjectName = subjectArrayList.get(i).getSubjectName();
+                    if (sharedPreferences.getString("userType", "").equals("Parent")) {
+
+                    }else{
+                        getAssignmentList("","",selectedClassId,selectedSectionId,selectedSubjectId);
+                    }
                 }
             }
 
@@ -248,6 +334,7 @@ public class AssignmentFragment extends Fragment {
                     binding.btnSubmit.setVisibility(View.VISIBLE);
                     selectedSubjectId = subjectArrayList.get(i).getFk_SubjectID();
                     selectedSubjectName = subjectArrayList.get(i).getSubjectName();
+
                 }
             }
 
@@ -263,6 +350,8 @@ public class AssignmentFragment extends Fragment {
 
             }
         });
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
+                new IntentFilter("homework"));
         binding.ivMic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -291,6 +380,8 @@ public class AssignmentFragment extends Fragment {
             public void onClick(View view) {
                 if (TextUtils.isEmpty(binding.etAssignment.getText().toString()) && imgUri == null) {
                     Toast.makeText(getActivity(), "Assignment details missing.", Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(binding.etDate.getText().toString())){
+                    Toast.makeText(getActivity(), "Select Assignment Date", Toast.LENGTH_SHORT).show();
                 } else {
                     callAddAssignmentApi();
                 }
@@ -309,6 +400,33 @@ public class AssignmentFragment extends Fragment {
 
 
         };
+
+        DatePickerDialog.OnDateSetListener dateFrom = (view, year, monthOfYear, dayOfMonth) -> {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+            fromDate = sdf.format(myCalendar.getTime());
+            Log.e("Date", "From:" + fromDate);
+            updateLabel(binding.txtFrom);
+
+
+        };
+        DatePickerDialog.OnDateSetListener dateTo = (view, year, monthOfYear, dayOfMonth) -> {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+            fromDate = sdf.format(myCalendar.getTime());
+            Log.e("Date", "From:" + fromDate);
+            updateLabel(binding.txtTo);
+
+
+        };
         binding.etDate.setOnClickListener((View v) -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
@@ -317,6 +435,35 @@ public class AssignmentFragment extends Fragment {
             datePickerDialog.show();
             String myFormat = "dd/MM/yyyy"; //In which you need put here
 
+        });
+        binding.txtFrom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), dateFrom, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+            }
+        });
+
+        binding.txtTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), dateTo, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+            }
+        });
+
+        binding.icSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getAssignmentList(binding.txtFrom.getText().toString(),
+                        binding.txtTo.getText().toString(),selectedClassId,selectedSectionId,selectedSubjectId);
+            }
         });
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -363,37 +510,76 @@ public class AssignmentFragment extends Fragment {
     }
 
     private void callAddAssignmentApi() {
-//        ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
+        ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         techerId= sharedPreferences.getString("pkTeacherId", "");
-//        String fkClassId = selectedClassId;
-//        String fkSectionId = selectedSectionId;
-//        String fksubjectId = selectedSubjectId;
+        String fkClassId = selectedClassId;
+        String fkSectionId = selectedSectionId;
+        String fksubjectId = selectedSubjectId;
 //        Log.e("jkhjkh", "T" + pkteacherId);
 //        Log.e("jkhjkh", "C" + fkClassId);
 //        Log.e("jkhjkh", "S" + fkSectionId);
 //        AsyncTask asyncTask=new Post();
 //
 //     asyncTask.execute();
-//        if(!TextUtils.isEmpty(pkteacherId)&&!TextUtils.isEmpty(selectedSectionId)&&!TextUtils.isEmpty(selectedClassId)){
-//            JsonObject object = new JsonObject();
-//            object.addProperty("AddedBy",Integer.parseInt(pkteacherId) );
-//            object.addProperty("Fk_ClassID",Integer.parseInt(fkClassId) );
-//            object.addProperty("HomeWorkHTML", binding.etAssignment.getText().toString() );
-//            object.addProperty("Fk_SectionID",Integer.parseInt(fkSectionId) );
-//            object.addProperty("SubjectID",Integer.parseInt(selectedSubjectId) );
-//            object.addProperty("HomeworkBy","Teacher" );
-//            object.addProperty("HomeworkDate",binding.etDate.getText().toString() );
-//            object.addProperty("StudentFiles",fileName );
-//            Log.e("Filename",fileName);
-//            LoggerUtil.logItem(object);
-//            Call<String> call = apiServices.SaveAsignment(object);
+        if(!TextUtils.isEmpty(techerId)&&!TextUtils.isEmpty(selectedSectionId)&&!TextUtils.isEmpty(selectedClassId)) {
+            JsonObject object = new JsonObject();
+            object.addProperty("AddedBy", Integer.parseInt(techerId));
+            object.addProperty("Fk_ClassID", Integer.parseInt(fkClassId));
+            object.addProperty("HomeWorkHTML", binding.etAssignment.getText().toString());
+            object.addProperty("Fk_SectionID", Integer.parseInt(fkSectionId));
+            object.addProperty("SubjectID", Integer.parseInt(selectedSubjectId));
+            object.addProperty("HomeworkBy", "Teacher");
+            object.addProperty("HomeworkDate", binding.etDate.getText().toString());
+            object.addProperty("StudentFiles", fileName);
+            Log.e("Filename", fileName);
+            LoggerUtil.logItem(object);
+            Call<String> call = apiServices.SaveAsignment(object);
+
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("text/plain");
+            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("Fk_ClassID", String.valueOf(Integer.parseInt(fkClassId)))
+                    .addFormDataPart("Fk_SectionID", String.valueOf(Integer.parseInt(fkSectionId)))
+                    .addFormDataPart("SubjectID", String.valueOf(Integer.parseInt(selectedSubjectId)))
+                    .addFormDataPart("HomeworkDate",binding.etDate.getText().toString())
+                    .addFormDataPart("AddedBy",String.valueOf(Integer.parseInt(techerId)))
+                    .addFormDataPart("HomeWorkHTML",binding.etAssignment.getText().toString())
+                    .addFormDataPart("HomeworkBy","Teacher")
+                    .addFormDataPart("StudentFiles",fileName,
+                            RequestBody.create(MediaType.parse("application/octet-stream"),
+                                    new File(fileName)))
+                    .build();
+            Request request = new Request.Builder()
+                    .url("http://demo2.afluex.com/MasterForApi/SaveHomework")
+                    .method("POST", body)
+                    .build();
+            try {
+                okhttp3.Response response = client.newCall(request).execute();
+
+                Log.e("Respomkng",""+response.body());
+                if(response.body() != null){
+                    Toast.makeText(getActivity(), "Assignment Added Successfully", Toast.LENGTH_SHORT).show();
+                    getAssignmentList("","","","","");
+                    binding.llAdd.setVisibility(View.GONE);
+                    binding.llView.setVisibility(View.VISIBLE);
+                    binding.spinnerAddSection.setVisibility(View.GONE);
+                    binding.spinnerAddSubject.setVisibility(View.GONE);
+                    binding.llAssignemnt.setVisibility(View.GONE);
+                    binding.llUpload.setVisibility(View.GONE);
+                    binding.spinnerClass.setSelection(0);
+
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 //            call.enqueue(new Callback<String>() {
 //                @Override
 //                public void onResponse(Call<String> call, Response<String> response) {
-//                    if(response.body()!=null){
+//                    if (response.body() != null) {
 //                        Toast.makeText(getActivity(), "Assignment Added Successfully", Toast.LENGTH_SHORT).show();
-//                        getAssignmentList();
+//                        getAssignmentList("","","","","");
 //                        binding.llAdd.setVisibility(View.GONE);
 //                        binding.llView.setVisibility(View.VISIBLE);
 //                        binding.spinnerAddSection.setVisibility(View.GONE);
@@ -411,56 +597,68 @@ public class AssignmentFragment extends Fragment {
 //
 //                }
 //            });
+        }
+
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://demo1.afluex.com/")
+//                .addConverterFactory(ScalarsConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+//
+//        File file = new File(fileName);
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//
+//        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+//
+//        RequestBody classId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedClassId);
+//        Log.e("ClassIDDDDDD",selectedClassId);
+//        Log.e("ClassIDDDDDD",selectedSectionId);
+//        Log.e("ClassIDDDDDD",selectedSubjectId);
+//        RequestBody sectionId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedSectionId);
+//        RequestBody subjectId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedSubjectId);
+//        RequestBody homeworkDate = RequestBody.create(MediaType.parse("multipart/form-data"),binding.etDate.getText().toString());
+//        RequestBody addedBy = RequestBody.create(MediaType.parse("multipart/form-data"),"Teacher");
+//        RequestBody homeworkBy = RequestBody.create(MediaType.parse("multipart/form-data"), techerId);
+//        RequestBody homeworkHtml = RequestBody.create(MediaType.parse("multipart/form-data"), binding.etAssignment.getText().toString());
+//        RequestBody studentFiles=null;
+//        if(fileName!=null && !fileName.equals("")){
+//          studentFiles = RequestBody.create(MediaType.parse("multipart/form-data"), fileName);
+//
 //        }
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://demo1.afluex.com/")
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-        File file = new File(fileName);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-
-        RequestBody classId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedClassId);
-        Log.e("ClassIDDDDDD",selectedClassId);
-        Log.e("ClassIDDDDDD",selectedSectionId);
-        Log.e("ClassIDDDDDD",selectedSubjectId);
-        RequestBody sectionId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedSectionId);
-        RequestBody subjectId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedSubjectId);
-        RequestBody homeworkDate = RequestBody.create(MediaType.parse("multipart/form-data"),binding.etDate.getText().toString());
-        RequestBody addedBy = RequestBody.create(MediaType.parse("multipart/form-data"),"Teacher");
-        RequestBody homeworkBy = RequestBody.create(MediaType.parse("multipart/form-data"), techerId);
-        RequestBody homeworkHtml = RequestBody.create(MediaType.parse("multipart/form-data"), binding.etAssignment.getText().toString());
-        RequestBody studentFiles = RequestBody.create(MediaType.parse("multipart/form-data"), fileName);
-
-        ApiServices apiService = retrofit.create(ApiServices.class);
-        Call<String> call = apiService.SaveAsignment(body, classId, sectionId,subjectId,homeworkDate,addedBy,homeworkBy,homeworkHtml,studentFiles);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.e("Response",response.toString());
-                if (response.isSuccessful()) {
-
-                    if (response.body().equals("0")) {
-                        Toast.makeText(getActivity(), "Assignment Added", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getActivity(), "not Added", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
-                Log.e("jkhjkh",t.getMessage());
-            }
-        });
+//
+//        ApiServices apiService = retrofit.create(ApiServices.class);
+//        Call<String> call=null;
+//        if(fileName!=null && !fileName.equals("")){
+//            call = apiService.SaveAsignment(body, classId, sectionId,subjectId,homeworkDate,addedBy,homeworkBy,homeworkHtml,studentFiles);
+//
+//        }else{
+//            call=apiService.SaveAsignment(body, classId, sectionId,subjectId,homeworkDate,addedBy,homeworkBy,homeworkHtml,null);
+//        }
+//
+//        call.enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//                Log.e("Response",response.toString());
+//                if (response.isSuccessful()) {
+//
+//                    if (response.body().equals("0")) {
+//                        Toast.makeText(getActivity(), "Assignment Added", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(getActivity(), "not Added", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//                Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
+//                Log.e("jkhjkh",t.getMessage());
+//            }
+//        });
     }
 
 
 
 
-    private void getAssignmentList() {
+    private void getAssignmentList(String from,String to,String classId,String section,String subject) {
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String pkteacherId=sharedPreferences.getString("pkTeacherId","");
@@ -469,20 +667,37 @@ public class AssignmentFragment extends Fragment {
         String fkSectionId=sharedPreferences.getString("fkSectionId","");
         if(!TextUtils.isEmpty(pkteacherId)) {
             JsonObject object = new JsonObject();
-            object.addProperty("PK_TeacherID", Integer.parseInt(pkteacherId));
+            object.addProperty("FK_TeacherID", Integer.parseInt(pkteacherId));
+            object.addProperty("Fk_ClassId", classId);
+            object.addProperty("Fk_SectionID", section);
+            object.addProperty("SubjectID", subject);
+            object.addProperty("FromDate", from);
+            object.addProperty("ToDate", to);
+
+
+            Log.e("Parameter","1:::"+classId);
+            Log.e("Parameter","2:::"+section);
+            Log.e("Parameter","3:::"+subject);
             Call<ResponseHomework> call=apiServices.GetHomeworkList(object);
             call.enqueue(new Callback<ResponseHomework>() {
                 @Override
                 public void onResponse(Call<ResponseHomework> call, Response<ResponseHomework> response) {
-                    Log.e("JHFJHJJH",""+response.body().getAssignmentList().size());
-                    if(response.body().getAssignmentList().size()>0){
-                        assignmentArrayList=new ArrayList(response.body().getAssignmentList());
-                        AdapterAssignment adapterAssignment=new AdapterAssignment(getActivity(),assignmentArrayList);
-                        binding.rvAssignment.setAdapter(adapterAssignment);
 
+                    if (response.body().getAssignmentList()==null) {
+                        Toast.makeText(getActivity(), "Unable to fetch data", Toast.LENGTH_SHORT).show();
                     }else{
-                        binding.rvAssignment.setVisibility(View.GONE);
+                        if(response.body().getAssignmentList().size()>0){
+                            assignmentArrayList=new ArrayList(response.body().getAssignmentList());
+                            AdapterAssignment adapterAssignment=new AdapterAssignment(getActivity(),assignmentArrayList);
+                            binding.rvAssignment.setAdapter(adapterAssignment);
+
+                        }else{
+                            binding.rvAssignment.setVisibility(View.GONE);
+                        }
                     }
+
+
+
                 }
 
                 @Override
@@ -495,11 +710,13 @@ public class AssignmentFragment extends Fragment {
     }
 
     private void chooseImage() {
-        ImagePicker.with(this)
-                .crop()
-                .compress(1024)
-                .maxResultSize(1080, 1080)
-                .start(102);
+        Intent intent = new Intent();
+        //sets the select file to all types of files
+        intent.setType("*/*");
+        //allows to select data and return it
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        //starts new activity to select file and return data
+        startActivityForResult(Intent.createChooser(intent,"Choose File to Upload.."),100);
 
     }
 
@@ -537,10 +754,14 @@ public class AssignmentFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("courseimage", "" + requestCode);
-        if (requestCode == 102 && resultCode == RESULT_OK) {
+        if (requestCode == 100 && resultCode == RESULT_OK) {
             imgUri = data.getData();
             Context context = getActivity();
-            fileName = RealPathUtil.getRealPath(context, imgUri);
+            Log.e("FileNAMEJNJL",imgUri.getPath());
+//            fileName = RealPathUtil.getRealPath(context, imgUri);
+
+
+
             Bitmap bitmap = BitmapFactory.decodeFile(fileName);
 
 
@@ -871,6 +1092,70 @@ public class AssignmentFragment extends Fragment {
         }
     }
 
+    public BroadcastReceiver mMessageReceiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String salaryId=intent.getStringExtra("homework_id");
+
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+            builder.setCancelable(false);
+            builder.setTitle("Are you Sure you want to Delete this Homework?")
+                    .setCancelable(true)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                           callDeleteHomeworkApi(salaryId);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+            builder.show();
+
+
+
+        }
+    };
+
+    private void callDeleteHomeworkApi(String salaryId) {
+        ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
+        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        String pkteacherId=sharedPreferences.getString("pkTeacherId","");
+        String fkClassId=sharedPreferences.getString("fkClassId","");
+        String fkSectionId=sharedPreferences.getString("fkSectionId","");
+        if(!TextUtils.isEmpty(pkteacherId)) {
+            JsonObject object = new JsonObject();
+            object.addProperty("Pk_TeacherID", Integer.parseInt(pkteacherId));
+            object.addProperty("Pk_HomeworkID", salaryId);
+
+            Log.e("Pk_HomeworkID",salaryId);
+            LoggerUtil.logItem(object);
+            Call<CommonResponse> call = apiServices.DeleteHomeWork(object);
+            call.enqueue(new Callback<CommonResponse>() {
+                @Override
+                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(getActivity(), "Homework Deletion successful.", Toast.LENGTH_SHORT).show();
+
+                        getAssignmentList("","","","","");
+                    }else{
+                        Toast.makeText(getActivity(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+                }
+            });
+
+        }
+
+    }
 
 
 }

@@ -18,6 +18,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -60,7 +62,21 @@ public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.Ho
 //        holder.txt_status.setText(modelAttendance.getOutLatitude()+" , "+modelAttendance.getOutLongitude());
 
 
-        if (modelAttendance.getLatitude() != null && modelAttendance.getLongitude() != null && !modelAttendance.getLatitude().equals("N/A") && !modelAttendance.getLongitude().equals("N/A")) {
+        if(modelAttendance.getUploadFile()!=null && !modelAttendance.getUploadFile().equals("")){
+            String substring=modelAttendance.getUploadFile();
+            String link="http://demo2.afluex.com"+substring;
+            Log.e("Title1235676",link);
+
+            Picasso.get().load(link).
+                    resize(400,400).centerCrop()
+                    .placeholder(R.drawable.profile_round)
+                    .into(holder.img_selfie);
+
+        }
+
+
+        if (modelAttendance.getLatitude() != null && modelAttendance.getLongitude() != null
+                && !modelAttendance.getLatitude().equals("N/A") && !modelAttendance.getLongitude().equals("N/A")) {
             Geocoder geocoder = new Geocoder(context, Locale.ENGLISH);
             try {
                 List<Address> addresses = geocoder.getFromLocation(
@@ -167,6 +183,8 @@ public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.Ho
     public class HolderAttendance extends RecyclerView.ViewHolder {
         TextView txt_students_name, txt_from, txt_to, txt_reason, txt_status, txt_working_hours;
 
+        ImageView img_selfie;
+
         public HolderAttendance(@NonNull View itemView) {
             super(itemView);
             txt_students_name = itemView.findViewById(R.id.txt_students_name);
@@ -175,6 +193,7 @@ public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.Ho
             txt_reason = itemView.findViewById(R.id.txt_reason);
             txt_status = itemView.findViewById(R.id.txt_status);
             txt_working_hours = itemView.findViewById(R.id.txt_working_hours);
+            img_selfie = itemView.findViewById(R.id.img_selfie);
         }
     }
 }

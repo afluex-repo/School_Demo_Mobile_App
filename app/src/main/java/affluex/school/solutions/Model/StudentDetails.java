@@ -50,6 +50,11 @@ public class StudentDetails {
     @Expose
     private String rollNo;
 
+
+    public StudentDetails(String studentName) {
+        this.studentName = studentName;
+    }
+
     public String getStudentName() {
         return studentName;
     }

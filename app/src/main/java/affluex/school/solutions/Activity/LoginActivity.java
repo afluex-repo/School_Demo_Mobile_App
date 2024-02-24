@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -41,6 +42,9 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= ActivityLoginBinding.inflate(getLayoutInflater());
+
+
+
 //        bannerBinding=binding.bannerLayout;
 
         setContentView(binding.getRoot());
@@ -111,6 +115,16 @@ public class LoginActivity extends BaseActivity {
 
                    }
                }
+            }
+        });
+
+
+        binding.txtForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this,ForgotPasswordActivity.class);
+                intent.putExtra("userType",loginType);
+                startActivity(intent);
             }
         });
 

@@ -78,6 +78,65 @@ public class ParentHome extends Fragment {
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter("student_selected"));
 
+        binding.cardStudentsLeave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new LeaveFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Leave");
+            }
+        });
+
+        binding.cardNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new TeacherNoticeFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Notice");
+            }
+        });
+
+        binding.cardAttendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new StudentsAttendanceFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Attendance");
+            }
+        });
+
+ binding.cardComplaints.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new ComplaintFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Complaints");
+            }
+        });
+
+ binding.cardFeeReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new FeeFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Fee Report");
+            }
+        });
+
+
+        binding.cardTimeTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new TimeTableFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Time Table");
+            }
+        });
+
+        binding.cardSyllabus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new SyllabusFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Syllabus");
+            }
+        });
+
+
+
 
 
 
@@ -145,8 +204,13 @@ public class ParentHome extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-            binding.llMain.setVisibility(View.VISIBLE);
-            binding.llSelectStudent.setVisibility(View.GONE);
+//            binding.llMain.setVisibility(View.VISIBLE);
+//            binding.llSelectStudent.setVisibility(View.GONE);
+            Fragment fragment=new StudentDetailsFragment();
+            Bundle bundle=new Bundle();
+            bundle.putString("studentId",intent.getStringExtra("pk_studentId"));
+            fragment.setArguments(bundle);
+            ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Student Details");
 
 
 
@@ -154,4 +218,10 @@ public class ParentHome extends Fragment {
             // on below line we are updating the data in our text view.
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((DashboardSchool)getActivity()).setTitle("Home1");
+    }
 }

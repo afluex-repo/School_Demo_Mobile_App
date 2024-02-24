@@ -1,5 +1,7 @@
 package affluex.school.solutions.Activity;
 
+import static androidx.core.app.PendingIntentCompat.getActivity;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -25,6 +27,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -41,12 +44,17 @@ import java.util.Locale;
 
 import affluex.school.solutions.Fragments.AssignmentFragment;
 import affluex.school.solutions.Fragments.AttendanceListFragment;
+import affluex.school.solutions.Fragments.ComplaintFragment;
+import affluex.school.solutions.Fragments.ForgotPasswordFragment;
 import affluex.school.solutions.Fragments.LeaveFragment;
 import affluex.school.solutions.Fragments.ParentHome;
+import affluex.school.solutions.Fragments.ParentsProfileFragment;
 import affluex.school.solutions.Fragments.SchoolHome;
+import affluex.school.solutions.Fragments.StudentsAttendanceFragment;
 import affluex.school.solutions.Fragments.TeacherHome;
 import affluex.school.solutions.Fragments.TeacherNoticeFragment;
 import affluex.school.solutions.Fragments.TeacherProfileFragment;
+import affluex.school.solutions.Fragments.TeacherSalaryFragment;
 import affluex.school.solutions.R;
 import affluex.school.solutions.databinding.ActivityDashboardSchoolBinding;
 import affluex.school.solutions.databinding.BottomLayoutBinding;
@@ -145,8 +153,9 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
         binding.bottomLayout.ll1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Fragment fragment;
                 if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
-                    Fragment fragment=new TeacherHome();
+                     fragment=new TeacherHome();
                     topToolbarBinding.tvTHometitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
                     String substring=getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").substring(2);
                     String link="http://demo2.afluex.com"+substring;
@@ -162,29 +171,62 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                     bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
                     bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
                     bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                }else{
+                     fragment=new ParentHome();
+                    switchFragmentOnDashBoard(fragment,"Home");
+                    topToolbarBinding.tvTHometitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
+                    topToolbarBinding.tvTHometitle.setTextColor(getColor(R.color.white));
+                    topToolbarBinding.tvClassTitle.setVisibility(View.GONE);
+                    topToolbarBinding.cardAdd.setVisibility(View.GONE);
+                    topToolbarBinding.txtMessage.setVisibility(View.GONE);
+                    topToolbarBinding.txtWelcome.setText("Welcome Parent");
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
                 }
             }
         });
         binding.bottomLayout.ll2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment=new AttendanceListFragment();
-                switchFragmentOnDashBoard(fragment,"Attendance");
-                bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-                bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
-                bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-                bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                Fragment fragment;
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")) {
+                    fragment = new AttendanceListFragment();
+                    switchFragmentOnDashBoard(fragment, "Attendance");
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                }else{
+                    fragment = new StudentsAttendanceFragment();
+                    switchFragmentOnDashBoard(fragment, "Attendance");
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                }
             }
         });
         binding.bottomLayout.ll3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment=new TeacherNoticeFragment();
-                switchFragmentOnDashBoard(fragment,"Notice");
-                bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-                bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-                bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
-                bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                Fragment fragment;
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")) {
+                    fragment = new TeacherNoticeFragment();
+                    switchFragmentOnDashBoard(fragment, "Notice");
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                }else{
+                    fragment = new TeacherNoticeFragment();
+                    switchFragmentOnDashBoard(fragment, "Complain");
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                }
             }
         });
 
@@ -206,6 +248,10 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
              String substring=getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").substring(2);
              String link="http://demo2.afluex.com"+substring;
              Log.e("Title123",link);
+            drawerBinding.txtSalary.setText("Salary");
+            drawerBinding.imgSalary.setImageResource(R.drawable.baseline_currency_rupee_24);
+
+
 
             Picasso.get().load(link).
                     resize(400,400).centerCrop()
@@ -227,6 +273,14 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
         }else{
             fragment=new ParentHome();
             switchFragmentOnDashBoard(fragment,"Home");
+            topToolbarBinding.tvTHometitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
+            topToolbarBinding.tvTHometitle.setTextColor(getColor(R.color.white));
+            topToolbarBinding.tvClassTitle.setVisibility(View.GONE);
+            topToolbarBinding.cardAdd.setVisibility(View.GONE);
+            topToolbarBinding.txtMessage.setVisibility(View.GONE);
+            topToolbarBinding.txtWelcome.setText("Welcome Parent");
+            drawerBinding.txtSalary.setText("Complain");
+            drawerBinding.imgSalary.setImageResource(R.drawable.report);
         }
 
         topToolbarBinding.toolbar.setTitleTextColor(getResources().getColor(R.color.white));
@@ -236,6 +290,23 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
 
         drawerToggle.setDrawerIndicatorEnabled(false);
         binding.navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        drawerBinding.liChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Fragment fragment1=new ForgotPasswordFragment();
+                Bundle args=new Bundle();
+                args.putString("activity","change");
+                args.putString("userType",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType",""));
+                fragment1.setArguments(args);
+                switchFragmentOnDashBoard(fragment1,"Change Password");
+                binding.drawerLayout.closeDrawer(GravityCompat.START);
+
+            }
+        });
 
 
         drawerBinding.liLogout.setOnClickListener(new View.OnClickListener() {
@@ -248,25 +319,40 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                         .setMessage("Once you log out you need to log in again.")
                         .setCancelable(true)
                         .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences sharedPreferences=getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor= sharedPreferences.edit();
-                                editor.clear();
-                                editor.commit();
-                                startActivity(new Intent(DashboardSchool.this,LoginActivity.class));
-                                finish();
-                                binding.drawerLayout.closeDrawer(GravityCompat.START);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                binding.drawerLayout.closeDrawer(GravityCompat.START);
-                            }
-                        });
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences sharedPreferences=getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor= sharedPreferences.edit();
+                    editor.clear();
+                    editor.commit();
+                    startActivity(new Intent(DashboardSchool.this,LoginActivity.class));
+                    finish();
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                }
+            })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                }
+            });
                 builder.show();
+
+        }
+        });
+
+        drawerBinding.liTermsCondition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
+                    switchFragmentOnDashBoard(new TeacherSalaryFragment(),"Salary Report");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+
+                }else{
+                    switchFragmentOnDashBoard(new ComplaintFragment(),"Complaints");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                }
 
             }
         });
@@ -278,7 +364,8 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
 
                 }else{
-
+                    switchFragmentOnDashBoard(new ParentHome(),"Home");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
                 }
 
             }
@@ -291,6 +378,9 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                 switchFragmentOnDashBoard(new AttendanceListFragment(),"Attendance");
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
 
+                }else{
+                    switchFragmentOnDashBoard(new StudentsAttendanceFragment(),"Attendance");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
                 }
             }
         });
@@ -304,7 +394,8 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                     switchFragmentOnDashBoard(new AssignmentFragment(),"Homework");
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
                 }else{
-
+                    switchFragmentOnDashBoard(new AssignmentFragment(),"Homework");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
                 }
             }
         });
@@ -318,7 +409,8 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                     switchFragmentOnDashBoard(new LeaveFragment(),"Leave");
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
                 }else{
-
+                    switchFragmentOnDashBoard(new LeaveFragment(),"Leave");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
                 }
             }
         });
@@ -336,16 +428,12 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                     switchFragmentOnDashBoard(new TeacherNoticeFragment(),"Notice");
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
                 }else{
-
+                    switchFragmentOnDashBoard(new TeacherNoticeFragment(),"Notice");
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
                 }
             }
         });
-        drawerBinding.liTermsCondition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Terms and conditions
-            }
-        });
+
 
 
 
@@ -365,7 +453,7 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                 if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")){
                     startActivity(new Intent(DashboardSchool.this,ProfileActivity.class));
                 }else{
-
+                    switchFragmentOnDashBoard(new ParentsProfileFragment(),"Profile");
                 }
             }
         });
@@ -423,13 +511,68 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
             bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
             bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
             bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
-        }else if(name.equals("AttendanceAttendance")){
+        }else if(name.equals("Attendance")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
             bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
             bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("View Salary Slip")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }
+        else if(name.equals("Salary Report")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("Change Password")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("Leave")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("Complaints")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("Fee Report")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
             bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
             bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
         }
@@ -468,16 +611,45 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
             bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
             bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
             bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
-        }else if(name.equals("AttendanceAttendance")){
+        }else if(name.equals("Complaints")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
             bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
             bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
             bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("Fee Report")){
+            topToolbarBinding.llDetails.setVisibility(View.GONE);
+            topToolbarBinding.llName.setVisibility(View.GONE);
+            topToolbarBinding.txtPageName.setText(name);
+            topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        }else if(name.equals("Home1")){
+            topToolbarBinding.llDetails.setVisibility(View.VISIBLE);
+            topToolbarBinding.llName.setVisibility(View.VISIBLE);
+            topToolbarBinding.txtPageName.setVisibility(View.GONE);
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            topToolbarBinding.tvTHometitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
+            topToolbarBinding.tvTHometitle.setTextColor(getColor(R.color.white));
+            topToolbarBinding.tvClassTitle.setVisibility(View.GONE);
+            topToolbarBinding.cardAdd.setVisibility(View.GONE);
+            topToolbarBinding.txtMessage.setVisibility(View.GONE);
+            topToolbarBinding.txtWelcome.setText("Welcome Parent");
         }
+    }
+
+    public void setToolbar(String message1,String message2){
+        topToolbarBinding.txtWelcome.setText(message1);
+        topToolbarBinding.txtMessage.setText(message2);
+
     }
 
     public void checkDrawerOpen() {
@@ -657,4 +829,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
+
+
 }

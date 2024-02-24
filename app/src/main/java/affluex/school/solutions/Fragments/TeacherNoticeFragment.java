@@ -1,54 +1,46 @@
 package affluex.school.solutions.Fragments;
 
-import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import affluex.school.solutions.Adapter.AdapterNotice;
+import affluex.school.solutions.Adapter.AdapterNoticeParent;
+import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ModelClass;
 import affluex.school.solutions.Model.ModelSection;
-import affluex.school.solutions.Model.ModelTeachers;
 import affluex.school.solutions.Model.NoticeDetails;
 import affluex.school.solutions.Model.ResponseClass;
+import affluex.school.solutions.Model.ResponseParentNotice;
 import affluex.school.solutions.Model.ResponseSection;
+import affluex.school.solutions.Model.ResponseStudentAttendance;
 import affluex.school.solutions.Model.lstNoticeList;
 import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.common.LoggerUtil;
-import affluex.school.solutions.databinding.FragmentTeacherHomeBinding;
 import affluex.school.solutions.databinding.FragmentTeacherNoticeBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,17 +74,28 @@ public class TeacherNoticeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding= FragmentTeacherNoticeBinding.inflate(inflater,container,false);
-        getNoticeList();
-        getClassList();
+
         binding.llView.setVisibility(View.VISIBLE);
         binding.llAdd.setVisibility(View.GONE);
         SharedPreferences sharedPreferences=getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         if(sharedPreferences.getString("userType","").equals("Parent")){
             binding.cardAdd.setVisibility(View.GONE);
+            binding.btnSubmit.setVisibility(View.GONE);
+
+            getNoticeParent();
 
         }else{
             binding.cardAdd.setVisibility(View.VISIBLE);
+            getNoticeList();
+            getClassList();
         }
+
+
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
+                new IntentFilter("notice"));
+
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver1,
+                new IntentFilter("notice_edit"));
 
         binding.icAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +180,38 @@ public class TeacherNoticeFragment extends Fragment {
 
 
         return binding.getRoot();
+    }
+
+    private void getNoticeParent() {
+        ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
+        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        String pkParentId=sharedPreferences.getString("Pk_ParentID","");
+        String fkClassId=sharedPreferences.getString("fkClassId","");
+        String fkSectionId=sharedPreferences.getString("fkSectionId","");
+        if(!TextUtils.isEmpty(pkParentId)) {
+            JsonObject object = new JsonObject();
+            object.addProperty("Fk_ParentId", Integer.parseInt(pkParentId));
+            LoggerUtil.logItem(object);
+            Call<ResponseParentNotice> call = apiServices.GetNoticeForParent(object);
+            call.enqueue(new Callback<ResponseParentNotice>() {
+                @Override
+                public void onResponse(Call<ResponseParentNotice> call, Response<ResponseParentNotice> response) {
+
+
+                    if(response.body().getNoticeParentArrayList()!=null){
+                        if(response.body().getNoticeParentArrayList().size()>0){
+                            AdapterNoticeParent adapterNoticeParent=new AdapterNoticeParent(getActivity(),response.body().getNoticeParentArrayList());
+                            binding.rvNotice.setAdapter(adapterNoticeParent);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseParentNotice> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     private void showAddNoticeDialog() {
@@ -378,6 +413,101 @@ public class TeacherNoticeFragment extends Fragment {
 
             return row;
         }
+    }
+
+    public BroadcastReceiver mMessageReceiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+          String noticeId=intent.getStringExtra("notice_id");
+          callDeleteNotice(noticeId);
+
+
+
+        }
+    };
+    public BroadcastReceiver mMessageReceiver1=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String noticeId=intent.getStringExtra("notice_id");
+            String classId=intent.getStringExtra("class_id");
+            String sectionId=intent.getStringExtra("section_id");
+            String noticeName=intent.getStringExtra("notice_name");
+            callEditNotice(noticeId,classId,sectionId,noticeName);
+
+
+
+        }
+    };
+
+    private void callEditNotice(String noticeId, String classId, String sectionId, String noticeName) {
+
+        ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
+        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        String pkteacherId=sharedPreferences.getString("pkTeacherId","");
+        String fkClassId=sharedPreferences.getString("fkClassId","");
+        String fkSectionId=sharedPreferences.getString("fkSectionId","");
+        if(!TextUtils.isEmpty(pkteacherId)) {
+            JsonObject object = new JsonObject();
+            object.addProperty("UpdatedBy", Integer.parseInt(pkteacherId));
+            object.addProperty("PK_NoticeId", noticeId);
+            object.addProperty("Fk_ClassID", classId);
+            object.addProperty("Fk_SectionID", sectionId);
+            object.addProperty("NoticeName", noticeName);
+            LoggerUtil.logItem(object);
+
+
+            Log.e("NoticeArgms","1"+noticeId);
+            Log.e("NoticeArgms","2"+classId);
+            Log.e("NoticeArgms","3"+sectionId);
+            Log.e("NoticeArgms","4"+noticeName);
+
+            Call<CommonResponse> call = apiServices.UpdateNotice(object);
+            call.enqueue(new Callback<CommonResponse>() {
+                @Override
+                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(getActivity(), "Notice Updation successful", Toast.LENGTH_SHORT).show();
+                        getNoticeList();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
+    private void callDeleteNotice(String noticeId) {
+        ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
+        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+        String pkteacherId=sharedPreferences.getString("pkTeacherId","");
+        String fkClassId=sharedPreferences.getString("fkClassId","");
+        String fkSectionId=sharedPreferences.getString("fkSectionId","");
+        if(!TextUtils.isEmpty(pkteacherId)) {
+            JsonObject object = new JsonObject();
+            object.addProperty("DeletedBy", Integer.parseInt(pkteacherId));
+            object.addProperty("PK_NoticeId", noticeId);
+
+            LoggerUtil.logItem(object);
+            Call<CommonResponse> call = apiServices.DeleteNotice(object);
+            call.enqueue(new Callback<CommonResponse>() {
+                @Override
+                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(getActivity(), "Notice Deletion Successful", Toast.LENGTH_SHORT).show();
+                        getNoticeList();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CommonResponse> call, Throwable t) {
+
+                }
+            });
+        }
+
     }
 
     private void initRecyclerView() {

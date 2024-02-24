@@ -27,7 +27,26 @@
                 android:id="@+id/txt_title"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:maxLines="1"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Test of Maths"/>
+
+            <ImageView
+                android:id="@+id/ic_edit"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_remove_red_eye_24"
+                android:textColor="@color/black"
+                android:text="Test of Maths"/>
+            <ImageView
+                android:id="@+id/ic_delete"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:src="@drawable/baseline_delete_24"
                 android:textColor="@color/black"
                 android:text="Test of Maths"/>
 

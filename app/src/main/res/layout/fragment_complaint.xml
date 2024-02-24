@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.ComplaintFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="vertical"
+           android:layout_height="wrap_content">
+           <EditText
+               android:id="@+id/et_complain"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:hint="Type your complain"
+               android:background="@drawable/shape_rectangle_background"
+               android:padding="8dp"
+               android:drawableStart="@drawable/baseline_message_24"
+               android:drawablePadding="8dp"/>
+           <Button
+               android:id="@+id/btn_submit"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Submit"
+               android:gravity="center"
+               android:layout_gravity="center"
+               android:layout_marginTop="16dp"
+               android:textColor="@color/white"
+               android:background="@drawable/shape_button_red_background"/>
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_marginTop="16dp">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="#ff9729"
+               android:text="Previous Complaints"
+               android:textColor="@color/white"
+               android:layout_gravity="center"
+               android:gravity="center"
+               android:padding="8dp"
+               android:textSize="18sp"/>
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/rv_Complain"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="16dp"
+               tools:listitem="@layout/layout_complain_single_row"
+               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+       </LinearLayout>
+   </LinearLayout>
+</FrameLayout>

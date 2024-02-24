@@ -22,9 +22,15 @@ public class ModelAssignment {
 @SerializedName("SectionName")
     @Expose
     String SectionName;
+@SerializedName("SubjectName")
+    @Expose
+    String SubjectName;
 @SerializedName("HomeworkFile")
     @Expose
     String HomeworkFile;
+@SerializedName("StudentPhoto")
+    @Expose
+    String StudentPhoto;
 
     public String getSubjectId() {
         return subjectId;
@@ -80,5 +86,21 @@ public class ModelAssignment {
 
     public void setHomeworkFile(String homeworkFile) {
         HomeworkFile = homeworkFile;
+    }
+
+    public String getSubjectName() {
+        return SubjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        SubjectName = subjectName;
+    }
+
+    public String getStudentPhoto() {
+        return StudentPhoto;
+    }
+
+    public void setStudentPhoto(String studentPhoto) {
+        StudentPhoto = studentPhoto;
     }
 }

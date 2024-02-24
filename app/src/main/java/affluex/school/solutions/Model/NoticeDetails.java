@@ -15,6 +15,24 @@ public class NoticeDetails {
     @SerializedName("PK_NoticeId")
     @Expose
     String PK_NoticeId;
+     @SerializedName("SectionName")
+    @Expose
+    String SectionName;
+     @SerializedName("FK_SectionId")
+    @Expose
+    String FK_SectionId;
+
+    @SerializedName("ClassName")
+    @Expose
+    String ClassName;
+
+    @SerializedName("FK_ClassId")
+    @Expose
+    String FK_ClassId;
+
+
+
+
 
     public String getNoticeDate() {
         return NoticeDate;
@@ -38,5 +56,37 @@ public class NoticeDetails {
 
     public void setPK_NoticeId(String PK_NoticeId) {
         this.PK_NoticeId = PK_NoticeId;
+    }
+
+    public String getSectionName() {
+        return SectionName;
+    }
+
+    public void setSectionName(String sectionName) {
+        SectionName = sectionName;
+    }
+
+    public String getFK_SectionId() {
+        return FK_SectionId;
+    }
+
+    public void setFK_SectionId(String FK_SectionId) {
+        this.FK_SectionId = FK_SectionId;
+    }
+
+    public String getClassName() {
+        return ClassName;
+    }
+
+    public void setClassName(String className) {
+        ClassName = className;
+    }
+
+    public String getFK_ClassId() {
+        return FK_ClassId;
+    }
+
+    public void setFK_ClassId(String FK_ClassId) {
+        this.FK_ClassId = FK_ClassId;
     }
 }

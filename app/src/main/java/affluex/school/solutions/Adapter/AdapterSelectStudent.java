@@ -54,6 +54,7 @@ public class AdapterSelectStudent extends RecyclerView.Adapter<AdapterSelectStud
                 editor.commit();
                 // on below line we are passing data to our broad cast receiver with key and value pair.
                 intent.putExtra("position",holder.getAdapterPosition());
+                intent.putExtra("pk_studentId",studentDetails1.getPkStudentId());
                 // on below line we are sending our broad cast with intent using broad cast manager.
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }

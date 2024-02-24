@@ -5,10 +5,14 @@ import static android.content.Context.MODE_PRIVATE;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
 import android.location.Address;
@@ -16,13 +20,18 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -46,21 +55,35 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 import affluex.school.solutions.Activity.DashboardSchool;
+import affluex.school.solutions.Activity.LoginActivity;
+import affluex.school.solutions.BuildConfig;
 import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ResponseLeave;
 import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
+import affluex.school.solutions.Retrofit.RealPathUtil;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.common.LoggerUtil;
 import affluex.school.solutions.common.Utils;
 import affluex.school.solutions.databinding.FragmentTeacherHomeBinding;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,7 +109,13 @@ public class TeacherHome extends Fragment {
     private LocationManager locationManager;
     FusedLocationProviderClient fusedLocationProviderClient;
     Bitmap bp=null;
+    String fileName = "";
     String attendance="";
+
+    File file;
+    Uri fileUri;
+
+    ProgressDialog progressDialog;
 
 
     public TeacherHome() {
@@ -108,6 +137,9 @@ public class TeacherHome extends Fragment {
         binding=FragmentTeacherHomeBinding.inflate(inflater,container,false);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("TeacherLogin", MODE_PRIVATE);
         editor=sharedPreferences.edit();
+        progressDialog=new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
             lastActivity=sharedPreferences.getString("lastActivity","");
             lastActivityDate=sharedPreferences.getString("lastActivityDate","");
@@ -116,12 +148,22 @@ public class TeacherHome extends Fragment {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             currentDate = new android.icu.text.SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(new Date());
         }
+
+        int adb = Settings.Secure.getInt(getActivity().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED , 0);
+
+        int timesettings=android.provider.Settings.Global.getInt(getActivity().getContentResolver(), android.provider.Settings.Global.AUTO_TIME, 0);
+
+        Log.e("DeveloperOptions",String.valueOf(adb));
+        Log.e("DeveloperOptions",String.valueOf(timesettings));
         locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         Log.e("lastActivity",lastActivity);
         Log.e("lastActivity",lastActivityDate);
             if(lastActivity.equals("")||lastActivityDate.equals("")||!lastActivityDate.equals(currentDate)||lastActivity.equals("out")){
                 binding.btnPunchIn.setVisibility(View.VISIBLE);
                 binding.btnPunchout.setVisibility(View.GONE);
+
+                ((DashboardSchool)getActivity()).setToolbar("Welcome Teacher","Punch In to Start Your Day");
 
                 binding.llPunch.setVisibility(View.VISIBLE);
                 binding.llMain.setVisibility(View.GONE);
@@ -130,6 +172,7 @@ public class TeacherHome extends Fragment {
                 binding.btnPunchIn.setVisibility(View.GONE);
                 binding.llPunch.setVisibility(View.GONE);
                 binding.llMain.setVisibility(View.VISIBLE);
+                ((DashboardSchool)getActivity()).setToolbar("You are punched in","Have a nice day");
             }
 
             binding.btnCamera.setOnClickListener(new View.OnClickListener() {
@@ -142,11 +185,67 @@ public class TeacherHome extends Fragment {
         binding.btnPunchout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attendance="Out";
-                detectLocation();
+                int adb = Settings.Secure.getInt(getActivity().getContentResolver(),
+                        Settings.Global.DEVELOPMENT_SETTINGS_ENABLED , 0);
+
+//                    if(adb==1){
+//                        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+//                        builder.setCancelable(false);
+//                        builder.setTitle("Developer Options Enabled")
+//                                .setMessage("You need to disable Developer Options to Continue")
+//                                .setCancelable(true)
+//                                .setPositiveButton("Developer Options Setting", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+//                                    }
+//                                })
+//                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        dialog.dismiss();
+//                                    }
+//                                });
+//                        builder.show();
+//                    }else
+
+                if(timesettings==0){
+                    androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+                    builder.setCancelable(false);
+                    builder.setTitle("Phone time and date not match")
+                            .setMessage("You need to enable Automatic Time and Date to Continue")
+                            .setCancelable(true)
+                            .setPositiveButton("Setting", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(Settings.ACTION_DATE_SETTINGS));
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.show();
+                }else{
+                    attendance="Out";
+                    detectLocation();
+                }
+
 
             }
         });
+
+        binding.cardSalary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment=new TeacherSalaryFragment();
+                ((DashboardSchool)getActivity()).switchFragmentOnDashBoard(fragment,"Salary Report");
+            }
+        });
+
+
         binding.cardNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,10 +293,161 @@ public class TeacherHome extends Fragment {
                 if(bp==null){
                     Toast.makeText(getActivity(), "Upload Selfie to Punch in", Toast.LENGTH_SHORT).show();
                 }else{
-                    attendance="In";
-                    detectLocation();
+
+                    if (Build.VERSION.SDK_INT >= 30){
+                        if (!Environment.isExternalStorageManager()){
+                            Intent getpermission = new Intent();
+                            getpermission.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                            startActivity(getpermission);
+                        }
+                        else{
+
+                            String path = Environment.getExternalStorageDirectory().toString();
+                            OutputStream fOut = null;
+                            Integer counter = 0;
+                            file = new File(path, "Pictures/"+System.currentTimeMillis()+".jpg"); // the File to save , append increasing numeric counter to prevent files from getting overwritten.
+
+                            if(!file.exists()){
+                                if (!file.getParentFile().mkdirs()) {
+                                    Log.e("Monitoring", "Oops! Failed create Monitoring directory");
+                                    file.getParentFile().mkdir();
+                                    try {
+                                        file.createNewFile();
+                                    } catch (IOException e) {
+                                        Log.e("KPMKOFNFKLN",e.getMessage());
+                                        throw new RuntimeException(e);
+                                    }
+
+                                }
+                            }
+                            try {
+                                fOut = new FileOutputStream(file);
+                                Bitmap pictureBitmap = bp; // obtaining the Bitmap
+                                pictureBitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut); // saving the Bitmap to a file compressed as a JPEG with 85% compression rate
+                                fOut.flush(); // Not really required
+                                fOut.close();
+
+                                MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),file.getAbsolutePath(),file.getName(),file.getName());
+                                fileName=file.getAbsolutePath();
+
+                                Log.e("imahejbdjkb",""+fileName);
+                            } catch (FileNotFoundException e) {
+                                Log.e("KPMKOFNFKLN",e.getMessage());
+                                throw new RuntimeException(e);
+
+                            } catch (IOException e) {
+                                Log.e("KPMKOFNFKLN",e.getMessage());
+                                throw new RuntimeException(e);
+                            }
+
+                            // do not forget to close the stream
+
+
+                            int adb = Settings.Secure.getInt(getActivity().getContentResolver(),
+                                    Settings.Global.DEVELOPMENT_SETTINGS_ENABLED , 0);
+                            int timesettings=android.provider.Settings.Global.getInt(getActivity().getContentResolver(), android.provider.Settings.Global.AUTO_TIME, 0);
+                            if(timesettings==0){
+                                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+                                builder.setCancelable(false);
+                                builder.setTitle("Phone time and date not match")
+                                        .setMessage("You need to enable Automatic Time and Date to Continue")
+                                        .setCancelable(true)
+                                        .setPositiveButton("Setting", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                startActivity(new Intent(Settings.ACTION_DATE_SETTINGS));
+                                            }
+                                        })
+                                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                builder.show();
+                            }
+                            else{
+                                attendance="In";
+
+                                progressDialog.setMessage("Logging You In");
+                                progressDialog.show();
+
+                                detectLocation();
+                            }
+                        }
+                    }
+
+
+//                    String path = Environment.getExternalStorageDirectory().toString();
+//                    OutputStream fOut = null;
+//                    Integer counter = 0;
+//                    file = new File(path, "Pictures"+System.currentTimeMillis()+".jpg"); // the File to save , append increasing numeric counter to prevent files from getting overwritten.
+//
+//                    if(!file.exists()){
+//                        if (!file.mkdirs()) {
+//                            Log.e("Monitoring", "Oops! Failed create Monitoring directory");
+//                            file.getParentFile().mkdir();
+//                            try {
+//                                file.createNewFile();
+//                            } catch (IOException e) {
+//                                Log.e("KPMKOFNFKLN",e.getMessage());
+//                                throw new RuntimeException(e);
+//                            }
+//
+//                        }
+//                    }  Log.e("FileNAMEJNJL",fileName);
+
+
+
+//                    try {
+//                        fOut = new FileOutputStream(file);
+//                        Bitmap pictureBitmap = bp; // obtaining the Bitmap
+//                        pictureBitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut); // saving the Bitmap to a file compressed as a JPEG with 85% compression rate
+//                        fOut.flush(); // Not really required
+//                        fOut.close();
+//
+//                        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),file.getAbsolutePath(),file.getName(),file.getName());
+//                        fileName=file.getAbsolutePath();
+//
+//                        Log.e("imahejbdjkb",""+fileName);
+//                    } catch (FileNotFoundException e) {
+//                        throw new RuntimeException(e);
+//                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//
+//                    // do not forget to close the stream
+//
+//
+//                    int adb = Settings.Secure.getInt(getActivity().getContentResolver(),
+//                            Settings.Global.DEVELOPMENT_SETTINGS_ENABLED , 0);
+//                    int timesettings=android.provider.Settings.Global.getInt(getActivity().getContentResolver(), android.provider.Settings.Global.AUTO_TIME, 0);
+//                    if(adb==1){
+//                        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+//                        builder.setCancelable(false);
+//                        builder.setTitle("Developer Options Enabled")
+//                                .setMessage("You need to disable Developer Options to Continue")
+//                                .setCancelable(true)
+//                                .setPositiveButton("Developer Options Setting", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+//                                    }
+//                                })
+//                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        dialog.dismiss();
+//                                    }
+//                                });
+//                        builder.show();
+//                    }else
+
+
+
 
                 }
+
 
             }
         });
@@ -340,49 +590,70 @@ public class TeacherHome extends Fragment {
             Log.e("TeacherId","4:: "+latitude);
             Log.e("TeacherId","5:: "+longitude);
             LoggerUtil.logItem(object);
-            Call<CommonResponse> call = apiServices.SaveAttendance(object);
+
             String finalCurrentTime = currentTime;
+
+
+
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("text/plain");
+            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("AddedBy", String.valueOf(Integer.parseInt(pkteacherId)))
+                    .addFormDataPart("EmployeeID",String.valueOf(Integer.parseInt(pkteacherId)))
+                    .addFormDataPart("LatiTude",""+latitude)
+                    .addFormDataPart("LongiTude", String.valueOf(longitude))
+                    .addFormDataPart("TeacherPhoto",fileName,
+                            RequestBody.create(MediaType.parse("application/octet-stream"),
+                                    new File(fileName)))
+                    .build();
+
+            Call<CommonResponse> call = apiServices.SaveAttendance(body);
+//            Request request = new Request.Builder()
+//                    .url("http://demo2.afluex.com/MasterForApi/SaveHomework")
+//                    .method("POST", body)
+//                    .build();
             call.enqueue(new Callback<CommonResponse>() {
                 @Override
                 public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
-                    if(response.isSuccessful()){
+                    Log.e("Respomkng",""+response.body().getMessage());
+                    if(response.body() != null){
+                        progressDialog.dismiss();
 
-                        if(response.body().getMessage().equals("   Punching Successfully !")){
+                        final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                        View mView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_punch_successful, null);
+                        alert.setView(mView);
+                        TextView txt_message=mView.findViewById(R.id.txt_message);
+                        TextView txt_date=mView.findViewById(R.id.txt_date);
+                        TextView txt_time=mView.findViewById(R.id.txt_time);
+                        TextView txt_latitude=mView.findViewById(R.id.txt_latitude);
+                        TextView txt_longitude=mView.findViewById(R.id.txt_longitude);
+                        TextView txt_address=mView.findViewById(R.id.txt_address);
+                        Button btn_start=mView.findViewById(R.id.btn_start);
+                        txt_time.setText(response.body().getPunchInTime());
 
-                            final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(getActivity());
-                            View mView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_punch_successful, null);
-                            alert.setView(mView);
-                            TextView txt_message=mView.findViewById(R.id.txt_message);
-                            TextView txt_date=mView.findViewById(R.id.txt_date);
-                            TextView txt_time=mView.findViewById(R.id.txt_time);
-                            TextView txt_latitude=mView.findViewById(R.id.txt_latitude);
-                            TextView txt_longitude=mView.findViewById(R.id.txt_longitude);
-                            TextView txt_address=mView.findViewById(R.id.txt_address);
-                            Button btn_start=mView.findViewById(R.id.btn_start);
-                            txt_time.setText(response.body().getPunchInTime());
+                        editor.putString("lastActivity","in");
+                        editor.putString("lastActivityDate",currentDate);
+                        editor.apply();
+                        editor.commit();
 
-                            editor.putString("lastActivity","in");
-                            editor.putString("lastActivityDate",currentDate);
-                            editor.apply();
-                            editor.commit();
-
-                            txt_date.setText(response.body().getPunchInDate());
-                            txt_latitude.setText(""+latitude);
-                            txt_longitude.setText(""+longitude);
-                            txt_message.setText("Your Punch In Successful!! Have a wonderful day!!");
-                            try {
-                                Geocoder geocoder = new Geocoder(getActivity(), Locale.ENGLISH);
-                                List<Address> addresses = geocoder.getFromLocation(
-                                        latitude, longitude, 1
+                        txt_date.setText(response.body().getPunchInDate());
+                        txt_latitude.setText(""+latitude);
+                        txt_longitude.setText(""+longitude);
+                        txt_message.setText("Your Punch In Successful!! Have a wonderful day!!");
+                        try {
+                            Geocoder geocoder = new Geocoder(getActivity(), Locale.ENGLISH);
+                            List<Address> addresses = geocoder.getFromLocation(
+                                    latitude, longitude, 1
 
 
-                                );
-                                txt_address.setText(addresses.get(0).getAddressLine(0));
+                            );
+                            txt_address.setText(addresses.get(0).getAddressLine(0));
 
 
 //                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
-                                Log.e("AVGHCGHJGFHC",""+latitude);
-                                Log.e("AVGHCGHJGFHC",""+longitude);
+                            Log.e("AVGHCGHJGFHC",""+latitude);
+                            Log.e("AVGHCGHJGFHC",""+longitude);
 
 
 
@@ -390,43 +661,128 @@ public class TeacherHome extends Fragment {
 
 
 
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                txt_address.setText("-");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            txt_address.setText("-");
 
-                            }
-
-                            final android.app.AlertDialog alertDialog = alert.create();
-                            alertDialog.show();
-
-
-
-                            btn_start.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                    binding.llMain.setVisibility(View.VISIBLE);
-                                    binding.llPunch.setVisibility(View.GONE);
-                                    binding.btnPunchout.setVisibility(View.VISIBLE);
-                                    alertDialog.dismiss();
-                                }
-                            });
-
-                        }else{
-                            Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
+                        final AlertDialog alertDialog = alert.create();
+                        alertDialog.show();
 
-                        Log.e("TeacherId","5:: "+response.body());
+
+
+                        btn_start.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                binding.llMain.setVisibility(View.VISIBLE);
+                                binding.llPunch.setVisibility(View.GONE);
+                                binding.btnPunchout.setVisibility(View.VISIBLE);
+
+                                ((DashboardSchool)getActivity()).setToolbar("You are punched in","Have a nice day");
+                                alertDialog.dismiss();
+                            }
+                        });
 
                     }
                 }
 
                 @Override
                 public void onFailure(Call<CommonResponse> call, Throwable t) {
-
+                    Log.e("jhkbhujvjhv",t.getMessage());
                 }
             });
+
+
+//            call.enqueue(new Callback<CommonResponse>() {
+//                @Override
+//                public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+//                    if(response.isSuccessful()){
+//
+//                        if(response.body().getMessage().equals("   Punching Successfully !")){
+//                            progressDialog.dismiss();
+//
+//                            final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(getActivity());
+//                            View mView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_punch_successful, null);
+//                            alert.setView(mView);
+//                            TextView txt_message=mView.findViewById(R.id.txt_message);
+//                            TextView txt_date=mView.findViewById(R.id.txt_date);
+//                            TextView txt_time=mView.findViewById(R.id.txt_time);
+//                            TextView txt_latitude=mView.findViewById(R.id.txt_latitude);
+//                            TextView txt_longitude=mView.findViewById(R.id.txt_longitude);
+//                            TextView txt_address=mView.findViewById(R.id.txt_address);
+//                            Button btn_start=mView.findViewById(R.id.btn_start);
+//                            txt_time.setText(response.body().getPunchInTime());
+//
+//                            editor.putString("lastActivity","in");
+//                            editor.putString("lastActivityDate",currentDate);
+//                            editor.apply();
+//                            editor.commit();
+//
+//                            txt_date.setText(response.body().getPunchInDate());
+//                            txt_latitude.setText(""+latitude);
+//                            txt_longitude.setText(""+longitude);
+//                            txt_message.setText("Your Punch In Successful!! Have a wonderful day!!");
+//                            try {
+//                                Geocoder geocoder = new Geocoder(getActivity(), Locale.ENGLISH);
+//                                List<Address> addresses = geocoder.getFromLocation(
+//                                        latitude, longitude, 1
+//
+//
+//                                );
+//                                txt_address.setText(addresses.get(0).getAddressLine(0));
+//
+//
+////                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
+//                                Log.e("AVGHCGHJGFHC",""+latitude);
+//                                Log.e("AVGHCGHJGFHC",""+longitude);
+//
+//
+//
+//
+//
+//
+//
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                                txt_address.setText("-");
+//
+//                            }
+//
+//                            final android.app.AlertDialog alertDialog = alert.create();
+//                            alertDialog.show();
+//
+//
+//
+//                            btn_start.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//
+//                                    binding.llMain.setVisibility(View.VISIBLE);
+//                                    binding.llPunch.setVisibility(View.GONE);
+//                                    binding.btnPunchout.setVisibility(View.VISIBLE);
+//
+//                                    ((DashboardSchool)getActivity()).setToolbar("You are punched in","Have a nice day");
+//                                    alertDialog.dismiss();
+//                                }
+//                            });
+//
+//                        }else{
+//                            Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//
+//
+//                        Log.e("TeacherId","5:: "+response.body());
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<CommonResponse> call, Throwable t) {
+//
+//                }
+//            });
         }
     }
 
@@ -442,6 +798,8 @@ public class TeacherHome extends Fragment {
 //                        Log.e("Denied",""+report.getDeniedPermissionResponses().get(0).getPermissionName());
                         if (report.areAllPermissionsGranted()) {
                             Log.e("Camera123","Permission Granted");
+                            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                            StrictMode.setVmPolicy(builder.build());
                             launchCameraIntentForTax();
                         }
 
@@ -479,25 +837,60 @@ public class TeacherHome extends Fragment {
 //        ContentValues contentValues = new ContentValues();
 //        contentValues.put(MediaStore.Images.Media.TITLE, "Temp_Image title");
 //        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp_ Image Description");
-//        image_uri1 = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+//        fileUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+//        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//        intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+//        file = new File(getActivity().getExternalCacheDir(),
+//                String.valueOf(System.currentTimeMillis()) + ".jpg");
+//        fileUri = Uri.fromFile(file);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_IMAGE);
+
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("CAMERA123",""+resultCode);
-        Log.e("CAMERA123",""+(data==null));
+        Log.e("CAMERA123456",""+resultCode);
+        Log.e("CAMERA123456",""+(data==null));
 
         if (requestCode == REQUEST_IMAGE && resultCode == -1 && data != null) {
             Bundle extras = data.getExtras();
-            Log.e("CAMERA","NJNJ");
+
+
+
             bp = (Bitmap) data.getExtras().get("data");
             binding.imgAttendance.setImageBitmap(bp);
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bp.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+
+//            String[] projection = { MediaStore.Images.Media.DATA };
+//            Cursor cursor = getActivity().managedQuery(
+//                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                    projection, null, null, null);
+//            int column_index_data = cursor
+//                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            cursor.moveToFirst();
+//
+//
+//
+//            fileName = fileUri.getPath();
+
+
+
+            Log.e("CAMERA","NJNJ");
+
+
             binding.txtAttendance.setText("Change Picture");
+
+
+
 
 
 
@@ -510,11 +903,20 @@ public class TeacherHome extends Fragment {
 
     @SuppressLint("MissingPermission")
     private void detectLocation() {
+        int adb = Settings.Secure.getInt(getActivity().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED , 0);
+
+        int timesettings=android.provider.Settings.Global.getInt(getActivity().getContentResolver(), android.provider.Settings.Global.AUTO_TIME, 0);
+
+        Log.e("DeveloperOptions",String.valueOf(adb));
+        Log.e("DeveloperOptions",String.valueOf(timesettings));
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission();
+
+
             return;
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             {
@@ -540,24 +942,26 @@ public class TeacherHome extends Fragment {
                                     Log.e("AVGHCGHJGFHC",""+latitude);
                                     Log.e("AVGHCGHJGFHC",""+longitude);
                                     if(attendance.equals("In")){
-
-                                        Location.distanceBetween(Utils.officeLatitude,Utils.officeLongitude,latitude,longitude,results);
-                                        float distance=results[0];
-                                        if(distance>1000){
-                                            Toast.makeText(getActivity(), "You are "+distance+" m away from Office Location. Can't Punch In.", Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            saveAttendance();
-                                        }
+                                        saveAttendance();
+//                                        Location.distanceBetween(Utils.officeLatitude,Utils.officeLongitude,latitude,longitude,results);
+//                                        float distance=results[0];
+//                                        if(distance>1000){
+//                                            progressDialog.dismiss();
+//                                            Toast.makeText(getActivity(), "You are "+distance+" m away from Office Location. Can't Punch In.", Toast.LENGTH_SHORT).show();
+//                                        }else{
+//
+//                                        }
 
 
                                     }else{
-                                        Location.distanceBetween(Utils.officeLatitude,Utils.officeLongitude,latitude,longitude,results);
-                                        float distance=results[0];
-                                        if(distance>1000){
-                                            Toast.makeText(getActivity(), "You are "+distance+" m away from Office Location. Can't Punch Out.", Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            savePunchOutAttendance();
-                                        }
+                                        savePunchOutAttendance();
+//                                        Location.distanceBetween(Utils.officeLatitude,Utils.officeLongitude,latitude,longitude,results);
+//                                        float distance=results[0];
+//                                        if(distance>1000){
+//                                            Toast.makeText(getActivity(), "You are "+distance+" m away from Office Location. Can't Punch Out.", Toast.LENGTH_SHORT).show();
+//                                        }else{
+//
+//                                        }
 
                                     }
 
@@ -567,85 +971,7 @@ public class TeacherHome extends Fragment {
 
 
 
-//                                if(latitude>0 && longitude>0){
-//                                    fusedLocationProviderClient.removeLocationUpdates((LocationListener) locationManager);
-//                                }
-//                                    if (siteId > 0) {
-//
-//                                        String email = userId + "@yopmail.com";
-//                                        Log.e("email", "" + email);
-//                                        firebaseAuth.signInWithEmailAndPassword(email, userPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-//                                            @Override
-//                                            public void onSuccess(AuthResult authResult) {
-//                                                Log.e("GetSiteName", "SignIn");
-//
-////                                countDownTimer.cancel();
-//                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-//                                                ref.child(hruid).child("Industry").child("Construction").child("Site").child(String.valueOf(siteId)).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                                    @Override
-//                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                                        String currentDate = null;
-//                                                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-//                                                            currentDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(new Date());
-//                                                        }
-//                                                        if(snapshot.child("date").getValue(String.class)!=null){
-//                                                            if(snapshot.child("date").getValue(String.class).equals(currentDate)){
-//                                                                getBlockStatus(siteId);
-//                                                            }else{
-//                                                                HashMap<String,Object> hashMap=new HashMap();
-//                                                                hashMap.put("online",false);
-//                                                                hashMap.put("skilled",0);
-//                                                                hashMap.put("unskilled",0);
-//                                                                hashMap.put("SkilledTime","");
-//                                                                hashMap.put("UnskilledTime","");
-//                                                                hashMap.put("memberOnline",0);
-//                                                                hashMap.put("picActivity",false);
-//                                                                hashMap.put("picId","");
-//                                                                hashMap.put("picTime","");
-//                                                                hashMap.put("picDate","");
-//                                                                hashMap.put("picLink","");
-//                                                                hashMap.put("picRemark","");
-//                                                                hashMap.put("picLatitude", 0);
-//                                                                hashMap.put("picLongitude", 0);
-//                                                                hashMap.put("memberOnline",0);
-//                                                                ref.child(String.valueOf(siteId)).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                                            @Override
-//                                                                            public void onSuccess(Void unused) {
-//                                                                                getBlockStatus(siteId);
-//                                                                            }
-//                                                                        })
-//                                                                        .addOnFailureListener(new OnFailureListener() {
-//                                                                            @Override
-//                                                                            public void onFailure(@NonNull Exception e) {
-//
-//                                                                            }
-//                                                                        });
-//                                                            }
-//
-//                                                        }else{
-//                                                            getBlockStatus(siteId);
-//                                                        }
-//
-//                                                    }
-//
-//                                                    @Override
-//                                                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                                    }
-//                                                });
-////                                            getBlockStatus(siteId);
-//
-//                                            }
-//                                        }).addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Log.e("ProgressDialog", "5");
-//                                                progressDialog.dismiss();
-//                                                Toast.makeText(LoginPic.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        });
-//
-//                                    }
+
 
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -667,6 +993,7 @@ public class TeacherHome extends Fragment {
                 });
             }
         } else {
+
 
             Toast.makeText(getActivity(), "Your Location is Turned Off.", Toast.LENGTH_SHORT).show();
             detectLocation();
