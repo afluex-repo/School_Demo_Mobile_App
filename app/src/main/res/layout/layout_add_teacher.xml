@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,8 +18,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="5"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich"
+                android:layout_height="40dp"
+                android:fontFamily="@font/lexend"
                 android:gravity="center"
                 android:text="Add a new teacher"
                 android:textColor="@color/black"
@@ -29,16 +30,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/ic_close"/>
-
         </LinearLayout>
-
-
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1.2dp"
             android:background="@color/black" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/card_mobile"
             android:layout_width="match_parent"
@@ -50,25 +46,22 @@
             app:cardCornerRadius="16dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp">
-
             <com.google.android.material.textfield.TextInputLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:endIconMode="clear_text">
-
                 <EditText
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:fontFamily="sans-serif-condensed"
                     android:drawableStart="@drawable/ic_user_name"
                     android:drawablePadding="8dp"
                     android:hint="Name"
                     android:inputType="text"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
-
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -80,9 +73,6 @@
             app:cardCornerRadius="16dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp">
-
-
-
                <LinearLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
@@ -92,6 +82,7 @@
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
                        android:padding="8dp"
+                       android:fontFamily="sans-serif-condensed"
                        android:drawableStart="@drawable/ic_male"
                        android:drawablePadding="8dp"
                        android:textSize="16sp"
@@ -100,16 +91,13 @@
                        android:layout_width="0dp"
                        android:layout_height="wrap_content"
                        android:layout_weight="1"
+                       android:fontFamily="sans-serif-condensed"
                        android:drawableStart="@drawable/ic_female"
                        android:drawablePadding="8dp"
                        android:padding="8dp"
                        android:textSize="16sp"
                        android:text="Female"/>
-
                </LinearLayout>
-
-
-
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -121,13 +109,10 @@
             app:cardCornerRadius="16dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp">
-
             <com.google.android.material.textfield.TextInputLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:endIconMode="clear_text">
-
                 <EditText
                     android:id="@+id/et_mobile"
                     android:layout_width="match_parent"
@@ -135,12 +120,12 @@
                     android:background="@null"
                     android:drawablePadding="4dp"
                     android:hint="Mobile"
+                    android:fontFamily="sans-serif-condensed"
                     android:drawableStart="@drawable/ic_mobile_gray"
                     android:inputType="number"
                     android:maxLength="10"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
-
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -152,13 +137,10 @@
             app:cardCornerRadius="16dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp">
-
             <com.google.android.material.textfield.TextInputLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:endIconMode="clear_text">
-
                 <EditText
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
@@ -166,12 +148,12 @@
                     android:background="@null"
                     android:drawablePadding="4dp"
                     android:hint="Email(Optional)"
+                    android:fontFamily="sans-serif-condensed"
                     android:drawableStart="@drawable/ic_email"
                     android:inputType="textEmailAddress"
                     android:maxLength="10"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
-
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:id="@+id/card_period"
@@ -184,33 +166,27 @@
             app:cardCornerRadius="16dp"
             app:strokeColor="@color/black"
             app:strokeWidth="4dp">
-
             <Spinner
                 android:id="@+id/spinner_designation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:spinnerMode="dropdown"/>
-
-
-
         </androidx.cardview.widget.CardView>
-
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/shape_button_coloured"
-            android:padding="16dp"
             android:text="Add Teacher"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-
+            android:textAllCaps="false"
+            android:fontFamily="@font/lexend"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:visibility="visible"
             app:cornerRadius="16dp" />
     </LinearLayout>
-
 </LinearLayout>

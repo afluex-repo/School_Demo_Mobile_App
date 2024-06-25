@@ -1,12 +1,9 @@
 package affluex.school.solutions.Activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
-
 import affluex.school.solutions.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -15,18 +12,24 @@ public class RegisterActivity extends AppCompatActivity {
     String selectedPage="Choice";
     Boolean verifyId=true;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        onclicklistener();
         binding.llChoice.setVisibility(View.VISIBLE);
         binding.llMain.setVisibility(View.GONE);
         binding.llDesignation.setVisibility(View.GONE);
         binding.llUserId.setVisibility(View.GONE);
         binding.rlButton.setVisibility(View.GONE);
         binding.llSchoolTiming.setVisibility(View.GONE);
+
+
+    }
+
+    private void onclicklistener() {
         binding.btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,5 +151,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 }

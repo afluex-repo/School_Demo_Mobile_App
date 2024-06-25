@@ -6,162 +6,157 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.AddQuestionFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/et_question"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:hint="Type your Question"
-                android:maxLines="3"
-                android:minLines="1"
-                android:padding="8dp" />
-
-            <ImageView
-                android:id="@+id/iv_mic"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_mic" />
-
-            <ImageView
-                android:id="@+id/iv_camera"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/baseline_photo_camera_24" />
-
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_image"
-            android:layout_width="match_parent"
-            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
             android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/iv_img"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-               android:layout_centerHorizontal="true"/>
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_show_options"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_button_coloured"
-                android:text="Add Options"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_button_coloured"
-
-                android:text="Upload Answer"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_options"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <EditText
-                android:id="@+id/et_options"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:hint="Add option" />
-
-            <Button
-                android:id="@+id/btn_add_option"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_button_coloured"
-
-                android:text="Save"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Options"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:textColor="@color/black"/>
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/et_question"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfuitext_medium"
+                        android:hint="Type your Question"
+                        android:maxLines="3"
+                        android:minLines="1"
+                        android:padding="8dp" />
+                    <ImageView
+                        android:id="@+id/iv_mic"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_mic" />
+                    <ImageView
+                        android:id="@+id/iv_camera"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:src="@drawable/baseline_photo_camera_24" />
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_image"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_img"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"/>
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btn_show_options"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/sfuitext_medium"
+                        android:background="@drawable/shape_button_coloured"
+                        android:text="Add Options"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/btn_upload"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/sfuitext_medium"
+                        android:background="@drawable/shape_button_coloured"
+                        android:text="Upload Answer"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/et_options"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:hint="Add option" />
+                    <Button
+                        android:id="@+id/btn_add_option"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:textAllCaps="false"
+                        android:background="@drawable/shape_button_coloured"
+                        android:fontFamily="@font/sfuitext_medium"
+                        android:text="Save"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Options"
+                        android:fontFamily="@font/lexend"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:padding="8dp"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="46dp"
+                    android:layout_marginStart="46dp"
+                    android:layout_weight="1"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/sfuitext_medium"
+                    android:background="@drawable/shape_button_coloured"
+                    android:text="Save Question"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1.2dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="8dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_options"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_button_coloured"
-            android:text="Save Question"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.2dp"
-            android:background="@color/black"
-            android:layout_marginTop="8dp"/>
-
-
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-
-    </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

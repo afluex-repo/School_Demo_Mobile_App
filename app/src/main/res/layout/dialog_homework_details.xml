@@ -4,21 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/green_100"
-        android:layout_height="wrap_content">
+        android:layout_height="?actionBarSize">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Homework Details"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
             android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            />
-
+            android:gravity="center"
+            android:fontFamily="@font/lexend"
+            android:text="Homework Details"
+            android:textColor="@color/black" />
         <ImageView
             android:id="@+id/ic_close"
             android:layout_width="30dp"
@@ -30,17 +27,13 @@
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_close" />
     </RelativeLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
         android:layout_marginTop="16dp"
         android:background="@color/grey_200"
-        android:padding="8dp"
-        >
+        android:padding="8dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -49,6 +42,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Class"
+                android:fontFamily="@font/lexend"
+                android:layout_gravity="center"
+              android:paddingStart="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
@@ -66,19 +62,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="1-A"
+                android:fontFamily="sans-serif-condensed"
+                android:layout_gravity="center"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"/>
-
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-
+            android:layout_height="1.8dp"
             android:background="@color/black"
             android:layout_marginTop="8dp"/>
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -87,6 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Subject"
+                android:fontFamily="@font/lexend"
+                android:paddingStart="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
@@ -104,19 +100,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="Mathematics"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"/>
-
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-
+            android:layout_height="1dp"
             android:background="@color/black"
             android:layout_marginTop="8dp"/>
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -125,7 +118,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Date"
+                android:fontFamily="@font/lexend"
                 android:textSize="16sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
             <TextView
@@ -142,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="23/07/2023"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"/>
@@ -149,8 +145,7 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-
+            android:layout_height="1dp"
             android:background="@color/black"
             android:layout_marginTop="8dp"/>
         <LinearLayout
@@ -161,7 +156,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Details"
+                android:fontFamily="@font/lexend"
                 android:textSize="16sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
             <TextView
@@ -178,18 +175,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="Test"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"/>
-
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-
+            android:layout_height="1dp"
             android:background="@color/black"
             android:layout_marginTop="8dp"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -198,7 +193,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Image"
-
+                android:paddingStart="10dp"
+                android:fontFamily="@font/lexend"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
@@ -207,7 +203,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:text=":"
-
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
@@ -224,6 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="No Image Uploaded"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"/>
@@ -243,9 +239,10 @@
             <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="OK"
+                android:fontFamily="@font/lexend"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/green_100"
@@ -255,20 +252,18 @@
             <Button
                 android:id="@+id/btn_delete"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="Delete"
+                android:fontFamily="@font/lexend"
+                android:textAllCaps="false"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/red"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:textStyle="normal"/>
-
         </LinearLayout>
-
-
-
         <LinearLayout
             android:id="@+id/ll_enlarged"
             android:layout_width="match_parent"
@@ -283,13 +278,10 @@
                 android:layout_marginEnd="16dp"/>
             <ImageView
                 android:id="@+id/enlarged_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/profile_round"/>
+                android:layout_width="120dp"
+                android:layout_gravity="center"
+                android:layout_height="120dp"
+                android:src="@drawable/user3"/>
         </LinearLayout>
-
     </LinearLayout>
-
-
-
 </LinearLayout>

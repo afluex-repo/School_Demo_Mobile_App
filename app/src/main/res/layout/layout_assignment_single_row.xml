@@ -4,10 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="16dp"
-    app:contentPadding="8dp"
+    app:cardCornerRadius="10dp"
+    app:contentPadding="10dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     android:layout_marginBottom="8dp"
     android:elevation="16dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +23,7 @@
                 android:id="@+id/txt_date"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_height="wrap_content"
                 android:text="21/08/2023"
                 android:textColor="@color/black"/>
@@ -27,6 +31,7 @@
                 android:id="@+id/txt_title"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Class 5"/>
@@ -34,10 +39,10 @@
                 android:id="@+id/txt_subject"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Maths"/>
-
             <ImageView
                 android:id="@+id/ic_next"
                 android:layout_width="0dp"

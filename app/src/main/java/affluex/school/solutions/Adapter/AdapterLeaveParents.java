@@ -1,26 +1,16 @@
 package affluex.school.solutions.Adapter;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
-import affluex.school.solutions.Model.ModelLeave;
 import affluex.school.solutions.Model.ModelLeaveParents;
 import affluex.school.solutions.R;
 
 public class AdapterLeaveParents extends RecyclerView.Adapter<AdapterLeaveParents.HolderLeaveParents> {
-
     private Context context;
     private ArrayList<ModelLeaveParents>leaveParentsArrayList;
 
@@ -42,7 +32,6 @@ public class AdapterLeaveParents extends RecyclerView.Adapter<AdapterLeaveParent
 
         holder.txt_students_name.setText(modelLeave.getStudentName()+"( "+modelLeave.getClassName()+" - "+modelLeave.getSectionName()+" )");
         if(modelLeave.getStatus().toLowerCase().equals("pending")){
-
             holder.txt_status.setBackgroundColor(context.getColor(R.color.blue_900));
             holder.txt_status.setText("Pending");
         }else if(modelLeave.getStatus().toLowerCase().equals("approved")){
@@ -52,7 +41,6 @@ public class AdapterLeaveParents extends RecyclerView.Adapter<AdapterLeaveParent
             holder.txt_status.setBackgroundColor(context.getColor(R.color.red_900));
             holder.txt_status.setText("Declined");
         }
-
         holder.txt_from.setText(modelLeave.getFromDate());
         holder.txt_to.setText(modelLeave.getToDate());
         holder.txt_reason.setText(modelLeave.getReason());

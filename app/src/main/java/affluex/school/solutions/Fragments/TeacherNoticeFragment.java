@@ -1,15 +1,12 @@
 package affluex.school.solutions.Fragments;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,13 +16,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import affluex.school.solutions.Adapter.AdapterNotice;
 import affluex.school.solutions.Adapter.AdapterNoticeParent;
 import affluex.school.solutions.Model.CommonResponse;
@@ -35,7 +29,6 @@ import affluex.school.solutions.Model.NoticeDetails;
 import affluex.school.solutions.Model.ResponseClass;
 import affluex.school.solutions.Model.ResponseParentNotice;
 import affluex.school.solutions.Model.ResponseSection;
-import affluex.school.solutions.Model.ResponseStudentAttendance;
 import affluex.school.solutions.Model.lstNoticeList;
 import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
@@ -48,31 +41,22 @@ import retrofit2.Response;
 
 
 public class TeacherNoticeFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     FragmentTeacherNoticeBinding binding;
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     String selectedClassId,selectedSectionId,selectedSubjectId,selectedClassName,selectedSectionName,selectedSubjectName,techerId;
-
     ArrayList<ModelClass> classArrayList;
     ArrayList<ModelSection> sectionArrayList;
 
     public TeacherNoticeFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding= FragmentTeacherNoticeBinding.inflate(inflater,container,false);
 
         binding.llView.setVisibility(View.VISIBLE);
@@ -176,9 +160,6 @@ public class TeacherNoticeFragment extends Fragment {
                 }
             }
         });
-
-
-
         return binding.getRoot();
     }
 
@@ -342,10 +323,7 @@ public class TeacherNoticeFragment extends Fragment {
                     classArrayList.add(0,new ModelClass("Select Class"));
                     SpinnerClassAdapter spinnerClassAdapter=new SpinnerClassAdapter();
                     binding.spinnerAddClass.setAdapter(spinnerClassAdapter);
-
-
                 }
-
                 @Override
                 public void onFailure(Call<ResponseClass> call, Throwable t) {
 
@@ -376,11 +354,8 @@ public class TeacherNoticeFragment extends Fragment {
             LayoutInflater inf = getLayoutInflater();
             View row = inf.inflate(R.layout.layout_of_country_row, null);
             TextView spinner_text;
-
             spinner_text = row.findViewById(R.id.spinner_text);
             spinner_text.setText(classArrayList.get(position).getClassName());
-
-
             return row;
         }
     }
@@ -406,11 +381,8 @@ public class TeacherNoticeFragment extends Fragment {
             LayoutInflater inf = getLayoutInflater();
             View row = inf.inflate(R.layout.layout_of_country_row, null);
             TextView spinner_text;
-
             spinner_text = row.findViewById(R.id.spinner_text);
             spinner_text.setText(sectionArrayList.get(position).getSectionName());
-
-
             return row;
         }
     }
@@ -420,9 +392,6 @@ public class TeacherNoticeFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
           String noticeId=intent.getStringExtra("notice_id");
           callDeleteNotice(noticeId);
-
-
-
         }
     };
     public BroadcastReceiver mMessageReceiver1=new BroadcastReceiver() {
@@ -433,14 +402,10 @@ public class TeacherNoticeFragment extends Fragment {
             String sectionId=intent.getStringExtra("section_id");
             String noticeName=intent.getStringExtra("notice_name");
             callEditNotice(noticeId,classId,sectionId,noticeName);
-
-
-
         }
     };
 
     private void callEditNotice(String noticeId, String classId, String sectionId, String noticeName) {
-
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String pkteacherId=sharedPreferences.getString("pkTeacherId","");
@@ -454,13 +419,10 @@ public class TeacherNoticeFragment extends Fragment {
             object.addProperty("Fk_SectionID", sectionId);
             object.addProperty("NoticeName", noticeName);
             LoggerUtil.logItem(object);
-
-
             Log.e("NoticeArgms","1"+noticeId);
             Log.e("NoticeArgms","2"+classId);
             Log.e("NoticeArgms","3"+sectionId);
             Log.e("NoticeArgms","4"+noticeName);
-
             Call<CommonResponse> call = apiServices.UpdateNotice(object);
             call.enqueue(new Callback<CommonResponse>() {
                 @Override
@@ -470,7 +432,6 @@ public class TeacherNoticeFragment extends Fragment {
                         getNoticeList();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<CommonResponse> call, Throwable t) {
 

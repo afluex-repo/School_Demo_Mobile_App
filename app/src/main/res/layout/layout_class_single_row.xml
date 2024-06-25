@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,9 +13,8 @@
         android:padding="8dp"
         app:contentPadding="8dp"
         android:layout_margin="8dp"
-
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="32dp">
+        app:cardCornerRadius="22dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,10 +25,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Class 1"
+                android:fontFamily="sans-serif-condensed"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:padding="8dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"/>
             <TextView
@@ -36,11 +37,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Class Teacher:"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_marginEnd="8dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:padding="8dp"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/txt_ct"
@@ -48,23 +50,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Ms Shalini "
+                android:fontFamily="sans-serif-condensed"
                 android:layout_gravity="center"
                 android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginEnd="10dp"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:background="@color/red_900"
                 android:textColor="@color/white"/>
         </LinearLayout>
-
 
     </androidx.cardview.widget.CardView>
     <View
         android:layout_width="match_parent"
         android:layout_height="1.2dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@color/black"/>
-
-
-
-
 </LinearLayout>

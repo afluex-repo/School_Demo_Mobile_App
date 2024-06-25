@@ -1,5 +1,4 @@
 package affluex.school.solutions.Adapter;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,21 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Model.ModelTimeTable;
 import affluex.school.solutions.R;
 
 public class AdapterTimeTable extends RecyclerView.Adapter<AdapterTimeTable.HolderTimeTable> {
     private Context context;
     private ArrayList<ModelTimeTable> timeTableArrayList;
-
     public AdapterTimeTable(Context context, ArrayList<ModelTimeTable> timeTableArrayList) {
         this.context = context;
         this.timeTableArrayList = timeTableArrayList;
@@ -39,12 +33,12 @@ public class AdapterTimeTable extends RecyclerView.Adapter<AdapterTimeTable.Hold
         ModelTimeTable modelTimeTable=timeTableArrayList.get(position);
         holder.txt_name.setText(modelTimeTable.getStudentName());
         String substring=modelTimeTable.getTimeTable();
-        String link="http://demo2.afluex.com"+substring;
+        String link="https://school.afluex.com"+substring;
         Log.e("Title123",link);
 
         Picasso.get().load(link).
                 resize(400,400).centerCrop()
-                .placeholder(R.drawable.profile_round)
+                .placeholder(R.drawable.user3)
                 .into(holder.img_time_table);
 
     }

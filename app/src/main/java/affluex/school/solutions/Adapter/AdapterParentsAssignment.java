@@ -1,21 +1,14 @@
 package affluex.school.solutions.Adapter;
-
-
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Model.HomeWorkDetails;
 import affluex.school.solutions.R;
 
@@ -66,7 +59,6 @@ public class AdapterParentsAssignment extends RecyclerView.Adapter<AdapterParent
                 ImageView ic_close=mView.findViewById(R.id.ic_close);
                 TextView txt_no_image=mView.findViewById(R.id.txt_no_image);
                 Button btn_ok=mView.findViewById(R.id.btn_ok);
-
                 Button btn_delete=mView.findViewById(R.id.btn_delete);
                 btn_delete.setVisibility(View.GONE);
                 txt_class.setText(homeWorkDetails1.getClassName()+"-"+homeWorkDetails1.getSectionName());
@@ -83,7 +75,6 @@ public class AdapterParentsAssignment extends RecyclerView.Adapter<AdapterParent
 
                 final android.app.AlertDialog alertDialog = alert.create();
                 alertDialog.show();
-
 
                 btn_ok.setOnClickListener(new View.OnClickListener() {
                     @Override

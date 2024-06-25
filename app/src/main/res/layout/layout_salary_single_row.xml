@@ -6,19 +6,12 @@
     android:layout_marginStart="6dp"
     android:layout_marginEnd="12dp"
     android:orientation="vertical"
-
     android:layout_height="wrap_content">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="5dp">
-
-       
-       
-
-
         <TextView
             android:id="@+id/txt_sr_no"
             android:layout_width="0dp"
@@ -27,6 +20,7 @@
             android:gravity="center"
             android:layout_height="wrap_content"
             android:text="Sr No"
+            android:fontFamily="@font/lexend"
             android:layout_marginStart="8dp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -34,8 +28,8 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
             android:background="@color/black"/>
-
         <TextView
             android:id="@+id/et_emp_code"
             android:layout_width="0dp"
@@ -47,6 +41,7 @@
             android:gravity="center"
             android:background="@null"
             android:editable="false"
+            android:fontFamily="sans-serif-condensed"
             android:focusable="false"
             android:text="Employee Code"
             android:textColor="@color/black"
@@ -54,8 +49,8 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
             android:background="@color/black"/>
-
         <TextView
             android:id="@+id/et_month"
             android:layout_width="0dp"
@@ -67,6 +62,7 @@
             android:background="@null"
             android:layout_marginStart="8dp"
             android:textSize="14sp"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
             android:editable="false"
             android:clickable="false"
@@ -74,6 +70,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
             android:background="@color/black"/>
         <Button
             android:id="@+id/btn_print"
@@ -81,6 +78,8 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="View"
+            android:fontFamily="@font/lexend"
+            android:layout_marginStart="8dp"
             android:background="@color/green_A100"
             android:textColor="@color/black"
             android:layout_gravity="center"
@@ -95,28 +94,12 @@
             android:gravity="center"/>
         <View
             android:layout_width="1dp"
-
             android:layout_height="match_parent"
             android:background="@color/black"/>
-
-
-
-
-
-
-
-
-
-
-
-
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1.2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:background="@color/black"/>
-
-
 </LinearLayout>

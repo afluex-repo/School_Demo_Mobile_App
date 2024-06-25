@@ -1,7 +1,5 @@
 package affluex.school.solutions.Activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,12 +7,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.gson.JsonObject;
-
 import affluex.school.solutions.Model.CommonResponse;
-import affluex.school.solutions.Model.ModelTeachers;
-import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.common.LoggerUtil;

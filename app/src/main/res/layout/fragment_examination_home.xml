@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ExaminationHomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/ll_main"
         android:layout_width="match_parent"
@@ -37,10 +36,11 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_create"
                         android:layout_width="0dp"
+                        android:layout_margin="@dimen/space_5"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         app:cardElevation="16dp"
-                        app:cardCornerRadius="32dp"
+                        app:cardCornerRadius="22dp"
                         app:contentPadding="12dp"
 
 
@@ -48,7 +48,7 @@
                         app:cardBackgroundColor="@color/white">
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                            android:layout_height="130dp"
                             android:orientation="vertical">
                             <ImageView
                                 android:layout_width="match_parent"
@@ -59,11 +59,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="0.05"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="5dp"
                                 android:background="@color/black"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
+                                android:fontFamily="@font/lexend"
                                 android:layout_weight="1"
                                 android:text="Create Question Paper"
                                 android:textSize="12sp"
@@ -81,16 +82,17 @@
                         android:id="@+id/card_view"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:layout_margin="@dimen/space_5"
                         android:layout_height="wrap_content"
                         app:cardElevation="16dp"
-                        app:cardCornerRadius="32dp"
+                        app:cardCornerRadius="22dp"
                         app:contentPadding="12dp"
 
                         app:strokeWidth="1dp"
                         app:cardBackgroundColor="@color/white">
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                            android:layout_height="130dp"
                             android:orientation="vertical">
                             <ImageView
                                 android:layout_width="match_parent"
@@ -101,12 +103,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="0.05"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="5dp"
                                 android:background="@color/black"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
+                                android:fontFamily="@font/lexend"
                                 android:text="View Question Paper"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -122,12 +125,12 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_assignments"
                         android:layout_marginEnd="8dp"
-
+                        android:layout_margin="@dimen/space_5"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         app:cardElevation="16dp"
-                        app:cardCornerRadius="32dp"
+                        app:cardCornerRadius="22dp"
                         app:contentPadding="12dp"
                         app:strokeWidth="1dp"
                         app:cardBackgroundColor="@color/white">
@@ -144,7 +147,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="0.05"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="5dp"
                                 android:background="@color/black"/>
                             <TextView
                                 android:layout_width="match_parent"

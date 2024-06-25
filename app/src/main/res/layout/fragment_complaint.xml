@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ComplaintFragment">
 
-    <!-- TODO: Update blank fragment layout -->
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
@@ -14,28 +13,31 @@
        <LinearLayout
            android:layout_width="match_parent"
            android:orientation="vertical"
+           android:layout_marginTop="5dp"
            android:layout_height="wrap_content">
            <EditText
                android:id="@+id/et_complain"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:hint="Type your complain"
+               android:paddingStart="20dp"
+               android:fontFamily="sans-serif-condensed"
                android:background="@drawable/shape_rectangle_background"
                android:padding="8dp"
                android:drawableStart="@drawable/baseline_message_24"
                android:drawablePadding="8dp"/>
-           <Button
+           <androidx.appcompat.widget.AppCompatButton
                android:id="@+id/btn_submit"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Submit"
+               android:fontFamily="@font/lexend"
                android:gravity="center"
                android:layout_gravity="center"
                android:layout_marginTop="16dp"
                android:textColor="@color/white"
                android:background="@drawable/shape_button_red_background"/>
        </LinearLayout>
-
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
@@ -51,7 +53,6 @@
                android:gravity="center"
                android:padding="8dp"
                android:textSize="18sp"/>
-
            <androidx.recyclerview.widget.RecyclerView
                android:id="@+id/rv_Complain"
                android:layout_width="match_parent"

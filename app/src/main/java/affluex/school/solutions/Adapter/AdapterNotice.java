@@ -1,5 +1,4 @@
 package affluex.school.solutions.Adapter;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,14 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import affluex.school.solutions.Model.NoticeDetails;
 import affluex.school.solutions.R;
 
@@ -64,13 +59,8 @@ public class AdapterNotice extends RecyclerView.Adapter<AdapterNotice.HolderNoti
                 txt_homework_details.setEnabled(false);
                 btn_submit.setVisibility(View.GONE);
                 btn_ok.setVisibility(View.VISIBLE);
-
-
-
-
                 final android.app.AlertDialog alertDialog = alert.create();
                 alertDialog.show();
-
 
                 btn_ok.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -90,11 +80,6 @@ public class AdapterNotice extends RecyclerView.Adapter<AdapterNotice.HolderNoti
                         intent.putExtra("class_id",noticeDetails1.getFK_ClassId());
                         intent.putExtra("section_id",noticeDetails1.getPK_NoticeId());
                         intent.putExtra("notice_name",txt_homework_details.getText().toString());
-
-
-
-//                    intent.putExtra("position1", holder.getAdapterPosition());
-//                    intent.putExtra("workerDeletedType", workerType);
                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                         alertDialog.dismiss();
@@ -107,20 +92,12 @@ public class AdapterNotice extends RecyclerView.Adapter<AdapterNotice.HolderNoti
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent("notice");
-
                         intent.putExtra("notice_id",noticeDetails1.getPK_NoticeId());
-
-
-
-//                    intent.putExtra("position1", holder.getAdapterPosition());
-//                    intent.putExtra("workerDeletedType", workerType);
                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
                         alertDialog.dismiss();
 
                     }
                 });
-
                 ic_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -129,7 +106,6 @@ public class AdapterNotice extends RecyclerView.Adapter<AdapterNotice.HolderNoti
                 });
             }
         });
-
     }
 
     @Override
@@ -140,7 +116,6 @@ public class AdapterNotice extends RecyclerView.Adapter<AdapterNotice.HolderNoti
     public class HolderNotice extends RecyclerView.ViewHolder {
         TextView txt_date,txt_title;
         ImageView ic_edit;
-
         public HolderNotice(@NonNull View itemView) {
             super(itemView);
             txt_date=itemView.findViewById(R.id.txt_date);

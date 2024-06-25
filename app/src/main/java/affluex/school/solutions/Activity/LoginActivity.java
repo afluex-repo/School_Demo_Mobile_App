@@ -1,20 +1,14 @@
 package affluex.school.solutions.Activity;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.gson.JsonObject;
-
 import affluex.school.solutions.Model.ModelParents;
 import affluex.school.solutions.Model.ModelTeachers;
 import affluex.school.solutions.R;
@@ -24,14 +18,12 @@ import affluex.school.solutions.common.BaseActivity;
 import affluex.school.solutions.common.LoggerUtil;
 import affluex.school.solutions.common.NetworkUtils;
 import affluex.school.solutions.databinding.ActivityLoginBinding;
-import affluex.school.solutions.databinding.LayoutLoginRegisterBannerBinding;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity {
     ActivityLoginBinding binding;
-//    LayoutLoginRegisterBannerBinding bannerBinding;
     String loginType="";
     ApiServices apiServices;
     ProgressDialog progressDialog;
@@ -42,7 +34,6 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= ActivityLoginBinding.inflate(getLayoutInflater());
-
 
 
 //        bannerBinding=binding.bannerLayout;
@@ -71,6 +62,7 @@ public class LoginActivity extends BaseActivity {
                 binding.rbStudent.setTextColor(getColor(R.color.white));
             }
         });
+
         binding.cardTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,12 +74,14 @@ public class LoginActivity extends BaseActivity {
                 binding.rbStudent.setTextColor(getColor(R.color.black));
             }
         });
+
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,8 +111,6 @@ public class LoginActivity extends BaseActivity {
                }
             }
         });
-
-
         binding.txtForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,9 +119,6 @@ public class LoginActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
 
     private void callLoginParent() {
@@ -173,6 +162,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ModelTeachers> call, Response<ModelTeachers> response) {
                 if(response.body().getStatus().equals("0")){
+                    Log.d("LoginData",""+response.body().getFk_SectionId()+":"+response.body().getFk_ClassId());
                     editor.putString("userType","Teacher");
                     Log.e("ResponseANGHGHVGHGHCG",""+response.body().getLoginId());
                     editor.putString("userId",response.body().getLoginId());
@@ -182,12 +172,10 @@ public class LoginActivity extends BaseActivity {
                     editor.putString("fkSectionId",response.body().getFk_SectionId());
                     editor.putString("pkTeacherId",response.body().getPK_TeacherID());
                     editor.putString("imagePath",response.body().getImagePath());
-
                     editor.apply();
                     editor.commit();
                     startActivity(new Intent(LoginActivity.this,DashboardSchool.class));
 
-                    
                 }else{
                     progressDialog.dismiss();
                     Toast.makeText(LoginActivity.this, response.body().getErrorMessage(), Toast.LENGTH_SHORT).show();

@@ -1,21 +1,16 @@
 package affluex.school.solutions.Adapter;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Model.ModelSalary;
 import affluex.school.solutions.R;
 
@@ -24,7 +19,6 @@ public class AdapterSalary extends RecyclerView.Adapter<AdapterSalary.HolderSala
 
     private Context context;
     private ArrayList<ModelSalary> modelSalaryArrayList;
-
 
     public AdapterSalary(Context context, ArrayList<ModelSalary> modelSalaryArrayList) {
         this.context = context;
@@ -45,60 +39,32 @@ public class AdapterSalary extends RecyclerView.Adapter<AdapterSalary.HolderSala
         if(position==0){
             holder.btn_print.setVisibility(View.GONE);
             holder.txt_heading.setVisibility(View.VISIBLE);
-
             holder.txt_sr_no.setText("Sr No");
-
             holder.et_emp_code.setText("Emp Code");
-           ;
             holder.et_month.setText("Period");
-
-
-            //BOLDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-
-
             holder.txt_sr_no.setTypeface(Typeface.DEFAULT_BOLD);
-
             holder.et_emp_code.setTypeface(Typeface.DEFAULT_BOLD);
-
             holder.et_month.setTypeface(Typeface.DEFAULT_BOLD);
-
         }else{
             ModelSalary modelSalary=modelSalaryArrayList.get(position-1);
             holder.btn_print.setVisibility(View.VISIBLE);
             holder.txt_heading.setVisibility(View.GONE);
-
-
             holder.txt_sr_no.setText(""+(position));
-
             holder.et_emp_code.setText(modelSalary.getEmployeeCode());
-
             holder.et_month.setText(modelSalary.getMonthName()+"-"+modelSalary.getYear());
-
-            //BOLDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-
-
             holder.txt_sr_no.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-
             holder.et_emp_code.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-
             holder.et_month.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
             holder.btn_print.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent("site_position");
-
                     intent.putExtra("salary_id",modelSalary.getPkPaidSalId());
-
-
-
-//                    intent.putExtra("position1", holder.getAdapterPosition());
-//                    intent.putExtra("workerDeletedType", workerType);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                 }
             });
         }
-
     }
 
     @Override

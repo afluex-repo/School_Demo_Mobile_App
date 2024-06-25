@@ -1,5 +1,4 @@
 package affluex.school.solutions.Adapter;
-
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.location.Address;
@@ -9,27 +8,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import affluex.school.solutions.Model.ModelAssignment;
 import affluex.school.solutions.Model.ModelAttendance;
-import affluex.school.solutions.Model.ResponseAttendnace;
 import affluex.school.solutions.R;
 
 public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.HolderAttendance> {
@@ -58,18 +48,15 @@ public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.Ho
         Log.e("LCheck", "2" + modelAttendance.getLongitude());
         Log.e("LCheck", "3" + modelAttendance.getOutLatitude());
         Log.e("LCheck", "4" + modelAttendance.getOutLongitude());
-//        holder.txt_reason.setText(modelAttendance.getLatitude()+" , "+modelAttendance.getLongitude());
-//        holder.txt_status.setText(modelAttendance.getOutLatitude()+" , "+modelAttendance.getOutLongitude());
-
 
         if(modelAttendance.getUploadFile()!=null && !modelAttendance.getUploadFile().equals("")){
             String substring=modelAttendance.getUploadFile();
-            String link="http://demo2.afluex.com"+substring;
+            String link="https://school.afluex.com"+substring;
             Log.e("Title1235676",link);
 
             Picasso.get().load(link).
                     resize(400,400).centerCrop()
-                    .placeholder(R.drawable.profile_round)
+                    .placeholder(R.drawable.user3)
                     .into(holder.img_selfie);
 
         }
@@ -160,7 +147,6 @@ public class AdapterAttendance extends RecyclerView.Adapter<AdapterAttendance.Ho
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
-//                difference = (dateMax.getTime() - date2.getTime()) + (date1.getTime() - dateMin.getTime());
             }
             days = (int) (difference / (1000 * 60 * 60 * 24));
             hours = (int) ((difference - (1000 * 60 * 60 * 24 * days)) / (1000 * 60 * 60));

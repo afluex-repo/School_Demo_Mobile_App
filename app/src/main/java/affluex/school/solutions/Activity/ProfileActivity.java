@@ -1,7 +1,5 @@
 package affluex.school.solutions.Activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,17 +9,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
 import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ModelProfile;
-import affluex.school.solutions.Model.ResponseLeave;
 import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
@@ -37,9 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     ContentProfileBinding contentProfileBinding;
     ProgressDialog progressDialog;
     String action="Edit";
-
     private final Calendar myCalendar = Calendar.getInstance();
-
     String dob,doj;
 
 
@@ -108,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
                             .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                             myCalendar.get(Calendar.DAY_OF_MONTH));
                     datePickerDialog.show();
-                    String myFormat = "dd/MM/yyyy"; //In which you need put here
+                    String myFormat = "dd/MM/yyyy";
 
                 }
             }
@@ -122,7 +114,7 @@ public class ProfileActivity extends AppCompatActivity {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
 
@@ -142,7 +134,6 @@ public class ProfileActivity extends AppCompatActivity {
                     contentProfileBinding.etFatherName.setEnabled(true);
                     contentProfileBinding.txtMobile.setEnabled(true);
                     contentProfileBinding.etEmail.setEnabled(true);
-//                    contentProfileBinding.etDob.setEnabled(true);
                     contentProfileBinding.etAddress.setEnabled(true);
                     contentProfileBinding.etCity.setEnabled(true);
                     contentProfileBinding.etState.setEnabled(true);

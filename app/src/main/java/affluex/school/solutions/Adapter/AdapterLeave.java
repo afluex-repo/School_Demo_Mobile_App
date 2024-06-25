@@ -1,9 +1,7 @@
 package affluex.school.solutions.Adapter;
-
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Model.ModelLeave;
 import affluex.school.solutions.R;
 
@@ -26,9 +21,6 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.HolderLeave>
     private Context context;
     private ArrayList<ModelLeave>leaveArrayList;
     private Boolean open=false;
-
-
-
     public interface OnStatusClick {
         void onApprove(int postion);
 
@@ -40,16 +32,12 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.HolderLeave>
         this.context = context;
         this.leaveArrayList = leaveArrayList;
     }
-
-
-
     @NonNull
     @Override
     public AdapterLeave.HolderLeave onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.layout_leave_approval_single_row,parent,false);
         return new AdapterLeave.HolderLeave(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull AdapterLeave.HolderLeave holder, int position) {
         ModelLeave modelLeave=leaveArrayList.get(position);
@@ -90,7 +78,6 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.HolderLeave>
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent("custom-action-local-broadcast");
-                // on below line we are passing data to our broad cast receiver with key and value pair.
                 intent.putExtra("status", "approve");
                 intent.putExtra("position",holder.getAdapterPosition());
                 if(TextUtils.isEmpty(holder.et_remark.getText().toString())){
@@ -98,8 +85,6 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.HolderLeave>
                 }else{
                     intent.putExtra("description",holder.et_remark.getText().toString());
                 }
-
-                // on below line we are sending our broad cast with intent using broad cast manager.
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
             }
@@ -109,7 +94,6 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.HolderLeave>
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent("custom-action-local-broadcast");
-                // on below line we are passing data to our broad cast receiver with key and value pair.
                 intent.putExtra("status", "decline");
                 intent.putExtra("position",holder.getAdapterPosition());
                if(TextUtils.isEmpty(holder.et_remark.getText().toString())){
@@ -117,7 +101,6 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.HolderLeave>
                 }else{
                     intent.putExtra("description",holder.et_remark.getText().toString());
                 }
-                // on below line we are sending our broad cast with intent using broad cast manager.
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
             }

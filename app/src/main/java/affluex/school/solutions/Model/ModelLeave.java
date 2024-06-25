@@ -1,10 +1,9 @@
 package affluex.school.solutions.Model;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ModelLeave {
 
+public class ModelLeave {
     @SerializedName("AddedBy")
     @Expose
     private Object addedBy;
@@ -61,6 +60,7 @@ public class ModelLeave {
     private Object teacherID;
 
     public ModelLeave(ModelLeave modelLeave) {
+
     }
 
     public Object getAddedBy() {

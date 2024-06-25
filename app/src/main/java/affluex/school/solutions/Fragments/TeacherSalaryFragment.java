@@ -1,5 +1,4 @@
 package affluex.school.solutions.Fragments;
-
 import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,10 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,18 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.gson.JsonObject;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
 import affluex.school.solutions.Activity.DashboardSchool;
 import affluex.school.solutions.Adapter.AdapterSalary;
-import affluex.school.solutions.Model.ResponseHomework;
 import affluex.school.solutions.Model.ResponseSalary;
-import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.databinding.FragmentTeacherSalaryBinding;
@@ -46,33 +38,28 @@ public class TeacherSalaryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding=FragmentTeacherSalaryBinding.inflate(inflater,container,false);
         DatePickerDialog.OnDateSetListener dateFrom = (view, year, monthOfYear, dayOfMonth) -> {
             // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.txtFrom);
-
-
         };
         DatePickerDialog.OnDateSetListener dateTo = (view, year, monthOfYear, dayOfMonth) -> {
             // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.txtTo);
-
-
         };
 
         binding.txtFrom.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +69,7 @@ public class TeacherSalaryFragment extends Fragment {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
 
@@ -93,7 +80,7 @@ public class TeacherSalaryFragment extends Fragment {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
 

@@ -1,5 +1,4 @@
 package affluex.school.solutions.app;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;

@@ -5,23 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTintMode="multiply"
-
     android:orientation="vertical"
     tools:context=".Activity.LoginActivity">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <include
             android:id="@+id/toolbar_top"
             layout="@layout/layout_top_toolbar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_alignParentTop="true" />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +24,6 @@
             android:background="@color/grey_200"
             android:orientation="vertical"
             android:visibility="visible">
-
             <LinearLayout
                 android:id="@+id/ll_choice"
                 android:layout_width="match_parent"
@@ -37,7 +31,6 @@
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:visibility="visible">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,7 +45,6 @@
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="bold" />
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,31 +52,26 @@
                     android:background="@color/grey_200"
                     android:gravity="center"
                     android:padding="0dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:shadowColor="@color/black"
                     android:text="Welcome back you have been missed!"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="normal" />
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginStart="64dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="64dp"
                     android:background="@drawable/shape_card_unselected"
                     android:orientation="horizontal">
-
                     <LinearLayout
                         android:id="@+id/card_teacher"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-
                         android:orientation="horizontal">
-
                         <TextView
                             android:id="@+id/rb_teacher"
                             android:layout_width="0dp"
@@ -92,14 +79,12 @@
                             android:layout_gravity="center"
                             android:layout_weight="2"
                             android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
                             android:padding="4dp"
                             android:text="Teacher"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
-
                     </LinearLayout>
-
-
                     <LinearLayout
                         android:id="@+id/card_parents"
                         android:layout_width="0dp"
@@ -107,7 +92,6 @@
                         android:layout_marginStart="-24dp"
                         android:layout_weight="1"
                         android:orientation="horizontal">
-
                         <TextView
                             android:id="@+id/rb_student"
                             android:layout_width="0dp"
@@ -115,45 +99,33 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
+                            android:fontFamily="sans-serif-condensed"
                             android:padding="4dp"
                             android:text="Parents"
-
                             android:textColor="@color/black"
                             android:textSize="16sp" />
-
                     </LinearLayout>
-
-
                 </LinearLayout>
-
-
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/ll_login"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 android:padding="16dp">
-
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp">
-
                     <ImageView
                         android:id="@+id/img_user"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:src="@drawable/ic_user_new" />
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="75dp"
@@ -163,14 +135,12 @@
                         android:layout_toRightOf="@id/img_user"
                         android:layout_weight="5"
                         android:orientation="vertical">
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="User"
-
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black" />
-
                         <EditText
                             android:id="@+id/et_login"
                             android:layout_width="match_parent"
@@ -184,30 +154,21 @@
                             android:inputType="text"
                             android:paddingStart="16dp"
                             android:textSize="12sp" />
-
                     </LinearLayout>
-
-
                 </RelativeLayout>
-
-
                 <RelativeLayout
                     android:layout_width="match_parent"
-
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="-8dp">
-
                     <ImageView
                         android:id="@+id/img_password"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:src="@drawable/ic_password_new" />
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="75dp"
@@ -217,14 +178,12 @@
                         android:layout_marginTop="16dp"
                         android:layout_toRightOf="@id/img_password"
                         android:orientation="vertical">
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Password"
-
+                            android:fontFamily="sans-serif-condensed"
                             android:textColor="@color/black" />
-
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
@@ -235,7 +194,6 @@
                             app:hintAnimationEnabled="false"
                             app:endIconTint="#d2d2d2"
                             app:hintEnabled="false">
-
                             <EditText
                                 android:id="@+id/et_password"
                                 android:layout_width="match_parent"
@@ -249,50 +207,34 @@
                                 android:paddingStart="16dp"
                                 android:textSize="12sp" />
                         </com.google.android.material.textfield.TextInputLayout>
-
                     </LinearLayout>
-
-
                 </RelativeLayout>
-
-
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="56dp"
                     android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="56dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:background="@color/card_selected"
-                    android:padding="16dp"
                     android:text="LOGIN"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:cornerRadius="16dp" />
-
-
-
-
-
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
                     android:gravity="center">
-
-
                     <ImageView
                         android:id="@+id/img_fpassword"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:layout_centerVertical="true"
                         android:src="@drawable/password_drawable"/>
-
-
-
                     <TextView
                         android:id="@+id/txt_forgot_password"
                         android:layout_width="wrap_content"
@@ -303,26 +245,20 @@
                         android:layout_toRightOf="@id/img_fpassword"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="16dp"
-
                         android:drawablePadding="16dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:padding="8dp"
                         android:text="Forgot Password?"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                 </RelativeLayout>
-
-
-
-
-
                 <TextView
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
-
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:background="@color/button"
@@ -332,23 +268,14 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
-
                     android:visibility="gone" />
-
-
             </LinearLayout>
-
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_alignParentBottom="true"
             android:background="@drawable/login_background"
             android:gravity="bottom" />
-
     </RelativeLayout>
-
-
 </LinearLayout>

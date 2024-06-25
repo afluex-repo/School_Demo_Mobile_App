@@ -1,20 +1,15 @@
 package affluex.school.solutions.Adapter;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Model.StudentDetails;
 import affluex.school.solutions.R;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -52,10 +47,8 @@ public class AdapterSelectStudent extends RecyclerView.Adapter<AdapterSelectStud
                 editor.putString("pk_studentName",studentDetails1.getStudentName());
                 editor.apply();
                 editor.commit();
-                // on below line we are passing data to our broad cast receiver with key and value pair.
                 intent.putExtra("position",holder.getAdapterPosition());
                 intent.putExtra("pk_studentId",studentDetails1.getPkStudentId());
-                // on below line we are sending our broad cast with intent using broad cast manager.
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });

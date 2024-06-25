@@ -1,13 +1,10 @@
 package affluex.school.solutions.Fragments;
-
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +13,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Adapter.AdapterTeacher;
 import affluex.school.solutions.Model.ModelClass;
 import affluex.school.solutions.Model.ModelTeachers;
@@ -30,13 +25,8 @@ import affluex.school.solutions.R;
  * create an instance of this fragment.
  */
 public class TeacherFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     CardView ic_add;
@@ -47,7 +37,6 @@ public class TeacherFragment extends Fragment {
     private ArrayList<ModelTeachers> teachersArrayList;
 
     public TeacherFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -58,7 +47,6 @@ public class TeacherFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment TeacherFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static TeacherFragment newInstance(String param1, String param2) {
         TeacherFragment fragment = new TeacherFragment();
         Bundle args = new Bundle();
@@ -113,12 +101,8 @@ public class TeacherFragment extends Fragment {
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.getWindow();
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                // dialog.getWindow().getAttributes().windowAnimations = R.style.DailoAnimation;
                 dialog.getWindow().setGravity(Gravity.CENTER);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-
-
                 dialog.setCancelable(false);
                 dialog.setContentView(R.layout.layout_add_teacher);
                 spinner_period=dialog.findViewById(R.id.spinner_designation);
@@ -160,11 +144,8 @@ public class TeacherFragment extends Fragment {
             LayoutInflater inf = getLayoutInflater();
             View row = inf.inflate(R.layout.layout_of_country_row, null);
             TextView spinner_text;
-
             spinner_text = row.findViewById(R.id.spinner_text);
             spinner_text.setText(periodsArrayList.get(position));
-
-
             return row;
         }
     }

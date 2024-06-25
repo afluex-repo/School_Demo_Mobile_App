@@ -1,30 +1,21 @@
 package affluex.school.solutions.Fragments;
-
 import static android.content.Context.MODE_PRIVATE;
-
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
 import com.google.gson.JsonObject;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
 import affluex.school.solutions.Adapter.AdapterAttendance;
-import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ResponseAttendnace;
-import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.databinding.FragmentAttendanceListBinding;
@@ -43,16 +34,16 @@ public class AttendanceListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding=affluex.school.solutions.databinding.FragmentAttendanceListBinding.inflate(inflater,container,false);
         getAttendance("","");
+        initview();
 
         DatePickerDialog.OnDateSetListener dateFrom = (view, year, monthOfYear, dayOfMonth) -> {
             // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
@@ -65,12 +56,11 @@ public class AttendanceListFragment extends Fragment {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.txtTo);
-
 
         };
 
@@ -102,15 +92,13 @@ public class AttendanceListFragment extends Fragment {
                 getAttendance(binding.txtFrom.getText().toString(),binding.txtTo.getText().toString());
             }
         });
-
-
-
-
-
-
-
         return binding.getRoot();
     }
+
+    private void initview() {
+
+    }
+
     private void updateLabel(EditText fromdateEt) {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);

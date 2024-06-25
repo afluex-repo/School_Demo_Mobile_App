@@ -9,8 +9,6 @@
         android:layout_height="150dp"
         android:src="@drawable/successful"
         android:layout_gravity="center"/>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,14 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_message"
+            android:layout_margin="20dp"
             android:layout_gravity="center"
             android:gravity="center"
+            android:fontFamily="@font/lexend"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:background="@color/green_100"
             android:padding="8dp"
             android:text="Your Punch in is Successful"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,6 +40,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Date"
+                    android:fontFamily="@font/lexend"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="normal"
@@ -50,11 +50,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Date"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_weight="3"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"/>
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:text="Time"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lexend"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"/>
@@ -72,11 +73,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Date"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_weight="3"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"/>
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:text="Latitude:"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lexend"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"/>
@@ -94,6 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Date"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="normal"
@@ -103,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:text="Longitude"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"/>
@@ -126,6 +130,7 @@
                     android:layout_height="wrap_content"
                     android:text="Address"
                     android:layout_weight="1"
+                    android:fontFamily="@font/lexend"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"/>
@@ -135,25 +140,22 @@
                     android:layout_height="wrap_content"
                     android:text="Address"
                     android:layout_weight="3"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"/>
-
             </LinearLayout>
             <Button
                 android:id="@+id/btn_start"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start Your Day"
-                android:textAllCaps="true"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_margin="20dp"
+                android:textSize="16sp"
+                android:fontFamily="@font/lexend"
                 android:background="@color/button"
-                android:layout_marginTop="8dp"/>
+                android:text="Start Your Day"
+                android:textAllCaps="true" />
         </LinearLayout>
-
-
-
     </LinearLayout>
-
-
-
 </LinearLayout>

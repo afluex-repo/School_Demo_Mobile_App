@@ -1,22 +1,16 @@
 package affluex.school.solutions.Fragments;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Adapter.AdapterStudentsAttendance;
 import affluex.school.solutions.Model.ResponseParentDashboard;
 import affluex.school.solutions.Model.ResponseStudentAttendance;
@@ -32,23 +26,16 @@ import retrofit2.Response;
 
 
 public class StudentsAttendanceFragment extends Fragment {
-
     FragmentStudentsAttendance2Binding binding;
     private ArrayList<StudentDetails> studentDetails;
-
-
     private String selectedStudentId;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding=FragmentStudentsAttendance2Binding.inflate(inflater,container,false);
         studentDetails=new ArrayList<>();
         callDashBoardApi();
-
         getStudentAttendance("","");
-
         return binding.getRoot();
     }
 

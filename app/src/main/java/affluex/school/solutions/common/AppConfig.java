@@ -1,5 +1,4 @@
 package affluex.school.solutions.common;
-
 public class AppConfig {
     public static final String PAYLOAD_BUNDLE = "sabkaMart";
 

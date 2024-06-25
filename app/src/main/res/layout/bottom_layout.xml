@@ -3,52 +3,48 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    app:strokeWidth="1dp"
+    app:strokeWidth="2dp"
     app:strokeColor="@color/black"
-    app:cardCornerRadius="32dp"
-
-
+    app:cardCornerRadius="2dp"
     app:cardBackgroundColor="@color/white"
-    android:layout_height="wrap_content">
+    android:layout_height="55dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/ll_1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_gravity="center"
                 android:background="@color/white"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/img_1"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:backgroundTint="#0019FE"
-
                     android:src="@drawable/baseline_home_24"
                     app:tint="#0019FE" />
-
                 <TextView
                     android:id="@+id/txt_1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Home"
                     android:layout_gravity="center"
                     android:gravity="center"/>
-
-
             </LinearLayout>
-
-
             <LinearLayout
                 android:id="@+id/ll_2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/img_2"
@@ -56,72 +52,59 @@
                     android:layout_height="20dp"
                   android:backgroundTint="#0019FE"
                     android:src="@drawable/ic_person"/>
-
                 <TextView
                     android:id="@+id/txt_2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="Attendance"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_gravity="center"
                     android:gravity="center"/>
-
-
             </LinearLayout>
-
-
             <LinearLayout
                 android:id="@+id/ll_3"
                 android:layout_width="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/img_3"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:src="@drawable/baseline_message_24"/>
-
                 <TextView
                     android:id="@+id/txt_3"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="View Notice"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_gravity="center"
                     android:gravity="center"/>
-
-
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/ll_4"
                 android:layout_width="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/img_4"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_person"/>
-
                 <TextView
                     android:id="@+id/txt_4"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Homework"
                     android:layout_gravity="center"
                     android:gravity="center"/>
-
-
             </LinearLayout>
-
-
     </LinearLayout>
-
-
-
-
 </androidx.cardview.widget.CardView>

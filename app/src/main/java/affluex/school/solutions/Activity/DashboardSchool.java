@@ -1,7 +1,4 @@
 package affluex.school.solutions.Activity;
-
-import static androidx.core.app.PendingIntentCompat.getActivity;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -11,7 +8,6 @@ import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -27,21 +23,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
 import affluex.school.solutions.Fragments.AssignmentFragment;
 import affluex.school.solutions.Fragments.AttendanceListFragment;
 import affluex.school.solutions.Fragments.ComplaintFragment;
@@ -49,25 +40,20 @@ import affluex.school.solutions.Fragments.ForgotPasswordFragment;
 import affluex.school.solutions.Fragments.LeaveFragment;
 import affluex.school.solutions.Fragments.ParentHome;
 import affluex.school.solutions.Fragments.ParentsProfileFragment;
-import affluex.school.solutions.Fragments.SchoolHome;
 import affluex.school.solutions.Fragments.StudentsAttendanceFragment;
 import affluex.school.solutions.Fragments.TeacherHome;
 import affluex.school.solutions.Fragments.TeacherNoticeFragment;
-import affluex.school.solutions.Fragments.TeacherProfileFragment;
 import affluex.school.solutions.Fragments.TeacherSalaryFragment;
 import affluex.school.solutions.R;
 import affluex.school.solutions.databinding.ActivityDashboardSchoolBinding;
 import affluex.school.solutions.databinding.BottomLayoutBinding;
-import affluex.school.solutions.databinding.CommonHomeSupportToolbarBinding;
 import affluex.school.solutions.databinding.CustomToolBarBinding;
 import affluex.school.solutions.databinding.DrawaberNavigationViewLayoutBinding;
-import affluex.school.solutions.databinding.LayoutTopToolbarBinding;
+
 
 public class DashboardSchool extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     ActivityDashboardSchoolBinding binding;
     BottomLayoutBinding bottomLayoutBinding;
-
-
     CustomToolBarBinding topToolbarBinding;
     private static final int Location_Request_code = 100;
     private final int REQUEST_IMAGE = 400;
@@ -75,11 +61,7 @@ public class DashboardSchool extends AppCompatActivity implements  NavigationVie
     double latitude=0.0,longitude=0.0;
     private LocationManager locationManager;
     FusedLocationProviderClient fusedLocationProviderClient;
-
-
-
     DrawaberNavigationViewLayoutBinding drawerBinding;
-
     public ActionBarDrawerToggle drawerToggle;
 
 
@@ -101,54 +83,55 @@ public class DashboardSchool extends AppCompatActivity implements  NavigationVie
 
 
         bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
-        bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-        bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-        bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+        bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+        bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+        bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
 
-Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath",""));
+       Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath",""));
 
 
         if(!getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").equals("")){
             String substring=getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").substring(2);
-            String link="http://demo2.afluex.com"+substring;
+            String link="https://school.afluex.com"+substring;
             Log.e("Title123",link);
             Picasso.get().load(link).
                     resize(400,400).centerCrop()
-                    .placeholder(R.drawable.profile_round).into(drawerBinding.userImage);
+                    .placeholder(R.drawable.user3).into(drawerBinding.userImage);
         }
 
 
+// logout code..
 
-        topToolbarBinding.ivNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(DashboardSchool.this);
-                builder.setCancelable(false);
-                builder.setTitle("Are you Sure you want to Log out?")
-                        .setMessage("Once you log out you need to log in again.")
-                        .setCancelable(true)
-                        .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences sharedPreferences=getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor= sharedPreferences.edit();
-                                editor.clear();
-                                editor.commit();
-                                startActivity(new Intent(DashboardSchool.this,LoginActivity.class));
-                                finish();
-                                binding.drawerLayout.closeDrawer(GravityCompat.START);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                binding.drawerLayout.closeDrawer(GravityCompat.START);
-                            }
-                        });
-                builder.show();
-            }
-        });
+//        topToolbarBinding.ivNotification.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(DashboardSchool.this);
+//                builder.setCancelable(false);
+//                builder.setTitle("Are you Sure you want to Log out?")
+//                        .setMessage("Once you log out you need to log in again.")
+//                        .setCancelable(true)
+//                        .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                SharedPreferences sharedPreferences=getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+//                                SharedPreferences.Editor editor= sharedPreferences.edit();
+//                                editor.clear();
+//                                editor.commit();
+//                                startActivity(new Intent(DashboardSchool.this,LoginActivity.class));
+//                                finish();
+//                                binding.drawerLayout.closeDrawer(GravityCompat.START);
+//                            }
+//                        })
+//                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                                binding.drawerLayout.closeDrawer(GravityCompat.START);
+//                            }
+//                        });
+//                builder.show();
+//            }
+//        });
 
         binding.bottomLayout.ll1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,19 +141,19 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                      fragment=new TeacherHome();
                     topToolbarBinding.tvTHometitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
                     String substring=getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").substring(2);
-                    String link="http://demo2.afluex.com"+substring;
+                    String link="https://school.afluex.com"+substring;
                     Log.e("Title123",link);
 
                     Picasso.get().load(link).
                             resize(400,400).centerCrop()
-                            .placeholder(R.drawable.profile_round)
+                            .placeholder(R.drawable.user3)
                             .into(topToolbarBinding.imgProfile);
 
                     switchFragmentOnDashBoard(fragment,"Home");
                     bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
-                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
                 }else{
                      fragment=new ParentHome();
                     switchFragmentOnDashBoard(fragment,"Home");
@@ -181,9 +164,9 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                     topToolbarBinding.txtMessage.setVisibility(View.GONE);
                     topToolbarBinding.txtWelcome.setText("Welcome Parent");
                     bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
-                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
                 }
             }
         });
@@ -194,17 +177,17 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                 if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")) {
                     fragment = new AttendanceListFragment();
                     switchFragmentOnDashBoard(fragment, "Attendance");
-                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
                     bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
-                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
                 }else{
                     fragment = new StudentsAttendanceFragment();
                     switchFragmentOnDashBoard(fragment, "Attendance");
-                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
                     bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
-                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
                 }
             }
         });
@@ -215,17 +198,17 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                 if(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userType","").equals("Teacher")) {
                     fragment = new TeacherNoticeFragment();
                     switchFragmentOnDashBoard(fragment, "Notice");
-                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
                     bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
-                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
                 }else{
                     fragment = new TeacherNoticeFragment();
                     switchFragmentOnDashBoard(fragment, "Complain");
-                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+                    bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
                     bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
-                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+                    bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
                 }
             }
         });
@@ -235,9 +218,9 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
             public void onClick(View view) {
                 Fragment fragment=new AssignmentFragment();
                 switchFragmentOnDashBoard(fragment,"Homework");
-                bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-                bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-                bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+                bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+                bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+                bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
                 bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.white));
             }
         });
@@ -246,7 +229,7 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
              fragment=new TeacherHome();
              topToolbarBinding.tvTHometitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
              String substring=getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("imagePath","").substring(2);
-             String link="http://demo2.afluex.com"+substring;
+             String link="https://school.afluex.com"+substring;
              Log.e("Title123",link);
             drawerBinding.txtSalary.setText("Salary");
             drawerBinding.imgSalary.setImageResource(R.drawable.baseline_currency_rupee_24);
@@ -255,7 +238,7 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
 
             Picasso.get().load(link).
                     resize(400,400).centerCrop()
-                    .placeholder(R.drawable.profile_round)
+                    .placeholder(R.drawable.user3)
                     .into(topToolbarBinding.imgProfile);
 
 //            Glide.with(this).load(link).into(topToolbarBinding.imgProfile);
@@ -268,8 +251,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                         +getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("sectionName",""));
             }
             switchFragmentOnDashBoard(fragment,"Home");
-
-
         }else{
             fragment=new ParentHome();
             switchFragmentOnDashBoard(fragment,"Home");
@@ -385,7 +366,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
             }
         });
 
-
         drawerBinding.liBookmarks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -399,7 +379,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                 }
             }
         });
-
         drawerBinding.liDownloadVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -418,7 +397,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
         drawerBinding.assignTvName.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
         drawerBinding.tvNumber.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("userId",""));
 
-
         drawerBinding.liAboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -434,10 +412,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
             }
         });
 
-
-
-
-
         drawerToggle.syncState();
         drawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
@@ -445,7 +419,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                 binding.drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-
         setSupportActionBar(topToolbarBinding.toolbar);
         topToolbarBinding.ivBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -465,7 +438,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
 
             }
         });
-
         topToolbarBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -480,8 +452,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
             }
         });
 
-
-
     }
     public void switchFragmentOnDashBoard(Fragment fragment,String name) {
 
@@ -490,91 +460,91 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
             topToolbarBinding.llName.setVisibility(View.VISIBLE);
             topToolbarBinding.txtPageName.setVisibility(View.GONE);
             bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Homework")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
             bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.white));
         }else if(name.equals("Notice")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
             bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Attendance")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
             bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.white));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("View Salary Slip")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }
         else if(name.equals("Salary Report")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Change Password")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Leave")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Complaints")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Fee Report")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -590,53 +560,53 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
             topToolbarBinding.llName.setVisibility(View.VISIBLE);
             topToolbarBinding.txtPageName.setVisibility(View.GONE);
             bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Homework")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
             bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.white));
         }else if(name.equals("Notice")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
             bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.white));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Complaints")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Fee Report")){
             topToolbarBinding.llDetails.setVisibility(View.GONE);
             topToolbarBinding.llName.setVisibility(View.GONE);
             topToolbarBinding.txtPageName.setText(name);
             topToolbarBinding.txtPageName.setVisibility(View.VISIBLE);
-            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
         }else if(name.equals("Home1")){
             topToolbarBinding.llDetails.setVisibility(View.VISIBLE);
             topToolbarBinding.llName.setVisibility(View.VISIBLE);
             topToolbarBinding.txtPageName.setVisibility(View.GONE);
             bottomLayoutBinding.ll1.setBackgroundColor(getColor(R.color.white));
-            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.yellow_50));
-            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.yellow_50));
+            bottomLayoutBinding.ll2.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll3.setBackgroundColor(getColor(R.color.card_selected));
+            bottomLayoutBinding.ll4.setBackgroundColor(getColor(R.color.card_selected));
             topToolbarBinding.tvTHometitle.setText(getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("name",""));
             topToolbarBinding.tvTHometitle.setTextColor(getColor(R.color.white));
             topToolbarBinding.tvClassTitle.setVisibility(View.GONE);
@@ -660,7 +630,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -678,7 +647,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
 
         }
     }
-
 
     @SuppressLint("MissingPermission")
     private void detectLocation() {
@@ -709,12 +677,6 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
                                     Toast.makeText(DashboardSchool.this, "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
                                     Log.e("AVGHCGHJGFHC",""+latitude);
                                     Log.e("AVGHCGHJGFHC",""+longitude);
-
-
-
-
-
-
 //                                if(latitude>0 && longitude>0){
 //                                    fusedLocationProviderClient.removeLocationUpdates((LocationListener) locationManager);
 //                                }
@@ -797,20 +759,13 @@ Log.e("ImageJHV",getSharedPreferences("LoginDetails",MODE_PRIVATE).getString("im
 
                                 } catch (IOException e) {
                                     e.printStackTrace();
-
                                 }
-
                             } else {
 
                                 Toast.makeText(DashboardSchool.this ,"Unable to detect Your Location", Toast.LENGTH_SHORT).show();
                             }
                         }catch (Exception e){
-
-
                         }
-
-
-
                     }
                 });
             }

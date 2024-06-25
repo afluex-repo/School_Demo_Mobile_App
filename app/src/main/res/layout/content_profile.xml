@@ -18,12 +18,10 @@
         android:contentDescription="+"
         app:backgroundTint="@null"
         app:fabSize="auto"
-
         android:background="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cardCornerRadius="64dp"
-
         app:contentPadding="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -35,7 +33,6 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_edit"/>
     </androidx.cardview.widget.CardView>
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/root_leyaut"
         android:layout_width="match_parent"
@@ -43,8 +40,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,6 +51,7 @@
                 <TextView
                     style="@style/headerText"
                     android:text="Personal Info"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_marginBottom="20dp"/>
 
                 <RelativeLayout style="@style/profileDetailsLayout">
@@ -67,13 +63,13 @@
                     <TextView
                         android:id="@+id/txt_name1"
                         android:text="Name"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/nameImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:background="@null"
-
                         android:id="@+id/et_name"
+                        android:fontFamily="sans-serif"
                         android:text="Sugandh"
                         android:layout_toRightOf="@id/nameImageView"
 
@@ -89,8 +85,8 @@
                         style="@style/profileDetailsImage" />
 
                     <TextView
-
                         android:text="Father's Name"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/nameImageView1"
                         style="@style/profileDetailsTextMain" />
 
@@ -98,6 +94,7 @@
                         android:background="@null"
                         android:id="@+id/et_father_name"
                         android:text="Vijay"
+                        android:fontFamily="sans-serif"
                         android:layout_toRightOf="@id/nameImageView1"
                         style="@style/profileDetailsMiniText" />
 
@@ -114,13 +111,14 @@
 
                     <TextView
                         android:text="Mobile"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/mobileImageView"
                         style="@style/profileDetailsTextMain"/>
 
                     <EditText
                         android:id="@+id/txt_mobile"
                         android:background="@null"
-                        
+                        android:fontFamily="sans-serif"
                         android:text="+91-8129999999"
                         android:inputType="number"
                         android:layout_toRightOf="@id/mobileImageView"
@@ -139,13 +137,14 @@
 
                     <TextView
                         android:text="Email"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/emailImageView"
                         style="@style/profileDetailsTextMain" />
 
                     <EditText
                         android:id="@+id/et_email"
                         android:background="@null"
-                        
+                        android:fontFamily="sans-serif"
                         android:inputType="textEmailAddress"
                         android:text="developer@afluex.com"
                         android:layout_toRightOf="@id/emailImageView"
@@ -162,14 +161,15 @@
 
                     <TextView
                         android:text="D.O.B"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/dobImageView"
                         style="@style/profileDetailsTextMain" />
 
                     <EditText
                         android:id="@+id/et_dob"
                         android:background="@null"
-                        
                         android:text="12-05-1990"
+                        android:fontFamily="sans-serif"
                         android:layout_toRightOf="@id/dobImageView"
                         style="@style/profileDetailsMiniText" />
 
@@ -183,226 +183,179 @@
                         android:id="@+id/dojImageView"
                         android:src="@drawable/ic_dob"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="D.O.J"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/dojImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_doj"
                         android:background="@null"
-
                         android:text="12-05-1990"
+                        android:fontFamily="sans-serif"
                         android:layout_toRightOf="@id/dojImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/addressImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="Address"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/addressImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_address"
                         android:background="@null"
-                        
                         android:text="Avenue 2nd Street NW SY."
+                        android:fontFamily="sans-serif"
                         android:layout_toRightOf="@id/addressImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/cityImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="City"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/cityImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_city"
                         android:background="@null"
-                        
                         android:text="Lucknow"
                         android:layout_toRightOf="@id/cityImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/stateImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="State"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/stateImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_state"
                         android:background="@null"
-                        
                         android:text="Uttar Pradesh"
                         android:layout_toRightOf="@id/stateImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/pinImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="Pin"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/pinImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_pin_code"
                         android:background="@null"
-                        
                         android:text="226017"
+                        android:fontFamily="sans-serif"
                         android:layout_toRightOf="@id/pinImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
-
                 <TextView
                     style="@style/headerText"
                     android:text="Educational Info"
                     android:layout_marginBottom="20dp"/>
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/qualificationImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="Qualification"
                         android:layout_toRightOf="@id/qualificationImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_qualification"
                         android:background="@null"
-                        
                         android:text="226017"
+                        android:fontFamily="sans-serif"
                         android:layout_toRightOf="@id/qualificationImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
                 <TextView
                     style="@style/headerText"
+                    android:fontFamily="@font/lexend"
                     android:text="Professional Info"
                     android:layout_marginBottom="20dp"/>
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/professionalImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="Experience"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/professionalImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_experience"
                         android:background="@null"
-                        
                         android:text="226017"
+                        android:fontFamily="sans-serif"
                         android:layout_toRightOf="@id/professionalImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/lastSchoolImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="Last School"
+                        android:fontFamily="@font/lexend"
                         android:layout_toRightOf="@id/lastSchoolImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_last_school"
                         android:background="@null"
-                        
+                        android:fontFamily="sans-serif"
                         android:text="226017"
                         android:layout_toRightOf="@id/lastSchoolImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/lastExperienceImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
+                        android:fontFamily="@font/lexend"
                         android:text="Last Experience"
                         android:layout_toRightOf="@id/lastExperienceImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
-
                         android:id="@+id/et_last_experience"
                         android:background="@null"
-                        
+                        android:fontFamily="sans-serif"
                         android:text="226017"
                         android:layout_toRightOf="@id/lastExperienceImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
-
             </LinearLayout>
-
-
-
-
-
     </androidx.core.widget.NestedScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 

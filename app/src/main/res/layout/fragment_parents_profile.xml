@@ -6,14 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ParentsProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout"
         android:layout_below="@+id/linearLayout"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/root_leyaut"
             android:layout_width="match_parent"
@@ -21,8 +18,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,33 +25,26 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
-
                 <TextView
                     style="@style/headerText"
                     android:text="Personal Info"
                     android:layout_marginBottom="20dp"/>
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/nameImageView"
                         android:src="@drawable/ic_name"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:id="@+id/txt_name1"
                         android:text="Name"
                         android:layout_toRightOf="@id/nameImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:background="@null"
-
                         android:id="@+id/et_name"
                         android:text="Sugandh"
                         android:layout_toRightOf="@id/nameImageView"
-
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
 
                 <View style="@style/proifleDetailsView" />
@@ -65,54 +53,37 @@
                         android:id="@+id/nameImageView1"
                         android:src="@drawable/ic_name"
                         style="@style/profileDetailsImage" />
-
                     <TextView
-
                         android:text="Email"
                         android:layout_toRightOf="@id/nameImageView1"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:background="@null"
                         android:id="@+id/et_email"
                         android:text="Vijay"
                         android:layout_toRightOf="@id/nameImageView1"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:background="@null"
-
                         android:id="@+id/mobileImageView"
                         android:src="@drawable/ic_mobile"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="Mobile"
                         android:layout_toRightOf="@id/mobileImageView"
                         style="@style/profileDetailsTextMain"/>
-
                     <EditText
                         android:id="@+id/txt_mobile"
                         android:background="@null"
-
                         android:text="+91-8129999999"
                         android:inputType="number"
                         android:layout_toRightOf="@id/mobileImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
-
-
-
-
 
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
@@ -124,110 +95,78 @@
                         android:text="Address"
                         android:layout_toRightOf="@id/addressImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_address"
                         android:background="@null"
-
                         android:text="Avenue 2nd Street NW SY."
                         android:layout_toRightOf="@id/addressImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
-
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/cityImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="City"
                         android:layout_toRightOf="@id/cityImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_city"
                         android:background="@null"
-
                         android:text="Lucknow"
                         android:layout_toRightOf="@id/cityImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/stateImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="State"
                         android:layout_toRightOf="@id/stateImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_state"
                         android:background="@null"
-
                         android:text="Uttar Pradesh"
                         android:layout_toRightOf="@id/stateImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
                 <RelativeLayout style="@style/profileDetailsLayout">
                     <ImageView
                         android:id="@+id/pinImageView"
                         android:src="@drawable/ic_address"
                         style="@style/profileDetailsImage" />
-
                     <TextView
                         android:text="Pin Code"
                         android:layout_toRightOf="@id/pinImageView"
                         style="@style/profileDetailsTextMain" />
-
                     <EditText
                         android:id="@+id/et_pincode"
                         android:background="@null"
-
                         android:text="Pincode"
                         android:layout_toRightOf="@id/pinImageView"
                         style="@style/profileDetailsMiniText" />
-
                 </RelativeLayout>
-
                 <View style="@style/proifleDetailsView" />
-
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:text="Update"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="40dp"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:background="@drawable/background_splash"
                     android:textColor="@color/white"/>
-
-
-
-
-
             </LinearLayout>
-
-
-
-
-
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

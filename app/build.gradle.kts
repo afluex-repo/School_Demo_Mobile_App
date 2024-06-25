@@ -1,6 +1,8 @@
 plugins {
+
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
 }
 
 android {
@@ -11,8 +13,8 @@ android {
         applicationId = "affluex.school.solutions"
         minSdk = 24
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -27,14 +29,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
 
-        }
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://demo2.afluex.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://school.afluex.com/\"")
         }
+
         release {
 //            buildConfigField "String", "BASE_URL", "\"http://demo1.afluex.com/webapi/\""
-            buildConfigField("String", "BASE_URL", "\"http://demo2.afluex.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://school.afluex.com/\"")
 
             buildFeatures {
                 viewBinding = true
@@ -86,33 +89,21 @@ android {
         implementation("de.hdodenhof:circleimageview:3.1.0")
         implementation("com.karumi:dexter:5.0.0")
         implementation("com.google.android.gms:play-services-location:16.0.0")
-
         implementation ("com.github.p32929:AndroidEasySQL-Library:1.4.1")
-
         implementation ("com.squareup.picasso:picasso:2.71828")
-
         implementation ("com.github.bumptech.glide:glide:4.16.0")
-
-
         implementation ("com.github.smarteist:autoimageslider:1.4.0-appcompat")
-
-
         //Retrofit APIs
-
         implementation ("com.squareup.retrofit2:retrofit:2.9.0")
         implementation ("com.squareup.retrofit2:converter-scalars:2.6.1")
         implementation ("com.squareup.retrofit2:converter-gson:2.6.1")
         implementation ("com.squareup.okhttp3:logging-interceptor:3.9.0")
-
         implementation ("io.github.inflationx:viewpump:2.0.3")
         implementation ("io.github.inflationx:calligraphy3:3.1.1")
         implementation ("com.github.dhaval2404:imagepicker:2.1")
-
-
-
-
     }
 }
+
 dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

@@ -1,5 +1,4 @@
 package affluex.school.solutions.Fragments;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -8,10 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,17 +18,13 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.JsonObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
 import affluex.school.solutions.Adapter.AdapterLeave;
 import affluex.school.solutions.Adapter.AdapterLeaveParents;
-import affluex.school.solutions.Adapter.AdapterSelectStudent;
 import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ModelLeave;
 import affluex.school.solutions.Model.ResponseLeave;
@@ -49,43 +42,27 @@ import retrofit2.Response;
 
 
 public class LeaveFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     affluex.school.solutions.databinding.FragmentLeaveBinding binding;
     private ArrayList<String> statusList;
     private ProgressDialog progressDialog;
-
     private ArrayList<ModelLeave> pendingleaveArrayList;
     private ArrayList<ModelLeave> totalleaveArrayList;
-
     String status="Pending";
-
     private final Calendar myCalendar = Calendar.getInstance();
     String fromDate;
-
-
     private ArrayList<StudentDetails> studentDetails;
-
     private String selectedstudentId;
-
     public LeaveFragment() {
-        // Required empty public constructor
+
     }
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding=affluex.school.solutions.databinding.FragmentLeaveBinding.inflate(inflater,container,false);
         binding.cardPending.setCardBackgroundColor(getContext().getColor(R.color.blue_900));
         binding.txtPending.setTextColor(getContext().getColor(R.color.white));
@@ -99,12 +76,7 @@ public class LeaveFragment extends Fragment {
         binding.llAdd.setVisibility(View.GONE);
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
-
-
-
-
         studentDetails=new ArrayList<>();
-
         pendingleaveArrayList=new ArrayList<>();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         totalleaveArrayList=new ArrayList<>();
@@ -113,9 +85,7 @@ public class LeaveFragment extends Fragment {
             binding.cardAdd.setVisibility(View.VISIBLE);
             binding.llTeacherSearch.setVisibility(View.GONE);
             binding.spinnerSelectStudent.setVisibility(View.VISIBLE);
-
             callLeaveListParents();
-
         }else{
             callPendingLeaveListApi("","");
             callTotalLeaveListApi("","");
@@ -123,8 +93,6 @@ public class LeaveFragment extends Fragment {
             binding.llTeacherSearch.setVisibility(View.VISIBLE);
             binding.spinnerSelectStudent.setVisibility(View.GONE);
         }
-
-
         binding.cardPending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,8 +119,6 @@ public class LeaveFragment extends Fragment {
                 status="Approved";
                 progressDialog.show();
                 callTotalLeaveListApi("","");
-
-
             }
         });
         binding.cardDeclined.setOnClickListener(new View.OnClickListener() {
@@ -167,70 +133,51 @@ public class LeaveFragment extends Fragment {
                 status="Declined";
                 progressDialog.show();
                 callTotalLeaveListApi("","");
-
-
             }
         });
 
         callDashBoardApi();
-
-
         DatePickerDialog.OnDateSetListener dateFrom = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.etFrom);
-
-
         };
         DatePickerDialog.OnDateSetListener dateTo = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.etTo);
-
-
         };
          DatePickerDialog.OnDateSetListener dateFromAdd = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.etFromAdd);
-
-
-
         };
 
         DatePickerDialog.OnDateSetListener dateToAdd = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
+            String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.etToAdd);
-
-
-
         };
-
         binding.etFromAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -238,7 +185,7 @@ public class LeaveFragment extends Fragment {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
 
@@ -249,7 +196,7 @@ public class LeaveFragment extends Fragment {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
 
@@ -260,7 +207,7 @@ public class LeaveFragment extends Fragment {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
 
@@ -271,7 +218,7 @@ public class LeaveFragment extends Fragment {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
 
@@ -291,7 +238,6 @@ public class LeaveFragment extends Fragment {
             public void onClick(View view) {
                 binding.llView.setVisibility(View.GONE);
                 binding.llAdd.setVisibility(View.VISIBLE);
-
             }
         });
 
@@ -300,17 +246,11 @@ public class LeaveFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedstudentId=studentDetails.get(i).getPkStudentId();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-
-
-
-
-
 
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,9 +266,6 @@ public class LeaveFragment extends Fragment {
                 }
             }
         });
-
-
-
         return binding.getRoot();
     }
 
@@ -342,8 +279,6 @@ public class LeaveFragment extends Fragment {
         object.addProperty("FromDate", binding.etFromAdd.getText().toString());
         object.addProperty("ToDate", binding.etToAdd.getText().toString());
         object.addProperty("Reason", binding.etReason.getText().toString());
-
-
         Call<CommonResponse> call=apiServices.ApplyLeave(object);
         call.enqueue(new Callback<CommonResponse>() {
             @Override
@@ -359,7 +294,6 @@ public class LeaveFragment extends Fragment {
                     Toast.makeText(getActivity(), response.body().getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<CommonResponse> call, Throwable t) {
 
@@ -367,18 +301,14 @@ public class LeaveFragment extends Fragment {
         });
 
     }
-
-
     private void callLeaveListParents() {
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String pkteacherId=sharedPreferences.getString("Pk_ParentID","");
         JsonObject object = new JsonObject();
         object.addProperty("AddedBy", Integer.parseInt(pkteacherId));
-
         LoggerUtil.logItem(object);
         Call<ResponseLeaveParent> call = apiServices.LeaveList(object);
-
         call.enqueue(new Callback<ResponseLeaveParent>() {
             @Override
             public void onResponse(Call<ResponseLeaveParent> call, Response<ResponseLeaveParent> response) {
@@ -388,8 +318,6 @@ public class LeaveFragment extends Fragment {
                         AdapterLeaveParents adapterLeaveParents =new AdapterLeaveParents(getActivity(),
                                 response.body().getLeaveListDetailsArrayList().get(0).getLeaveParentsArrayList());
                         binding.rvLeave.setAdapter(adapterLeaveParents);
-
-
                     }
                 }
             }
@@ -399,16 +327,12 @@ public class LeaveFragment extends Fragment {
 
             }
         });
-
     }
-
     private void updateLabel(EditText fromdateEt) {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         fromdateEt.setText(sdf.format(myCalendar.getTime()));
     }
-
-
     private void callTotalLeaveListApi(String from,String to) {
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
@@ -427,8 +351,6 @@ public class LeaveFragment extends Fragment {
                 public void onResponse(Call<ResponseLeave> call, Response<ResponseLeave> response) {
                     progressDialog.dismiss();
                     totalleaveArrayList.clear();
-//                    totalleaveArrayList=new ArrayList<>(response.body().getLeaveList());
-
                     if(response.body().getLeaveList()!=null){
                         for(int i=0;i<response.body().getLeaveList().size();i++){
                             Log.e("ResponseTotalLeaveList",""+(response.body().getLeaveList().get(i).getStatus().toLowerCase()));
@@ -472,20 +394,11 @@ public class LeaveFragment extends Fragment {
                 public void onResponse(Call<ResponseLeave> call, Response<ResponseLeave> response) {
                     progressDialog.dismiss();
                     pendingleaveArrayList=new ArrayList<>(response.body().getLeaveList());
-////                    totalleaveArrayList=new ArrayList<>(response.body().getLeaveList());
-//                    if(response.body().getLeaveList()!=null) {
-//                        for (int i = 0; i < response.body().getLeaveList().size(); i++) {
-//                            Log.e("ResponseTotalLeaveList", "" + (response.body().getLeaveList().get(i).getStatus().toLowerCase()));
-//                                pendingleaveArrayList.add(response.body().getLeaveList().get(i));
-//
-//                        }
-//                    }
                     if(pendingleaveArrayList.size()>0){
                         AdapterLeave adapterLeave=new AdapterLeave(getActivity(),pendingleaveArrayList);
                         binding.rvLeave.setAdapter(adapterLeave);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResponseLeave> call, Throwable t) {
                     progressDialog.dismiss();
@@ -494,7 +407,6 @@ public class LeaveFragment extends Fragment {
                 }
             });
         }
-
     }
 
     class SpinnerStatus extends android.widget.BaseAdapter {
@@ -531,26 +443,20 @@ public class LeaveFragment extends Fragment {
         // we will receive data updates in onReceive method.
         @Override
         public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
             String status = intent.getStringExtra("status");
             int position=intent.getIntExtra("position",-1);
             String description=intent.getStringExtra("description");
             Log.e("Recesjhjh",status);
             Log.e("Recesjhjh",""+position);
-            
-            
             if(status.equals("decline")){
                 callDeclineApi(position,description);
             }else{
                 callApproveApi(position,description);
             }
-
-            // on below line we are updating the data in our text view.
         }
     };
 
     private void callApproveApi(int position, String description) {
-
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String pkteacherId=sharedPreferences.getString("pkTeacherId","");
@@ -572,11 +478,9 @@ public class LeaveFragment extends Fragment {
                         callPendingLeaveListApi("","");
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResponseLeaveApproval> call, Throwable t) {
                     Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-
                 }
             });
         }
@@ -605,7 +509,6 @@ public class LeaveFragment extends Fragment {
                         callPendingLeaveListApi("","");
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResponseLeaveApproval> call, Throwable t) {
                     Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -641,11 +544,8 @@ public class LeaveFragment extends Fragment {
 
                             }
                         }
-
                     }
                 }
-
-
                 @Override
                 public void onFailure(Call<ResponseParentDashboard> call, Throwable t) {
 

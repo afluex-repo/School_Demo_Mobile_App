@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.SchoolHome">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,17 +16,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-
-           >
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:orientation="horizontal">
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:layout_margin="@dimen/space_5"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="8dp"
                     android:padding="8dp"
@@ -53,7 +49,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/lexend"
                             android:text="Your Teachers"
                             android:layout_gravity="center"
                             android:gravity="center"
@@ -67,7 +64,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_marginStart="4dp"
-
+                    android:layout_margin="@dimen/space_5"
                     android:layout_marginEnd="8dp"
                     android:layout_height="150dp"
                     android:background="@drawable/shape_curved_rectangle_black"
@@ -87,7 +84,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/lexend"
                         android:text="Your Classes"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -101,6 +99,7 @@
                     android:layout_height="150dp"
                     android:background="@drawable/shape_curved_rectangle_black"
                     android:padding="8dp"
+                    android:layout_margin="@dimen/space_5"
                     android:orientation="vertical">
                     <ImageView
                         android:layout_width="match_parent"
@@ -116,7 +115,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/lexend"
                         android:text="Your Subjects"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -128,7 +128,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
@@ -136,7 +135,6 @@
 
             android:layout_marginBottom="8dp"
             android:background="@color/black"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -154,6 +152,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="8dp"
                     android:layout_height="150dp"
+
                     android:background="@drawable/shape_curved_rectangle_black"
                     android:padding="8dp"
                     android:orientation="vertical">
@@ -171,8 +170,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="Students"
+                        android:fontFamily="@font/lexend"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="@color/black"/>
@@ -200,8 +200,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="Time Table"
+                        android:fontFamily="@font/lexend"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="@color/black"/>
@@ -229,7 +230,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/lexend"
                         android:text="Notifications"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -241,7 +243,5 @@
             </LinearLayout>
 
         </LinearLayout>
-
     </LinearLayout>
-
 </FrameLayout>

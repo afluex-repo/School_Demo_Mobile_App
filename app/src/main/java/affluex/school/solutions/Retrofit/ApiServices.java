@@ -1,7 +1,7 @@
 package affluex.school.solutions.Retrofit;
-
 import com.google.gson.JsonObject;
 
+import affluex.school.solutions.ExamModel.Exam.ExamResponse;
 import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.ModelParents;
 import affluex.school.solutions.Model.ModelProfile;
@@ -32,6 +32,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
+
+
 public interface ApiServices {
     @POST("MasterForApi/TeacherLogin")
     Call<ModelTeachers> getLoginTeachers(@Body JsonObject login);
@@ -48,13 +50,14 @@ public interface ApiServices {
 
 
     @POST("MasterForApi/GetClassList")
-    Call<ResponseClass> GetClassList(@Body JsonObject login);
+    Call<ResponseClass> GetClassList(@Body JsonObject login); //
 
     @POST("MasterForApi/GetSectionList")
-    Call<ResponseSection> GetSectionList(@Body JsonObject login);
+    Call<ResponseSection> GetSectionList(@Body JsonObject login); //
 
-    @POST("MasterForApi/GetSubjectNameBySection")
+    @POST("MasterForApi/GetSubjectNameBySection")//
     Call<ResponseSubject> GetSubjectList(@Body JsonObject login);
+
     @POST("MasterForApi/GetHomeworkList")
     Call<ResponseHomework> GetHomeworkList(@Body JsonObject login);
 
@@ -62,11 +65,10 @@ public interface ApiServices {
     @POST("MasterForApi/EmployeeSalarySlipBy")
     Call<ResponseSalary> EmployeeSalarySlipBy(@Body JsonObject login);
 
-
     @POST("MasterForApi/PrintSalarySlip")
     Call<ResponseSalarySlip> PrintSalarySlip(@Body JsonObject login);
 @POST("MasterForApi/SaveHomework")
-    Call<String> SaveAsignment(@Body JsonObject login);
+    Call<String> SaveAsignment(@Body RequestBody login);
 //@Multipart
 //    @POST("MasterForApi/SaveHomework")
 //Call<String> SaveAsignment(@Part MultipartBody.Part image,
@@ -130,7 +132,6 @@ public interface ApiServices {
 @POST("MasterForApi/UpdateNotice ")
     Call<CommonResponse> UpdateNotice     (@Body JsonObject login);
 
-
     @POST("MasterForApi/GetOtp ")
     Call<CommonResponse> GetOtp     (@Body JsonObject login);
 
@@ -138,10 +139,6 @@ public interface ApiServices {
     Call<CommonResponse> GetPassword      (@Body JsonObject login);
 @POST("MasterForApi/ApplyLeave  ")
     Call<CommonResponse> ApplyLeave      (@Body JsonObject login);
-
-
-
-
 
     @POST("MasterForApi/DashBoardDetails")
     Call<ResponseParentDashboard> GetDashboard(@Body JsonObject login);
@@ -178,6 +175,14 @@ public interface ApiServices {
 
 @POST("MasterForApi/UpdateParentProfile")
     Call<CommonResponse> UpdateParentProfile(@Body JsonObject login);
+
+
+    @POST(" MasterForApi/GetExamType")
+    Call<ExamResponse> getExamDetails();
+
+
+
+
 
 
 

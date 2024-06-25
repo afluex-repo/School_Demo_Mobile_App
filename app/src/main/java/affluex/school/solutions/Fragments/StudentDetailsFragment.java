@@ -1,23 +1,16 @@
 package affluex.school.solutions.Fragments;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.google.gson.JsonObject;
-
 import affluex.school.solutions.Model.ModelStudentDetails;
-import affluex.school.solutions.Model.ResponseParentDashboard;
 import affluex.school.solutions.Model.ResponseStudentDetails;
-import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.common.LoggerUtil;
@@ -28,20 +21,12 @@ import retrofit2.Response;
 
 
 public class StudentDetailsFragment extends Fragment {
-
     FragmentStudentDetailsBinding binding;
-
-
     String studentId;
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding=FragmentStudentDetailsBinding.inflate(inflater,container,false);
-        // Inflate the layout for this fragment
-
         studentId=getArguments().getString("studentId");
         getStudentDetails();
         return binding.getRoot();

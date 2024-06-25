@@ -1,16 +1,13 @@
 package affluex.school.solutions.Activity;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import affluex.school.solutions.R;
 import affluex.school.solutions.databinding.SplashActivityBinding;
 
+
 public class SplashActivity extends AppCompatActivity {
     SplashActivityBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +21,6 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
 
                 } finally {
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -38,10 +34,6 @@ public class SplashActivity extends AppCompatActivity {
 
                         }
                     });
-
-
-
-
                 }
             }
         };

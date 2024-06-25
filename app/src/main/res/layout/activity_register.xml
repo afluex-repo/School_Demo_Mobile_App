@@ -6,11 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.RegisterActivity">
-
     <include layout="@layout/layout_top_toolbar" />
     <include layout="@layout/layout_login_register_banner"/>
-
-
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,10 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
-
         android:orientation="vertical">
-
-
         <LinearLayout
             android:id="@+id/ll_choice"
             android:layout_width="match_parent"
@@ -36,7 +30,6 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="gone">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,14 +42,12 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/grey_300"
                 android:orientation="horizontal">
-
                 <RadioButton
                     android:id="@+id/rb_school"
                     android:layout_width="0dp"
@@ -66,7 +57,6 @@
                     android:padding="4dp"
                     android:text="School"
                     android:textColor="@color/black" />
-
                 <RadioButton
                     android:id="@+id/rb_teacher"
                     android:layout_width="0dp"
@@ -76,7 +66,6 @@
                     android:padding="4dp"
                     android:text="Teacher"
                     android:textColor="@color/black" />
-
                 <RadioButton
                     android:id="@+id/rb_student"
                     android:layout_width="0dp"
@@ -86,24 +75,20 @@
                     android:padding="4dp"
                     android:text="Student"
                     android:textColor="@color/black" />
-
             </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/ll_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -112,7 +97,6 @@
                     android:padding="4dp"
                     android:text="Registering For:"
                     android:textColor="@color/black" />
-
                 <TextView
                     android:id="@+id/txt_user_type"
                     android:layout_width="wrap_content"
@@ -124,7 +108,6 @@
                     android:textColor="@color/red_900"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-
                 <TextView
                     android:id="@+id/btn_change"
                     android:layout_width="wrap_content"
@@ -137,7 +120,6 @@
                     android:text="Change"
                     android:textColor="@color/white" />
             </LinearLayout>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_school_id"
                 android:layout_width="match_parent"
@@ -149,12 +131,10 @@
                 app:cardCornerRadius="16dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="4dp">
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:endIconMode="clear_text">
-
                     <EditText
                         android:id="@+id/et_school_id"
                         android:layout_width="match_parent"
@@ -166,7 +146,6 @@
                         android:inputType="text"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
                 <TextView
                     android:id="@+id/btn_id_verify"
                     android:layout_width="wrap_content"
@@ -180,9 +159,7 @@
                     android:text="Verify"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_name"
                 android:layout_width="match_parent"
@@ -194,13 +171,11 @@
                 app:cardCornerRadius="16dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="4dp">
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:endIconMode="clear_text">
-
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
@@ -212,9 +187,7 @@
                         android:inputType="text"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_mobile"
                 android:layout_width="match_parent"
@@ -226,13 +199,10 @@
                 app:cardCornerRadius="16dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="4dp">
-
                 <com.google.android.material.textfield.TextInputLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:endIconMode="clear_text">
-
                     <EditText
                         android:id="@+id/et_mobile"
                         android:layout_width="match_parent"
@@ -244,9 +214,7 @@
                         android:inputType="numberSigned"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.cardview.widget.CardView>
-
             <TextView
                 android:id="@+id/btn_verify"
                 android:layout_width="wrap_content"
@@ -260,7 +228,6 @@
                 android:text="Verify"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
-
             <com.chaos.view.PinView
                 android:id="@+id/pin_Otp"
                 android:layout_width="wrap_content"
@@ -272,18 +239,13 @@
                 android:padding="8dp"
                 app:itemCount="6"
                 app:itemRadius="8dp" />
-
-
         </LinearLayout>
-
-
         <LinearLayout
             android:id="@+id/ll_designation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-
             <TextView
                 android:id="@+id/txt_spinner_heading"
                 android:layout_width="match_parent"
@@ -295,7 +257,6 @@
                 android:padding="8dp"
                 android:text="Select Class"
                 android:textColor="@color/blue_500" />
-
             <Spinner
                 android:id="@+id/spinner_designation"
                 android:layout_width="match_parent"
@@ -306,16 +267,13 @@
                 android:background="@drawable/shape_curved_rectangle_black"
                 android:padding="8dp"
                 android:paddingEnd="8dp" />
-
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/ll_school_timing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="visible">
-
             <TextView
                 android:id="@+id/txt_timing"
                 android:layout_width="match_parent"
@@ -335,6 +293,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginTop="@dimen/space_10"
                 android:orientation="horizontal">
 
                 <EditText
@@ -345,17 +304,17 @@
                     android:hint="Start Time"
                     android:drawableStart="@drawable/ic_time"
                     android:drawablePadding="8dp"
+                    android:layout_margin="5dp"
                     android:layout_marginStart="8dp"
                     android:padding="8dp"
-                    android:layout_marginTop="8dp"
-                    />
+                    android:layout_marginTop="8dp"/>
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/ic_time"
                     android:drawablePadding="8dp"
-
+                    android:layout_margin="5dp"
                     android:background="@drawable/shape_curved_rectangle_black"
                     android:hint="End Time"
                     android:padding="8dp"
@@ -388,6 +347,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_curved_rectangle_black"
                     android:hint="City"
+                    android:layout_margin="5dp"
                     android:drawableStart="@drawable/ic_city"
                     android:drawablePadding="8dp"
                     android:paddingStart="18dp"
@@ -398,6 +358,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_curved_rectangle_black"
                     android:hint="State"
+                    android:layout_margin="5dp"
                     android:drawableStart="@drawable/ic_city"
                     android:drawablePadding="8dp"
                     android:paddingStart="18dp"
@@ -420,9 +381,10 @@
                     android:drawablePadding="8dp"
                     android:layout_marginTop="8dp"
                     android:minLines="3"
+                    android:layout_margin="5dp"
                     android:maxLines="4"
                     android:paddingStart="18dp"
-                    android:padding="8dp"/>
+                    android:padding="0dp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -476,26 +438,14 @@
                         android:textColor="@color/white"
                         android:textStyle="bold"/>
                 </LinearLayout>
-
-
-
-
             </LinearLayout>
-
-
-
-
-
-
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/ll_user_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -506,12 +456,10 @@
                 app:cardCornerRadius="16dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="4dp">
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:endIconMode="password_toggle">
-
                     <EditText
                         android:id="@+id/et_email"
                         android:layout_width="match_parent"
@@ -523,9 +471,7 @@
                         android:inputType="textEmailAddress"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -536,12 +482,10 @@
                 app:cardCornerRadius="16dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="4dp">
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:endIconMode="password_toggle">
-
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -552,9 +496,7 @@
                         android:inputType="textPassword"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.cardview.widget.CardView>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -567,20 +509,17 @@
                 android:text="Check Availability"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-
                 android:layout_marginEnd="16dp"
                 android:padding="8dp"
                 android:text="User Id Available !!!!"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -591,12 +530,10 @@
                 app:cardCornerRadius="16dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="4dp">
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:endIconMode="password_toggle">
-
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -607,9 +544,7 @@
                         android:inputType="textPassword"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -620,12 +555,10 @@
                 app:cardCornerRadius="16dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="4dp">
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:endIconMode="password_toggle">
-
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -636,9 +569,7 @@
                         android:inputType="textPassword"
                         android:padding="16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.cardview.widget.CardView>
-
             <Button
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
@@ -651,21 +582,16 @@
                 android:text="REGISTER"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-
                 android:visibility="visible"
                 app:cornerRadius="16dp" />
         </LinearLayout>
-
-
     </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/rl_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:orientation="horizontal">
-
         <Button
             android:id="@+id/btn_prev"
             android:layout_width="70dp"
@@ -676,7 +602,6 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/ic_prev" />
-
         <Button
             android:id="@+id/btn_next"
             android:layout_width="70dp"
@@ -687,9 +612,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/ic_next" />
-
     </RelativeLayout>
-
     <TextView
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
@@ -705,11 +628,6 @@
         android:text="Already have an account. Login."
         android:textColor="@color/white"
         android:textSize="16sp"
-
         android:textStyle="bold" />
-
 </androidx.cardview.widget.CardView>
-
-
-
 </LinearLayout>

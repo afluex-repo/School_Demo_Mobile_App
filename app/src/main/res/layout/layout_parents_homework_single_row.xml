@@ -10,16 +10,16 @@
     android:elevation="16dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/txt_stu"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend"
+            android:layout_height="match_parent"
             android:textColor="@color/black"
             android:text="Student's Name"/>
         <LinearLayout
@@ -31,42 +31,33 @@
                 android:id="@+id/txt_date"
                 android:layout_width="0dp"
                 android:layout_weight="2"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="21/08/2023"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textColor="@color/black"/>
-
             <TextView
                 android:id="@+id/txt_subject"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_gravity="center"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textColor="@color/black"
                 android:text="Maths"/>
-
-
-
-
             <TextView
                 android:id="@+id/ic_next"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="View"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
-                android:background="@color/blue_900"
-                />
-
+                android:background="@color/blue_900"/>
         </LinearLayout>
-
-
-
-
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

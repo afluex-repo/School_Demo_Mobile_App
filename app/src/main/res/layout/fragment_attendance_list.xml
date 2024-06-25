@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.AttendanceListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text="Attendance List"
             android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:padding="8dp"
@@ -27,44 +28,38 @@
             android:background="@color/white"
             android:layout_marginTop="4dp"
             android:padding="8dp">
-
             <EditText
                 android:id="@+id/txt_from"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="From Date"
+                android:fontFamily="sans-serif-condensed"
                 android:drawableStart="@drawable/ic_calender"
                 android:drawablePadding="8dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-
-                android:textColor="@color/black"
-                />
-
-
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
             <EditText
                 android:id="@+id/txt_to"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableStart="@drawable/ic_calender"
-                android:drawablePadding="8dp"
+                android:drawablePadding="0dp"
                 android:text="To Date"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_gravity="center"
                 android:gravity="center"
-
-
-                android:textColor="@color/black"
-
-                />
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
             <ImageView
                 android:id="@+id/ic_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:src="@drawable/ic_search"/>
-
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_view"
@@ -72,8 +67,6 @@
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:orientation="vertical">
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -85,16 +78,8 @@
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/layout_attendance_list_single_row"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    />
-
-
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
             </LinearLayout>
-
         </LinearLayout>
-
-
-
     </LinearLayout>
-
 </FrameLayout>

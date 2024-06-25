@@ -4,21 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/green_100"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Homework Details"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
             android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            />
-
+            android:fontFamily="@font/lexend"
+            android:gravity="center"
+            android:text="Homework Details"
+            android:textColor="@color/black" />
         <ImageView
             android:id="@+id/ic_close"
             android:layout_width="30dp"
@@ -30,8 +28,6 @@
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_close" />
     </RelativeLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,6 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Class"
+                android:paddingStart="10dp"
+                android:fontFamily="@font/lexend"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
@@ -66,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="1-A"
+                android:fontFamily="@font/sfuitext_medium"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"/>
@@ -74,13 +73,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-
             android:background="@color/black"
             android:layout_marginTop="8dp"/>
-
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -89,6 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Date"
+                android:fontFamily="@font/lexend"
+                android:paddingStart="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
@@ -106,15 +102,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="23/07/2023"
+                android:fontFamily="@font/sfuitext_medium"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"/>
-
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-
             android:background="@color/black"
             android:layout_marginTop="8dp"/>
         <LinearLayout
@@ -125,7 +120,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Notice"
+                android:fontFamily="@font/lexend"
                 android:textSize="16sp"
+                android:paddingStart="10dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
             <TextView
@@ -142,19 +139,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="Test"
+                android:fontFamily="@font/sfuitext_medium"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"/>
-
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.8dp"
-
             android:background="@color/black"
             android:layout_marginTop="8dp"/>
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_marginTop="16dp"
@@ -166,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Edit"
+                android:fontFamily="@font/lexend"
                 android:drawableStart="@drawable/ic_edit"
                 android:drawablePadding="8dp"
                 android:layout_marginStart="16dp"
@@ -180,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Delete"
+                android:fontFamily="@font/lexend"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/shape_rectangle_background"
@@ -190,19 +186,15 @@
                 android:id="@+id/btn_submit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Submit"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/lexend"
                 android:background="@drawable/shape_rectangle_background"
-                android:textSize="16sp"
+                android:text="Submit"
                 android:textColor="@color/black"
-                android:textStyle="normal"/>
-
+                android:textSize="16sp"
+                android:textStyle="normal" />
         </LinearLayout>
-
     </LinearLayout>
-
-
-
 </LinearLayout>

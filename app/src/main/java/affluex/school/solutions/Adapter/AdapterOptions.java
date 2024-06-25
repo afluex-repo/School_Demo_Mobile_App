@@ -1,16 +1,12 @@
 package affluex.school.solutions.Adapter;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Model.ModelOptions;
 import affluex.school.solutions.R;
 
@@ -35,9 +31,7 @@ public class AdapterOptions extends RecyclerView.Adapter<AdapterOptions.HolderOp
         ModelOptions modelOptions=optionsArrayList.get(position);
         holder.txt_id.setText(modelOptions.getOptionId());
         holder.txt_otions.setText(modelOptions.getOptionName());
-
     }
-
     @Override
     public int getItemCount() {
         return optionsArrayList.size();

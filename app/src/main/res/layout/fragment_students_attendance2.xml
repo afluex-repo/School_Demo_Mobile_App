@@ -13,24 +13,27 @@
       <Spinner
           android:id="@+id/spinner_select_student"
           android:layout_width="match_parent"
+          android:layout_margin="10dp"
           android:layout_height="wrap_content"
-          android:padding="8dp"/>
+          android:padding="10dp"/>
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
+          android:layout_marginTop="15dp"
+          android:padding="10dp"
           android:layout_marginBottom="8dp"
           android:orientation="vertical">
-
          <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
+             android:padding="15dp"
              android:orientation="horizontal">
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="32dp"
                 android:layout_weight="1"
+                android:layout_marginBottom="10dp"
                 android:padding="8dp"
                 app:contentPadding="8dp"
                 app:cardBackgroundColor="@color/white">
@@ -42,15 +45,16 @@
                    android:drawableStart="@drawable/ic_calender"
                    android:background="@null"
                    android:drawablePadding="8dp"/>
-
-
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="32dp"
                 android:layout_weight="1"
+                android:layout_marginStart="10dp"
                 android:padding="8dp"
+                android:paddingStart="10dp"
+                android:layout_marginBottom="10dp"
                 app:contentPadding="8dp"
                 app:cardBackgroundColor="@color/white">
                <EditText
@@ -92,7 +96,5 @@
 
 
       </LinearLayout>
-
    </LinearLayout>
-
 </FrameLayout>

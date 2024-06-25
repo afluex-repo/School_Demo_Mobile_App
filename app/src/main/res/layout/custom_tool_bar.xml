@@ -6,22 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-    >
-<!--<com.google.android.material.appbar.AppBarLayout
-    android:id="@+id/app_bar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:theme="@style/AppTheme.AppBarOverlay"
-    app:elevation="0dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">-->
+    android:layout_height="wrap_content">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -30,12 +15,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-      app:contentInsetStart="0dp"
+        app:contentInsetStart="0dp"
         android:layout_marginStart="0dp"
         android:background="@drawable/shape_background_dashboard_curved"
         app:popupTheme="@style/AppTheme.PopupOverlay">
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/custom_tool_item"
@@ -51,7 +34,6 @@
             android:elevation="1dp"
             android:layout_marginStart="8dp"
             android:orientation="horizontal">
-
             <ImageView
                 android:id="@+id/menuImageView"
                 android:layout_width="24dp"
@@ -61,7 +43,6 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_baseline_menu_black_24dp"
                 app:tint="@color/white" />
-
             <TextView
                 android:id="@+id/txt_page_name"
                 android:layout_width="wrap_content"
@@ -71,7 +52,6 @@
                 android:text="Fragment Name"
                 android:textColor="@color/white"
                 android:textSize="16sp"/>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,28 +62,22 @@
                     android:layout_width="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_height="40dp"
-
                     android:layout_gravity="center"
-
                     android:padding="8dp"
                     android:src="@drawable/ic_person"
                     app:tint="@color/white" />
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_notification"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_toRightOf="@id/iv_bookmark"
                     android:layout_alignParentEnd="true"
-
                     android:padding="8dp"
                     android:src="@drawable/ic_baseline_settings_white_24dp"
                     app:tint="@color/white" />
             </LinearLayout>
-
-
-
         </RelativeLayout>
-
             <LinearLayout
                     android:visibility="visible"
                     android:orientation="horizontal"
@@ -117,14 +91,10 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     tools:ignore="MissingConstraints">
-
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:layout_height="wrap_content">
-
                         <LinearLayout
                             android:id="@+id/ll_name"
                             android:layout_width="match_parent"
@@ -135,8 +105,6 @@
                             android:gravity="center"
                             android:layout_marginBottom="32dp"
                             android:orientation="vertical">
-
-
                             <TextView
                                 android:id="@+id/txt_welcome"
                                 android:layout_width="wrap_content"
@@ -157,85 +125,11 @@
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/spartan" />
-
                         </LinearLayout>
-
-
-
-
-
                     </LinearLayout>
-
-
-
                 </LinearLayout>
-
-
-
-
             </LinearLayout>
-
-
-
-
-<!--            <ImageView-->
-<!--                    android:visibility="gone"-->
-<!--                android:id="@+id/userTextview"-->
-<!--                android:layout_width="@dimen/space_30dp"-->
-<!--                android:layout_height="@dimen/space_30dp"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/menuImageView"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/menuImageView"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/menuImageView"-->
-<!--                app:srcCompat="@drawable/logoo" />-->
-
-<!--            <LinearLayout-->
-<!--                    android:visibility="gone"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:focusableInTouchMode="true"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/menuImageView"-->
-<!--                app:layout_constraintEnd_toStartOf="@id/iv_filterTextView"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/userTextview"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/menuImageView"-->
-<!--                android:orientation="vertical">-->
-<!--            <AutoCompleteTextView-->
-<!--                android:id="@+id/et_search"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_marginEnd="10dp"-->
-<!--                android:background="@drawable/drawable_stroke_gray_bg"-->
-<!--                android:drawableEnd="@drawable/ic_baseline_search_gray_24dp"-->
-<!--                android:drawablePadding="5dp"-->
-<!--                android:ems="10"-->
-<!--                android:hint="Search courses"-->
-<!--                android:inputType="text"-->
-<!--                android:paddingHorizontal="10dp"-->
-<!--                android:paddingVertical="10dp"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textColorHint="@color/light_gray"-->
-<!--                android:textSize="16sp"-->
-<!--               />-->
-<!--            </LinearLayout>-->
-
-<!--            <ImageView-->
-<!--                    android:visibility="gone"-->
-<!--                android:id="@+id/iv_filterTextView"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:src="@drawable/ic_baseline_filter_alt_24"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:tint="@color/primary_color" />-->
-
         </LinearLayout>
-
-
     </com.google.android.material.appbar.MaterialToolbar>
     <LinearLayout
         android:id="@+id/ll_details"
@@ -243,34 +137,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-36dp"
         android:orientation="vertical">
-
         <androidx.cardview.widget.CardView
             android:id="@+id/card_add"
-
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
             app:cardCornerRadius="64dp"
             android:layout_marginTop="8dp"
             app:contentPadding="16dp"
-
-            android:backgroundTint="#ffffff"
-            >
-            <ImageView
+            android:backgroundTint="#ffffff">
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_profile"
                 android:layout_width="match_parent"
+                android:scaleType="centerCrop"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_add"/>
         </androidx.cardview.widget.CardView>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical">
-
-
             <TextView
                 android:id="@+id/tv_t_hometitle"
                 android:layout_width="wrap_content"
@@ -291,11 +179,8 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:fontFamily="@font/sfuitext_medium" />
-
         </LinearLayout>
     </LinearLayout>
-
-
     <View
             android:visibility="gone"
         android:id="@+id/divider7"
@@ -306,49 +191,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-
-    <!--</com.google.android.material.appbar.AppBarLayout>-->
-
-
 </LinearLayout>
-<!--
-<androidx.appcompat.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
-    android:padding="@dimen/space_2dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="@dimen/space_10dp"
-    android:minHeight="?attr/actionBarSize"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <ImageView
-        android:layout_width="@dimen/space_30dp"
-        android:src="@drawable/ic_baseline_menu_black_24dp"
-        android:layout_height="40dp"/>
-    <ImageView
-        android:layout_width="@dimen/space_30dp"
-        android:src="@drawable/logoo"
-        android:paddingLeft="@dimen/space_5dp"
-        android:layout_height="40dp"/>
-    <RelativeLayout
-        android:layout_marginLeft="@dimen/space_20dp"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/iv_filter"
-        android:layout_width="@dimen/space_30"
-        android:src="@drawable/filter_24px"
-        android:layout_marginLeft="@dimen/space_30"
-        android:layout_marginRight="@dimen/space_10"
-        android:layout_height="@dimen/space_20"/>
-</androidx.appcompat.widget.Toolbar>-->

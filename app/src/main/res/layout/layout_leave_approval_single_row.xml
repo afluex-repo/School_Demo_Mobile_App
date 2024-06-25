@@ -4,11 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="wrap_content">
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="32dp"
         app:cardCornerRadius="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="32dp"
         app:contentPadding="8dp"
@@ -23,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/lexend"
                 android:text="Student's Name"
                 android:textColor="@color/red_900"
                 android:textSize="18sp"
@@ -41,9 +47,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="From:"
+                    android:fontFamily="@font/lexend"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/txt_from"
                     android:layout_width="0dp"
@@ -51,18 +57,16 @@
                     android:layout_weight="0.5"
                     android:text="From Date"
                     android:layout_marginStart="-32dp"
-                    android:textColor="@color/black"
-                   />
+                    android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="To:"
+                    android:fontFamily="@font/lexend"
                     android:layout_marginStart="32dp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
-
+                    android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/txt_to"
                     android:layout_width="0dp"
@@ -70,61 +74,49 @@
                     android:layout_weight="0.5"
                     android:text="To Date"
                     android:layout_marginStart="-64dp"
-
-                    android:textColor="@color/black"
-
-                    />
-
+                    android:textColor="@color/black"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@color/white"
-
                 android:padding="8dp">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Reason:"
+                    android:fontFamily="@font/lexend"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/txt_reason"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Testing"
-
-                    android:textColor="@color/black"
-                    />
-
+                    android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Status:"
+                    android:fontFamily="@font/lexend"
                     android:layout_marginStart="32dp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    />
-
+                    android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/txt_status"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
+                    android:layout_weight="1"
                     android:text="Declined"
                     android:background="@color/green_900"
-                    android:padding="8dp"
+                    android:padding="5dp"
+                    android:textSize="14dp"
                     android:gravity="center"
-
-
-                    android:textColor="@color/white"
-
-                    />
+                    android:textColor="@color/white"/>
                 <ImageView
                     android:id="@+id/ic_details"
                     android:layout_width="0dp"
@@ -132,8 +124,6 @@
                     android:layout_weight="0.5"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_drop_down"/>
-
-
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_leave_approval"
@@ -185,15 +175,8 @@
                         android:text="Decline"
                         android:background="@color/red_900"
                         android:textColor="@color/white"/>
-
                 </LinearLayout>
-
-
-
-
             </LinearLayout>
-            
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </LinearLayout>

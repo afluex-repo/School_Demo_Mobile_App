@@ -1,11 +1,8 @@
 package affluex.school.solutions.Fragments;
-
-import static android.app.Activity.RESULT_OK;
-
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,16 +14,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.os.StrictMode;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
@@ -39,40 +33,24 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.github.dhaval2404.imagepicker.ImagePicker;
-
-
 import com.google.gson.JsonObject;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
-
-import affluex.school.solutions.Activity.DashboardSchool;
-import affluex.school.solutions.Activity.LoginActivity;
 import affluex.school.solutions.Adapter.AdapterAssignment;
 import affluex.school.solutions.Adapter.AdapterParentsAssignment;
-import affluex.school.solutions.Adapter.AdapterSelectStudent;
 import affluex.school.solutions.Model.CommonResponse;
 import affluex.school.solutions.Model.HomeWorkDetails;
 import affluex.school.solutions.Model.ModelAssignment;
 import affluex.school.solutions.Model.ModelClass;
 import affluex.school.solutions.Model.ModelSection;
 import affluex.school.solutions.Model.ModelSubject;
-import affluex.school.solutions.Model.NoticeDetails;
 import affluex.school.solutions.Model.ResponseAssignmentDashboard;
 import affluex.school.solutions.Model.ResponseClass;
 import affluex.school.solutions.Model.ResponseHomework;
@@ -80,10 +58,8 @@ import affluex.school.solutions.Model.ResponseParentDashboard;
 import affluex.school.solutions.Model.ResponseSection;
 import affluex.school.solutions.Model.ResponseSubject;
 import affluex.school.solutions.Model.StudentDetails;
-import affluex.school.solutions.Model.lstNoticeList;
 import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
-import affluex.school.solutions.Retrofit.RealPathUtil;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.common.LoggerUtil;
 import okhttp3.MediaType;
@@ -94,18 +70,10 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class AssignmentFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     affluex.school.solutions.databinding.FragmentAssignmentBinding binding;
@@ -124,7 +92,7 @@ public class AssignmentFragment extends Fragment {
     private ArrayList<ModelAssignment> assignmentArrayList;
 
     public AssignmentFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -238,12 +206,12 @@ public class AssignmentFragment extends Fragment {
                     binding.spinnerSection.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
         binding.spinnerAddClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -252,13 +220,10 @@ public class AssignmentFragment extends Fragment {
                     selectedClassId = classArrayList.get(i).getFk_ClassID();
                     selectedClassName = classArrayList.get(i).getClassName();
                     getSectionList();
-
-
                 }else{
                     binding.spinnerSection.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -281,12 +246,12 @@ public class AssignmentFragment extends Fragment {
                     binding.spinnerSubject.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
         binding.spinnerAddSection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -299,7 +264,6 @@ public class AssignmentFragment extends Fragment {
                     binding.spinnerSubject.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -319,7 +283,6 @@ public class AssignmentFragment extends Fragment {
                     }
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -334,22 +297,24 @@ public class AssignmentFragment extends Fragment {
                     binding.btnSubmit.setVisibility(View.VISIBLE);
                     selectedSubjectId = subjectArrayList.get(i).getFk_SubjectID();
                     selectedSubjectName = subjectArrayList.get(i).getSubjectName();
-
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
+
         binding.btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getActivity(), "Assignment details missing.", Toast.LENGTH_SHORT).show();
                 permissionCheck();
 
             }
         });
+
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
                 new IntentFilter("homework"));
         binding.ivMic.setOnClickListener(new View.OnClickListener() {
@@ -378,12 +343,14 @@ public class AssignmentFragment extends Fragment {
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                callAddAssignmentApi();
+                Toast.makeText(getActivity(), "select fille", Toast.LENGTH_SHORT).show();
                 if (TextUtils.isEmpty(binding.etAssignment.getText().toString()) && imgUri == null) {
                     Toast.makeText(getActivity(), "Assignment details missing.", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(binding.etDate.getText().toString())){
                     Toast.makeText(getActivity(), "Select Assignment Date", Toast.LENGTH_SHORT).show();
                 } else {
-                    callAddAssignmentApi();
+                   callAddAssignmentApi();
                 }
             }
         });
@@ -397,10 +364,7 @@ public class AssignmentFragment extends Fragment {
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.etDate);
-
-
         };
-
         DatePickerDialog.OnDateSetListener dateFrom = (view, year, monthOfYear, dayOfMonth) -> {
             // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
@@ -411,8 +375,6 @@ public class AssignmentFragment extends Fragment {
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.txtFrom);
-
-
         };
         DatePickerDialog.OnDateSetListener dateTo = (view, year, monthOfYear, dayOfMonth) -> {
             // TODO Auto-generated method stub
@@ -424,8 +386,6 @@ public class AssignmentFragment extends Fragment {
             fromDate = sdf.format(myCalendar.getTime());
             Log.e("Date", "From:" + fromDate);
             updateLabel(binding.txtTo);
-
-
         };
         binding.etDate.setOnClickListener((View v) -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar
@@ -433,8 +393,7 @@ public class AssignmentFragment extends Fragment {
                     myCalendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() + 86400000);
             datePickerDialog.show();
-            String myFormat = "dd/MM/yyyy"; //In which you need put here
-
+            String myFormat = "dd/MM/yyyy";
         });
         binding.txtFrom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -443,10 +402,9 @@ public class AssignmentFragment extends Fragment {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
-
         binding.txtTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -454,10 +412,9 @@ public class AssignmentFragment extends Fragment {
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                String myFormat = "dd/MM/yyyy";
             }
         });
-
         binding.icSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -465,7 +422,6 @@ public class AssignmentFragment extends Fragment {
                         binding.txtTo.getText().toString(),selectedClassId,selectedSectionId,selectedSubjectId);
             }
         });
-        // Inflate the layout for this fragment
         return binding.getRoot();
 
     }
@@ -494,7 +450,6 @@ public class AssignmentFragment extends Fragment {
 
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResponseAssignmentDashboard> call, Throwable t) {
 
@@ -504,159 +459,83 @@ public class AssignmentFragment extends Fragment {
     }
 
     private void updateLabel(EditText fromdateEt) {
-        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        String myFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         fromdateEt.setText(sdf.format(myCalendar.getTime()));
     }
-
     private void callAddAssignmentApi() {
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        techerId= sharedPreferences.getString("pkTeacherId", "");
+        techerId = sharedPreferences.getString("pkTeacherId", "");
         String fkClassId = selectedClassId;
         String fkSectionId = selectedSectionId;
-        String fksubjectId = selectedSubjectId;
-//        Log.e("jkhjkh", "T" + pkteacherId);
-//        Log.e("jkhjkh", "C" + fkClassId);
-//        Log.e("jkhjkh", "S" + fkSectionId);
-//        AsyncTask asyncTask=new Post();
-//
-//     asyncTask.execute();
-        if(!TextUtils.isEmpty(techerId)&&!TextUtils.isEmpty(selectedSectionId)&&!TextUtils.isEmpty(selectedClassId)) {
-            JsonObject object = new JsonObject();
-            object.addProperty("AddedBy", Integer.parseInt(techerId));
-            object.addProperty("Fk_ClassID", Integer.parseInt(fkClassId));
-            object.addProperty("HomeWorkHTML", binding.etAssignment.getText().toString());
-            object.addProperty("Fk_SectionID", Integer.parseInt(fkSectionId));
-            object.addProperty("SubjectID", Integer.parseInt(selectedSubjectId));
-            object.addProperty("HomeworkBy", "Teacher");
-            object.addProperty("HomeworkDate", binding.etDate.getText().toString());
-            object.addProperty("StudentFiles", fileName);
-            Log.e("Filename", fileName);
-            LoggerUtil.logItem(object);
-            Call<String> call = apiServices.SaveAsignment(object);
+        String fkSubjectId = selectedSubjectId;
 
-            OkHttpClient client = new OkHttpClient().newBuilder()
-                    .build();
-            MediaType mediaType = MediaType.parse("text/plain");
-            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("Fk_ClassID", String.valueOf(Integer.parseInt(fkClassId)))
-                    .addFormDataPart("Fk_SectionID", String.valueOf(Integer.parseInt(fkSectionId)))
-                    .addFormDataPart("SubjectID", String.valueOf(Integer.parseInt(selectedSubjectId)))
-                    .addFormDataPart("HomeworkDate",binding.etDate.getText().toString())
-                    .addFormDataPart("AddedBy",String.valueOf(Integer.parseInt(techerId)))
-                    .addFormDataPart("HomeWorkHTML",binding.etAssignment.getText().toString())
-                    .addFormDataPart("HomeworkBy","Teacher")
-                    .addFormDataPart("StudentFiles",fileName,
-                            RequestBody.create(MediaType.parse("application/octet-stream"),
-                                    new File(fileName)))
-                    .build();
-            Request request = new Request.Builder()
-                    .url("http://demo2.afluex.com/MasterForApi/SaveHomework")
-                    .method("POST", body)
-                    .build();
-            try {
-                okhttp3.Response response = client.newCall(request).execute();
+        if (!TextUtils.isEmpty(techerId) && !TextUtils.isEmpty(selectedSectionId) && !TextUtils.isEmpty(selectedClassId)) {
+            SharedPreferences preferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            String imageDataString = preferences.getString("imageData", "");
+            byte[] imageData = Base64.decode(imageDataString, Base64.DEFAULT);
+            File imageFile = saveByteArrayToFile(imageData);
+            MultipartBody.Builder builder = new MultipartBody.Builder();
+            builder.setType(MultipartBody.FORM);
+            builder.addFormDataPart("AddedBy", techerId);
+            builder.addFormDataPart("Fk_ClassID", fkClassId);
+            builder.addFormDataPart("HomeWorkHTML", binding.etAssignment.getText().toString());
+            builder.addFormDataPart("Fk_SectionID", fkSectionId);
+            builder.addFormDataPart("SubjectID", fkSubjectId);
+            builder.addFormDataPart("HomeworkBy", "Teacher");
+            builder.addFormDataPart("HomeworkDate", binding.etDate.getText().toString());
+            builder.addFormDataPart("StudentFiles", imageFile.getName(),
+                    RequestBody.create(MediaType.parse("image/*"), imageFile));
+            RequestBody requestBody = builder.build();
 
-                Log.e("Respomkng",""+response.body());
-                if(response.body() != null){
-                    Toast.makeText(getActivity(), "Assignment Added Successfully", Toast.LENGTH_SHORT).show();
-                    getAssignmentList("","","","","");
-                    binding.llAdd.setVisibility(View.GONE);
-                    binding.llView.setVisibility(View.VISIBLE);
-                    binding.spinnerAddSection.setVisibility(View.GONE);
-                    binding.spinnerAddSubject.setVisibility(View.GONE);
-                    binding.llAssignemnt.setVisibility(View.GONE);
-                    binding.llUpload.setVisibility(View.GONE);
-                    binding.spinnerClass.setSelection(0);
+            Call<String> call = apiServices.SaveAsignment(requestBody);
 
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(getActivity(), "Assignment Added Successfully", Toast.LENGTH_SHORT).show();
+                        getAssignmentList("", "", "", "", "");
+                        binding.llAdd.setVisibility(View.GONE);
+                        binding.llView.setVisibility(View.VISIBLE);
+                        binding.spinnerAddSection.setVisibility(View.GONE);
+                        binding.spinnerAddSubject.setVisibility(View.GONE);
+                        binding.llAssignemnt.setVisibility(View.GONE);
+                        binding.llUpload.setVisibility(View.GONE);
+                        binding.spinnerClass.setSelection(0);
+                    }
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-//            call.enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String> call, Response<String> response) {
-//                    if (response.body() != null) {
-//                        Toast.makeText(getActivity(), "Assignment Added Successfully", Toast.LENGTH_SHORT).show();
-//                        getAssignmentList("","","","","");
-//                        binding.llAdd.setVisibility(View.GONE);
-//                        binding.llView.setVisibility(View.VISIBLE);
-//                        binding.spinnerAddSection.setVisibility(View.GONE);
-//                        binding.spinnerAddSubject.setVisibility(View.GONE);
-//                        binding.llAssignemnt.setVisibility(View.GONE);
-//                        binding.llUpload.setVisibility(View.GONE);
-//                        binding.spinnerClass.setSelection(0);
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//
-//                }
-//            });
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Failed to add assignment", Toast.LENGTH_SHORT).show();
+                    Log.e("AddAssignmentFailure", t.getMessage());
+                }
+            });
         }
-
-//        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://demo1.afluex.com/")
-//                .addConverterFactory(ScalarsConverterFactory.create())
-//                .addConverterFactory(GsonConverterFactory.create()).build();
-//
-//        File file = new File(fileName);
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//
-//        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-//
-//        RequestBody classId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedClassId);
-//        Log.e("ClassIDDDDDD",selectedClassId);
-//        Log.e("ClassIDDDDDD",selectedSectionId);
-//        Log.e("ClassIDDDDDD",selectedSubjectId);
-//        RequestBody sectionId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedSectionId);
-//        RequestBody subjectId = RequestBody.create(MediaType.parse("multipart/form-data"),selectedSubjectId);
-//        RequestBody homeworkDate = RequestBody.create(MediaType.parse("multipart/form-data"),binding.etDate.getText().toString());
-//        RequestBody addedBy = RequestBody.create(MediaType.parse("multipart/form-data"),"Teacher");
-//        RequestBody homeworkBy = RequestBody.create(MediaType.parse("multipart/form-data"), techerId);
-//        RequestBody homeworkHtml = RequestBody.create(MediaType.parse("multipart/form-data"), binding.etAssignment.getText().toString());
-//        RequestBody studentFiles=null;
-//        if(fileName!=null && !fileName.equals("")){
-//          studentFiles = RequestBody.create(MediaType.parse("multipart/form-data"), fileName);
-//
-//        }
-//
-//        ApiServices apiService = retrofit.create(ApiServices.class);
-//        Call<String> call=null;
-//        if(fileName!=null && !fileName.equals("")){
-//            call = apiService.SaveAsignment(body, classId, sectionId,subjectId,homeworkDate,addedBy,homeworkBy,homeworkHtml,studentFiles);
-//
-//        }else{
-//            call=apiService.SaveAsignment(body, classId, sectionId,subjectId,homeworkDate,addedBy,homeworkBy,homeworkHtml,null);
-//        }
-//
-//        call.enqueue(new Callback<String>() {
-//            @Override
-//            public void onResponse(Call<String> call, Response<String> response) {
-//                Log.e("Response",response.toString());
-//                if (response.isSuccessful()) {
-//
-//                    if (response.body().equals("0")) {
-//                        Toast.makeText(getActivity(), "Assignment Added", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(getActivity(), "not Added", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<String> call, Throwable t) {
-//                Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
-//                Log.e("jkhjkh",t.getMessage());
-//            }
-//        });
     }
 
-
-
+    private File saveByteArrayToFile(byte[] byteArray) {
+        File file = null;
+        FileOutputStream fos = null;
+        try {
+            file = new File(getActivity().getCacheDir(), "image.jpg");
+            fos = new FileOutputStream(file);
+            fos.write(byteArray);
+            fos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
+    }
 
     private void getAssignmentList(String from,String to,String classId,String section,String subject) {
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
@@ -673,8 +552,6 @@ public class AssignmentFragment extends Fragment {
             object.addProperty("SubjectID", subject);
             object.addProperty("FromDate", from);
             object.addProperty("ToDate", to);
-
-
             Log.e("Parameter","1:::"+classId);
             Log.e("Parameter","2:::"+section);
             Log.e("Parameter","3:::"+subject);
@@ -695,9 +572,6 @@ public class AssignmentFragment extends Fragment {
                             binding.rvAssignment.setVisibility(View.GONE);
                         }
                     }
-
-
-
                 }
 
                 @Override
@@ -708,97 +582,74 @@ public class AssignmentFragment extends Fragment {
             });
         }
     }
-
     private void chooseImage() {
         Intent intent = new Intent();
-        //sets the select file to all types of files
-        intent.setType("*/*");
-        //allows to select data and return it
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        //starts new activity to select file and return data
-        startActivityForResult(Intent.createChooser(intent,"Choose File to Upload.."),100);
-
+        startActivityForResult(Intent.createChooser(intent, "Choose Image"), 100);
     }
 
     private void permissionCheck() {
         boolean result = ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.READ_MEDIA_IMAGES) == (PackageManager.PERMISSION_GRANTED);
-
-        if(result){
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        if (result) {
             chooseImage();
-
-        }else{
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_MEDIA_IMAGES},102);
-
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 102);
         }
-
-
-
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 102:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    chooseImage();
-                } else {
-                    Toast.makeText(getActivity(), "" + grantResults[0], Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-
+        if (requestCode == 102) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                chooseImage();
+            } else {
+                Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
         }
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.e("courseimage", "" + requestCode);
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            imgUri = data.getData();
-            Context context = getActivity();
-            Log.e("FileNAMEJNJL",imgUri.getPath());
-//            fileName = RealPathUtil.getRealPath(context, imgUri);
-
-
-
-            Bitmap bitmap = BitmapFactory.decodeFile(fileName);
-
-
-        }else    if (requestCode == 104) {
-            if (resultCode == RESULT_OK && data != null) {
-                ArrayList<String> result = data.getStringArrayListExtra(
-                        RecognizerIntent.EXTRA_RESULTS);
-
-                binding.etAssignment.setText( Objects.requireNonNull(result).get(0));
-
+@Override
+public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == 100 && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+        Uri selectedImageUri = data.getData();
+        byte[] imageData = getImageDataFromUri(selectedImageUri);
+        saveImageData(imageData);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+        binding.txtUpload.setImageBitmap(bitmap);
+    }
+}
+    private byte[] getImageDataFromUri(Uri uri) {
+        try {
+            InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, length);
             }
+            inputStream.close();
+            return byteArrayOutputStream.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-       /*if (requestCode == 104 && resultCode == RESULT_OK) {
-            try {
-                Uri imgUri = data.getData();
-                // Glide.with(this).load(imgUri).into(user_imge);
-                Picasso.get().load(imgUri).into(ivCreatorImage);
-                ContentResolver cr = getActivity().getContentResolver();
-                InputStream is = cr.openInputStream(imgUri);
-                Bitmap bitmap = BitmapFactory.decodeStream(is);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                creatorImage = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-                linCreatorImage.setVisibility(View.VISIBLE);
-                DynamicToast.make(getContext(), "Creator Photo selected for upload", Toast.LENGTH_SHORT).show();
+        return null;
+    }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }*/
+    private void saveImageData(byte[] imageData) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("imageData", Base64.encodeToString(imageData, Base64.DEFAULT));
+        editor.apply();
     }
 
 
     private void getSubjectList() {
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-        String pkteacherId=sharedPreferences.getString("pkTeacherId","");
+        String pkteacherId=sharedPreferences.getString("pkTeacherId","");/*ye data to share preferance se get kr rhe ho usme phle se save data nhi hai esliye null aa rha hai pahle data ko save krna pdega vo api integrate kijiye phe ya check kijiye phle se ho to kaha p r hai*/
         String fkClassId=sharedPreferences.getString("fkClassId","");
         String fkSectionId=sharedPreferences.getString("fkSectionId","");
         if(!TextUtils.isEmpty(pkteacherId)) {
@@ -857,7 +708,7 @@ public class AssignmentFragment extends Fragment {
             });
         }
     }
-
+//////
     private void getClassList() {
 
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
@@ -880,7 +731,6 @@ public class AssignmentFragment extends Fragment {
                     SpinnerClassAdapter spinnerClassAdapter=new SpinnerClassAdapter();
                     binding.spinnerClass.setAdapter(spinnerClassAdapter);
                     binding.spinnerAddClass.setAdapter(spinnerClassAdapter);
-
 
                 }
 
@@ -922,6 +772,7 @@ public class AssignmentFragment extends Fragment {
             return row;
         }
     }
+
     class SpinnerSectionAdapter extends android.widget.BaseAdapter {
 
         @Override
@@ -952,7 +803,6 @@ public class AssignmentFragment extends Fragment {
             return row;
         }
     }
-
     class SpinnerSubjectAdapter extends android.widget.BaseAdapter {
 
         @Override
@@ -983,6 +833,9 @@ public class AssignmentFragment extends Fragment {
             return row;
         }
     }
+
+
+
     class SpinnerStudentAdapter extends android.widget.BaseAdapter {
 
         @Override
@@ -1055,6 +908,7 @@ public class AssignmentFragment extends Fragment {
         }
     }
 
+
     private void callDashBoardApi() {
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
@@ -1091,6 +945,7 @@ public class AssignmentFragment extends Fragment {
             });
         }
     }
+
 
     public BroadcastReceiver mMessageReceiver=new BroadcastReceiver() {
         @Override

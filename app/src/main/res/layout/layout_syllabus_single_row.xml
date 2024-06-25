@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_marginBottom="8dp"
     android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/img_syllabus"
         android:layout_width="200dp"

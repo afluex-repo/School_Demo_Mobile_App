@@ -1,16 +1,19 @@
 package affluex.school.solutions.common;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 
 
 public class PreferencesManager {
 
-
-    //app login variables
     private static final String PREF_NAME = "com.hmgreencitycustomer";
     private static final String Full_Name = "Full_Name";
     private static final String UserId = "UserId";
+    private static final String PK_TeacherID = "PK_TeacherID";
+    private static final String TEACHER_ID = "pkTeacherId";
+
+    private static final String PK_TEACHER_ID = "pkTeacherId";
+    public static final String Fk_SectionID = "Fk_SectionID";
+    private static final String Fk_ClassID = "fkClassId";
     private static final String UserType = "UserType";
     private static final String ProfilePic = "ProfilePic";
     private static final String Contact = "Contact";
@@ -50,6 +53,13 @@ public class PreferencesManager {
 
     public boolean clear() {
         return mPref.edit().clear().commit();
+
+    }
+
+
+
+    public String getFkClassId() {
+        return mPref.getString(Fk_ClassID, "");
     }
 
     //Full_Name
@@ -77,6 +87,24 @@ public class PreferencesManager {
 
     public String getVendorId() {
         return mPref.getString(vendorId, "");
+    }
+
+    // PK_TeacherID
+    public void setTeacherId(String value) {
+        mPref.edit().putString(PK_TeacherID, value).apply();
+    }
+
+    public String getTeacherId() {
+        return mPref.getString(PK_TeacherID, "");
+    }
+
+    public void setFkSectionId(String value) {
+        mPref.edit().putString(Fk_SectionID, value).apply();
+    }
+
+
+    public String getFkSectionId() {
+        return mPref.getString(Fk_SectionID, "");
     }
 
     //Full_Name
@@ -155,6 +183,10 @@ public class PreferencesManager {
     }
     public String getCustomerID() {
         return mPref.getString(CustomerID, "");
+    }
+
+    public String getPkTeacherId() {
+        return mPref.getString(PK_TEACHER_ID, "");
     }
 
 

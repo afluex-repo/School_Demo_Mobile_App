@@ -20,6 +20,7 @@
                 android:id="@+id/txt_class"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/lexend"
                 android:layout_height="wrap_content"
                 android:text="21/08/2023"
                 android:textColor="@color/black"
@@ -28,7 +29,7 @@
                 android:id="@+id/txt_title"
                 android:layout_width="0dp"
                 android:layout_weight="3"
-
+                android:fontFamily="@font/lexend"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="Test of Maths"/>

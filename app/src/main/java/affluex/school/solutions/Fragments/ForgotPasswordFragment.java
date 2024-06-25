@@ -1,22 +1,15 @@
 package affluex.school.solutions.Fragments;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.google.gson.JsonObject;
-
 import affluex.school.solutions.Model.CommonResponse;
-import affluex.school.solutions.R;
 import affluex.school.solutions.Retrofit.ApiServices;
 import affluex.school.solutions.Retrofit.ServiceGenerator;
 import affluex.school.solutions.common.LoggerUtil;
@@ -26,17 +19,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ForgotPasswordFragment extends Fragment {
-
     FragmentForgotPasswordBinding binding;
-
     String userType="", activity="";
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding=FragmentForgotPasswordBinding.inflate(inflater,container,false);
-
         binding.btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

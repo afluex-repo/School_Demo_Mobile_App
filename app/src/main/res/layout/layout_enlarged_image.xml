@@ -13,14 +13,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/ic_close" />
-
     <affluex.school.solutions.app.TouchImageView
         android:id="@+id/image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:src="@drawable/profile_round"
-        android:layout_gravity="center"/>
-
-
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:src="@drawable/user3" />
 </LinearLayout>

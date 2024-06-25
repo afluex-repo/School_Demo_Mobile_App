@@ -1,7 +1,5 @@
 package affluex.school.solutions.Adapter;
-
 import static android.view.View.GONE;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -12,25 +10,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
 import affluex.school.solutions.Model.ModelAssignment;
 import affluex.school.solutions.R;
 import affluex.school.solutions.app.TouchImageView;
 
+
 public class AdapterAssignment extends RecyclerView.Adapter<AdapterAssignment.HolderAssignment> {
     private Context context;
     private ArrayList<ModelAssignment> assignmentArrayList;
-
 
     public AdapterAssignment(Context context, ArrayList<ModelAssignment> assignmentArrayList) {
         this.context = context;
@@ -85,24 +78,23 @@ public class AdapterAssignment extends RecyclerView.Adapter<AdapterAssignment.Ho
                     txt_no_image.setVisibility(GONE);
                     img_homework.setVisibility(View.VISIBLE);
                     String substring=modelAssignment.getHomeworkFile();
-                    String link="http://demo2.afluex.com"+substring;
+                    String link="https://school.afluex.com"+substring;
                     Log.e("Title123",link);
 
 
                     Picasso.get().load(link).
                             resize(400,400).centerCrop()
-                            .placeholder(R.drawable.profile_round)
+                            .placeholder(R.drawable.user3)
                             .into(img_homework);
 
                     Picasso.get().load(link).
                             resize(400,400).centerCrop()
-                            .placeholder(R.drawable.profile_round)
+                            .placeholder(R.drawable.user3)
                             .into(enlarged_image);
 
                     img_homework.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-//                            ll_enlarged.setVisibility(View.VISIBLE);
                             alertDialog.dismiss();
                             final android.app.AlertDialog.Builder alert1 = new android.app.AlertDialog.Builder(context);
                             View mView1 = LayoutInflater.from(context).inflate(R.layout.layout_enlarged_image,null);
@@ -111,12 +103,8 @@ public class AdapterAssignment extends RecyclerView.Adapter<AdapterAssignment.Ho
                             TouchImageView touchImageView=mView1.findViewById(R.id.image_view);
                             ImageView ic_close=mView1.findViewById(R.id.ic_close);
 
-
                             Glide.with(context).load(link)
                                     .into(touchImageView);
-
-
-
 
                             android.app.AlertDialog alertDialog1 = alert1.create();
                             alertDialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -139,15 +127,7 @@ public class AdapterAssignment extends RecyclerView.Adapter<AdapterAssignment.Ho
 
                         }
                     });
-
-
-
-
-
                 }
-
-
-
 
                 btn_ok.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -160,20 +140,12 @@ public class AdapterAssignment extends RecyclerView.Adapter<AdapterAssignment.Ho
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent("homework");
-
                         intent.putExtra("homework_id",modelAssignment.getHomeWorkID());
-
-
-
-//                    intent.putExtra("position1", holder.getAdapterPosition());
-//                    intent.putExtra("workerDeletedType", workerType);
                         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
                         alertDialog.dismiss();
 
                     }
                 });
-
                 ic_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -185,7 +157,6 @@ public class AdapterAssignment extends RecyclerView.Adapter<AdapterAssignment.Ho
         });
 
     }
-
     @Override
     public int getItemCount() {
         return assignmentArrayList.size();
@@ -194,7 +165,6 @@ public class AdapterAssignment extends RecyclerView.Adapter<AdapterAssignment.Ho
     public class HolderAssignment extends RecyclerView.ViewHolder {
         TextView txt_date,txt_title,txt_subject;
         ImageView ic_next;
-
 
         public HolderAssignment(@NonNull View itemView) {
             super(itemView);
