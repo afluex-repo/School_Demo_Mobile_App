@@ -469,7 +469,6 @@ public class TeacherHome extends Fragment {
                             Button btn_start=mView.findViewById(R.id.btn_start);
                             btn_start.setText("End Your Day");
                             txt_time.setText(response.body().getPunchOutTime());
-
                             txt_date.setText(response.body().getPunchOutDate());
                             txt_latitude.setText(""+latitude);
                             txt_longitude.setText(""+longitude);
@@ -478,13 +477,11 @@ public class TeacherHome extends Fragment {
                                 Geocoder geocoder = new Geocoder(getActivity(), Locale.ENGLISH);
                                 List<Address> addresses = geocoder.getFromLocation(
                                         latitude, longitude, 1
-
                                 );
                                 txt_address.setText(addresses.get(0).getAddressLine(0));
 //                                    Toast.makeText(getActivity(), "Your Lat/Long:::"+latitude+","+longitude, Toast.LENGTH_LONG).show();
                                 Log.e("AVGHCGHJGFHC",""+latitude);
                                 Log.e("AVGHCGHJGFHC",""+longitude);
-
                             } catch (IOException e) {
                                 e.printStackTrace();
                                 txt_address.setText("-");
@@ -595,8 +592,12 @@ public class TeacherHome extends Fragment {
                                     List<Address> addresses = geocoder.getFromLocation(
                                             latitude, longitude, 1
                                     );
-                                    txt_address.setText(addresses.get(0).getAddressLine(0));
-                                    Log.e("Location Info", "" + latitude + ", " + longitude);
+                                    if (addresses != null && !addresses.isEmpty()) {
+                                        txt_address.setText(addresses.get(0).getAddressLine(0));
+                                        Log.e("Location Info", "" + latitude + ", " + longitude);
+                                    } else {
+                                        txt_address.setText("Address not found");
+                                    }
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                     txt_address.setText("-");
@@ -617,6 +618,7 @@ public class TeacherHome extends Fragment {
                                 Log.e("Response Error", "Response body is null");
                             }
                         }
+
                         @Override
                         public void onFailure(Call<CommonResponse> call, Throwable t) {
                             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -627,6 +629,7 @@ public class TeacherHome extends Fragment {
             }
         }
     }
+
 
 
     private void permissionCheck() {

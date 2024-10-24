@@ -53,6 +53,7 @@ public class AddQuestionFragment extends Fragment {
         getArgumentData();
         binding.llOptions.setVisibility(View.GONE);
         return binding.getRoot();
+
     }
 
     private void oncliclistener() {
@@ -67,7 +68,6 @@ public class AddQuestionFragment extends Fragment {
                         Locale.ENGLISH);
                 intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Speak to type");
                 try {
-
                     startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
                 } catch (Exception e) {
                     Toast
@@ -75,6 +75,12 @@ public class AddQuestionFragment extends Fragment {
                                     Toast.LENGTH_SHORT)
                             .show();
                 }
+            }
+        });
+        binding.saveQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Save Question Successfully", Toast.LENGTH_SHORT).show();
             }
         });
         binding.btnShowOptions.setOnClickListener(new View.OnClickListener() {
@@ -89,12 +95,9 @@ public class AddQuestionFragment extends Fragment {
                 if(TextUtils.isEmpty(binding.etOptions.getText().toString())){
                     Toast.makeText(getActivity(), "Options field cannot be blank", Toast.LENGTH_SHORT).show();
                 }else{
-
                     optionsArray.add(new ModelOptions(""+(optionsArray.size()+1),binding.etOptions.getText().toString()));
-
                     binding.etOptions.setText("");
                     initOptionsRecyclerView();
-
                 }
             }
         });
@@ -118,7 +121,6 @@ public class AddQuestionFragment extends Fragment {
         position=getArguments().getInt("Position");
 
     }
-
     private void permissionCheck() {
         Dexter.withActivity(getActivity())
                 .withPermissions(android.Manifest.permission.CAMERA,

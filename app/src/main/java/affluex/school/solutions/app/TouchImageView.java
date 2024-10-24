@@ -22,63 +22,27 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.OverScroller;
 import android.widget.Scroller;
 
-
 public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView {
-
-//	private static final String DEBUG = "DEBUG";
-
-    //
-    // SuperMin and SuperMax multipliers. Determine how much the image can be
-    // zoomed below or above the zoom boundaries, before animating back to the
-    // min/max zoom boundary.
-    //
     private static final float SUPER_MIN_MULTIPLIER = .25f;
     private static final float SUPER_MAX_MULTIPLIER = 5f;
-
-    //
-    // Scale of image ranges from minScale to maxScale, where minScale == 1
-    // when the image is stretched to fit view.
-    //
     private float normalizedScale;
-
-    //
-    // Matrix applied to image. MSCALE_X and MSCALE_Y should always be equal.
-    // MTRANS_X and MTRANS_Y are the other values used. prevMatrix is the matrix
-    // saved prior to the screen rotating.
-    //
     private Matrix matrix, prevMatrix;
 
-    private static enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM}
-
-    ;
+    private static enum State {NONE, DRAG, ZOOM, FLING, ANIMATE_ZOOM};
     private State state;
-
     private float minScale;
     private float maxScale;
     private float superMinScale;
     private float superMaxScale;
     private float[] m;
-
     private Context context;
     private Fling fling;
-
     private ScaleType mScaleType;
-
     private boolean imageRenderedAtLeastOnce;
     private boolean onDrawReady;
-
     private ZoomVariables delayedZoomVariables;
-
-    //
-    // Size of view and previous view size (ie before rotation)
-    //
     private int viewWidth, viewHeight, prevViewWidth, prevViewHeight;
-
-    //
-    // Size of image when it is stretched to fit view. Before and After rotation.
-    //
     private float matchViewWidth, matchViewHeight, prevMatchViewWidth, prevMatchViewHeight;
-
     private ScaleGestureDetector mScaleDetector;
     private GestureDetector mGestureDetector;
     private GestureDetector.OnDoubleTapListener doubleTapListener = null;
@@ -214,11 +178,6 @@ public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView
         float h = getDrawable().getIntrinsicHeight();
         return new RectF(topLeft.x / w, topLeft.y / h, bottomRight.x / w, bottomRight.y / h);
     }
-
-    /**
-     * Save the current matrix and view dimensions
-     * in the prevMatrix and prevView variables.
-     */
     private void savePreviousImageValues() {
         if (matrix != null && viewHeight != 0 && viewWidth != 0) {
             matrix.getValues(m);

@@ -71,6 +71,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class AssignmentFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -116,7 +117,6 @@ public class AssignmentFragment extends Fragment {
         binding.llAdd.setVisibility(View.GONE);
         binding.btnSubmit.setVisibility(View.GONE);
         studentDetailsArrayList=new ArrayList<>();
-
         binding.spinnerSection.setVisibility(View.GONE);
         binding.spinnerSubject.setVisibility(View.GONE);
 
@@ -132,11 +132,8 @@ public class AssignmentFragment extends Fragment {
                     callDashBoardApi();
                     getAssignmentListParents();
                     binding.swipeRefresh.setRefreshing(false);
-
-
                 } else {
                     binding.cardAdd.setVisibility(View.VISIBLE);
-
                     binding.spinnerClass.setVisibility(View.VISIBLE);
                     binding.spinnerSection.setVisibility(View.VISIBLE);
                     binding.llTeacherSearch.setVisibility(View.VISIBLE);
@@ -162,8 +159,6 @@ public class AssignmentFragment extends Fragment {
             binding.llParentsSearch.setVisibility(View.VISIBLE);
             callDashBoardApi();
             getAssignmentListParents();
-
-
         } else {
             binding.cardAdd.setVisibility(View.VISIBLE);
             binding.spinnerClass.setVisibility(View.VISIBLE);
@@ -177,7 +172,6 @@ public class AssignmentFragment extends Fragment {
             public void onClick(View view) {
                 binding.llView.setVisibility(View.GONE);
                 binding.llAdd.setVisibility(View.VISIBLE);
-
             }
         });
         binding.imgClose.setOnClickListener(new View.OnClickListener() {
@@ -195,13 +189,11 @@ public class AssignmentFragment extends Fragment {
                     selectedClassId = classArrayList.get(i).getFk_ClassID();
                     selectedClassName = classArrayList.get(i).getClassName();
                     getSectionList();
-
                     if (sharedPreferences.getString("userType", "").equals("Parent")) {
 
                     }else{
                         getAssignmentList("","",selectedClassId,"","");
                     }
-
                 }else{
                     binding.spinnerSection.setVisibility(View.GONE);
                 }
@@ -211,7 +203,6 @@ public class AssignmentFragment extends Fragment {
 
             }
         });
-
         binding.spinnerAddClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -304,14 +295,11 @@ public class AssignmentFragment extends Fragment {
 
             }
         });
-
-
         binding.btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Assignment details missing.", Toast.LENGTH_SHORT).show();
                 permissionCheck();
-
             }
         });
 
@@ -327,8 +315,6 @@ public class AssignmentFragment extends Fragment {
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
                         Locale.ENGLISH);
                 intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to type");
-
-
                 try {
 
                     startActivityForResult(intent, 104);

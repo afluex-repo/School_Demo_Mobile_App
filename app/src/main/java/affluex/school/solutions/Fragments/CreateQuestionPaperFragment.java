@@ -40,6 +40,8 @@ import p32929.androideasysql_library.EasyDB;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+
 public class CreateQuestionPaperFragment extends Fragment {
     FragmentCreateQuestionPaperBinding binding;
     private ArrayList<String> examination;
@@ -60,8 +62,8 @@ public class CreateQuestionPaperFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreateQuestionPaperBinding.inflate(inflater, container, false);
 
-       initview();
-       onclicklistener();
+        initview();
+        onclicklistener();
         getExamList();
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
@@ -203,21 +205,18 @@ public class CreateQuestionPaperFragment extends Fragment {
         spinner.setAdapter(adapter);
 
     }
+
     private void showAddSectionDialog() {
         final android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(getActivity());
         View mView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_add_section, null);
         alert.setView(mView);
-
         EditText et_section_heading = mView.findViewById(R.id.et_section_heading);
         EditText et_section_marks = mView.findViewById(R.id.et_section_marks);
         Spinner spinner_questions_type = mView.findViewById(R.id.spinner_questions_type);
-
         ArrayAdapter<String> questionsTypeAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, questionsType);
         questionsTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_questions_type.setAdapter(questionsTypeAdapter);
-
         final android.app.AlertDialog alertDialog = alert.create();
-
         Button btn_create_section = mView.findViewById(R.id.btn_create_section);
         btn_create_section.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,6 +226,7 @@ public class CreateQuestionPaperFragment extends Fragment {
                 args.putString("Type", questionsType.get(spinner_questions_type.getSelectedItemPosition()));
                 args.putInt("Position", spinner_questions_type.getSelectedItemPosition());
                 fragment.setArguments(args);
+                Toast.makeText(getActivity(), "Section create Successfully", Toast.LENGTH_SHORT).show();
                 ((DashboardSchool) getActivity()).switchFragmentOnDashBoard(fragment, "Add Question");
                 alertDialog.dismiss();
             }
@@ -267,11 +267,9 @@ public class CreateQuestionPaperFragment extends Fragment {
                 .addColumn(new Column("MaxHrs", new String[]{"text", "not null"}))
                 .addColumn(new Column("MaxMins", new String[]{"text", "not null"}))
                 .doneTableColumn();
-
         try {
             String maxHrs = TextUtils.isEmpty(binding.etMaxHrs.getText().toString()) ? "0" : binding.etMaxHrs.getText().toString();
             String maxMins = TextUtils.isEmpty(binding.etMaxMinutes.getText().toString()) ? "0" : binding.etMaxMinutes.getText().toString();
-
             easyDB.addData("Timestamp", timestamp)
                     .addData("Examination", examination.get(binding.spinnerExamination.getSelectedItemPosition()))
                   //  .addData("Class", Class.get(binding.spinnerClass.getSelectedItemPosition()))
@@ -288,7 +286,6 @@ public class CreateQuestionPaperFragment extends Fragment {
             Log.e("Exception", e.getMessage());
         }
     }
-
 
     private void getSubjectList() {
         ApiServices apiServices = ServiceGenerator.createService(ApiServices.class);
@@ -344,11 +341,8 @@ public class CreateQuestionPaperFragment extends Fragment {
             LayoutInflater inf = getLayoutInflater();
             View row = inf.inflate(R.layout.layout_of_country_row, null);
             TextView spinner_text;
-
             spinner_text = row.findViewById(R.id.spinner_text);
             spinner_text.setText(subjectArrayList.get(position).getSubjectName());
-
-
             return row;
         }
     }

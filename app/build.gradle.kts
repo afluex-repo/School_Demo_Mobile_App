@@ -7,19 +7,21 @@ plugins {
 
 android {
     namespace = "affluex.school.solutions"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "affluex.school.solutions"
         minSdk = 24
-        targetSdk = 33
-        versionCode = 4
-        versionName = "1.3"
+        targetSdk = 34
+        versionCode = 6
+        versionName = "1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+
+
     }
 
     buildTypes {
@@ -92,7 +94,9 @@ android {
         implementation ("com.github.p32929:AndroidEasySQL-Library:1.4.1")
         implementation ("com.squareup.picasso:picasso:2.71828")
         implementation ("com.github.bumptech.glide:glide:4.16.0")
-        implementation ("com.github.smarteist:autoimageslider:1.4.0-appcompat")
+      //  implementation ("com.github.smarteist:autoimageslider:1.4.0-appcompat")
+        implementation ("com.github.smarteist:autoimageslider:1.3.9")
+
         //Retrofit APIs
         implementation ("com.squareup.retrofit2:retrofit:2.9.0")
         implementation ("com.squareup.retrofit2:converter-scalars:2.6.1")
